@@ -4,10 +4,7 @@ from openstack import connection as connexion
 #Constants 
 PRIVATE_NETWORK_ID = "0d49c37b-7077-4152-985c-f5a00ad20677"
 EXTERNAL_NETWORK_ID = "e64da4e4-57c4-473a-9b4d-548c800b654a"
-Expand
-code.py
-3 KB
-﻿
+
 from time import sleep
 from openstack import connection as connexion
 
@@ -16,7 +13,7 @@ PRIVATE_NETWORK_ID = "0d49c37b-7077-4152-985c-f5a00ad20677"
 EXTERNAL_NETWORK_ID = "e64da4e4-57c4-473a-9b4d-548c800b654a"
 
 
-### Connection ; dÃ©commenter les deux lignes pour l'utilisateur voulu et ne pas oublier de recommenter les 2 autres
+### Connection ; décommenter les deux lignes pour l'utilisateur voulu et ne pas oublier de recommenter les 2 autres
 #etudiant1
 password = "2117e280cfa91d0444834bb8"
 conn = connexion.Connection(auth_url="http://172.10.3.60:5000/v3", project_name="etudiant1", username="etudiant1", password=password, user_domain_id="default", project_domain_id="default")
