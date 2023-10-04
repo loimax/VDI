@@ -68,13 +68,6 @@
         </div>
     </div>
 
-    <!-- JavaScript pour afficher/cacher le formulaire modal -->
-    <script>
-        document.getElementById('createTemplateButton').addEventListener('click', function() {
-            document.getElementById('createTemplateModal').style.display = 'block';
-        });
-    </script>
-
     <h2>VMs</h2>
     <div class="cards">
         {% for vm in vms %}
@@ -113,7 +106,7 @@
                             <label for="template_select">Sélectionnez un Template :</label>
                             <select class="form-control" id="template_select" name="template">
                                 {% for template in templates %}
-                                    <option value="{{ template.id }}">{{ template.name }}</option>
+                                    <option value="{{ template.id }}" data-custom-id="{{ template.custom_id }}">{{ template.name }}</option>
                                 {% endfor %}
                             </select>
                         </div>
