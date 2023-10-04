@@ -1,12 +1,11 @@
 # vm_management/views.py
-from django.contrib.auth.decorators import login_required  # Import login_required decorator
+from django.contrib.auth.decorators import login_required 
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.http import JsonResponse
 from django.contrib.auth import authenticate
 from .models import Template, VM
 
-# Vue pour la page d'administration
 def admin_page(request):
     templates = Template.objects.all()
     vms = VM.objects.all()
