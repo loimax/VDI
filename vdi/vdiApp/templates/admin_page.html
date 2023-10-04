@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Page d'Administration</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <h1>Page d'Administration</h1>
+
+    <!-- Bouton pour ouvrir le modal de création de Template -->
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createTemplateModal">Créer Template</button>
+
+    <!-- Bouton pour ouvrir le modal de création de VM -->
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createVmModal">Créer VM</button>
+
+    <h2>Templates disponibles</h2>
+    <ul>
+        {% for template in templates %}
+            <li>
+                {{ template.name }}
+                {% if template.description %}
+                    - {{ template.description }}
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+
+    <!-- Modal de création de Template -->
+    <div class="modal fade" id="createTemplateModal" tabindex="-1" role="dialog" aria-labelledby="createTemplateModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <!-- Contenu du modal pour la création de Template -->
+                <div class="modal-header">
+                    <h5 class="modal-title" id="createTemplateModalLabel">Créer Template</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <!-- Formulaire de création de Template -->
+                    <form method="post" action="">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="template_name">Nom du Template :</label>
+                            <input type="text" class="form-control" id="template_name" name="template_name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="template_description">Description du Template :</label>
+                            <textarea class="form-control" id="template_description" name="template_description"></textarea>
+                        </div>
+                        <button type="submit" name="create_template" class="btn btn-primary">Créer Template</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- JavaScript pour afficher/cacher le formulaire modal -->
+    <script>
+        document.getElementById('createTemplateButton').addEventListener('click', function() {
+            document.getElementById('createTemplateModal').style.display = 'block';
+        });
+    </script>
+
+    <h2>VMs</h2>
+    <ul>
+        {% for vm in vms %}
+            <li>{{ vm.name }} - {{ vm.template.name }} - {{ vm.owner.username }}</li>
+        {% endfor %}
+    </ul>
+
+
+    <!-- Modal de création de VM -->
+    <div class="modal fade" id="createVmModal" tabindex="-1" role="dialog" aria-labelledby="createVmModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <!-- Contenu du modal pour la création de VM -->
+                <div class="modal-header">
+                    <h5 class="modal-title" id="createVmModalLabel">Créer VM</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <!-- Formulaire de création de VM -->
+                    <form method="post" action="">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="vm_name">Nom de la VM :</label>
+                            <input type="text" class="form-control" id="vm_name" name="vm_name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="template_select">Sélectionnez un Template :</label>
+                            <select class="form-control" id="template_select" name="template">
+                                {% for template in templates %}
+                                    <option value="{{ template.id }}">{{ template.name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <button type="submit" name="create_vm" class="btn btn-primary">Créer VM</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Ajoutez d'autres éléments HTML et formulaires selon vos besoins -->
+</body>
+</html>
