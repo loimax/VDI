@@ -8,8 +8,7 @@ from django.dispatch import receiver
 class Template(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField()
-    custom_id = models.CharField(max_length=36, unique=True, editable=False)  # Champ pour l'identifiant unique
-
+    custom_id = models.CharField(max_length=36, unique=True, editable=False) 
     def __str__(self):
         return self.name
     
@@ -22,4 +21,3 @@ class VM(models.Model):
     name = models.CharField(max_length=100)
     template = models.ForeignKey(Template, on_delete=models.CASCADE)
     # owner = models.ForeignKey(User, on_delete=models.CASCADE)
-    # Ajoutez d'autres champs pour décrire la VM

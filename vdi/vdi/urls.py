@@ -18,12 +18,8 @@ from django.urls import path
 from vdiApp import views
 
 urlpatterns = [
-    # URL pour la page d'administration
     path('admin/', views.admin_page, name='admin_page'),
-    # URL pour la page des professeurs
     path('professor/', views.professor_page, name='professor_page'),
-    # URL pour la page des étudiants
     path('student/', views.student_page, name='student_page'),
-    # Vous pouvez ajouter d'autres URL ici en fonction de vos besoins
     path('data/', views.data_page, name='data_page'),
 ]
