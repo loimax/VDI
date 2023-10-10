@@ -7,6 +7,8 @@ from openstack import connection as connexion
 PRIVATE_NETWORK_ID = "0d49c37b-7077-4152-985c-f5a00ad20677"
 EXTERNAL_NETWORK_ID = "e64da4e4-57c4-473a-9b4d-548c800b654a"
 
+#créer conn ici et l'enlever des params des fonctions
+
 with open("pw.sec", "r") as f:
     pw = f.readlines()
 
@@ -154,11 +156,12 @@ def remove_all_instances(conn):
 def remove_floating_IP(conn, ip:str):
     conn.network.delete_ip(ip)
 
-remove_all_instances(conn)
-# for i in range(35):
+# remove_all_instances(conn)
+# for i in range(1):
 #     results = create_instance(conn, f"test{i}", "kali")
 #     if (results == 0):
 #        print(f"test{i} created")
 #        get_console_url(conn, f"test{i}")
 #     else:
 #        print("Quota exceeded, VM not created")
+# get_console_url(conn, f"test0")

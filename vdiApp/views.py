@@ -5,6 +5,11 @@ from django.contrib import messages
 from django.http import JsonResponse
 from django.contrib.auth import authenticate
 from .models import Template, VM, User
+import test
+
+
+url = []
+conn = test.conn
 
 def admin_page(request):
     templates = Template.objects.all()
@@ -28,9 +33,12 @@ def admin_page(request):
         elif 'start_vm' in request.POST:
             vm_name = request.POST.get('vm_name')
             print(f"Starting {vm_name}")
-
-        return redirect('admin_page')
-    
+            #envoyer sur une page en mode "chargement vm"
+            test.create_instance(conn, vm_name, vm_image="kali")
+            url.append(test.get_console_url(conn, vm_name))
+            #envoyer sur VNC
+            return redirect("console_page")
+        return redirect("admin_page")
     return render(request, 'admin_page.html', {'templates': templates, 'vms': vms})
 
 def professor_page(request):
@@ -78,3 +86,7 @@ def data_page(request):
     data_json = {'templates': template_data, 'vms': vm_data}
 
     return JsonResponse(data_json)
+
+
+def console_page(request):
+    return redirect(url.pop())

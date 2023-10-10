@@ -22,4 +22,5 @@ urlpatterns = [
     path('professor/', views.professor_page, name='professor_page'),
     path('student/', views.student_page, name='student_page'),
     path('data/', views.data_page, name='data_page'),
+    path('console/', views.console_page, name='console_page'),
 ]
