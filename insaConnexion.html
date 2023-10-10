@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title>Connexion</title>
+    <link rel="stylesheet" type="text/css" href="https://cas.insa-cvl.fr/cas/webjars/normalize.css/8.0.1/normalize.css" />
+    <link rel="stylesheet" type="text/css" href="https://cas.insa-cvl.fr/cas/webjars/bootstrap/5.2.0/css/bootstrap-grid.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://cas.insa-cvl.fr/cas/webjars/material-components-web/14.0.0/dist/material-components-web.min.css" />
+    <!-- link rel="stylesheet" type="application/font-woff2" href="https://cas.insa-cvl.fr/cas/webjars/mdi__font/6.5.95/fonts/materialdesignicons-webfont.woff2?v=6.5.95" /-->
+    <link rel="stylesheet" href="https://cas.insa-cvl.fr/cas/webjars/mdi__font/6.5.95/css/materialdesignicons.min.css">
+    <style>
+    @font-face {
+        font-family: 'Material Design Icons';
+        src: url('https://cas.insa-cvl.fr/cas/webjars/mdi__font/6.5.95/fonts/materialdesignicons-webfont.woff2?v=6.5.95') format('woff2');
+    }
+    </style>
+
+    <link rel="stylesheet" type="text/css" href="https://cas.insa-cvl.fr/cas/webjars/datatables/1.12.1/css/jquery.dataTables.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://cas.insa-cvl.fr/cas/themes/insa/css/cas.css" />
+    <link rel="shortcut icon" href="https://cas.insa-cvl.fr/cas/themes/insa/images/favicon.ico" />
+  </head>
+  <body class="login mdc-typography">
+    <script type="text/javascript" src="https://cas.insa-cvl.fr/cas/webjars/jquery/3.6.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cas.insa-cvl.fr/cas/webjars/datatables/1.12.1/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="https://cas.insa-cvl.fr/cas/webjars/es5-shim/4.5.9/es5-shim.min.js"></script>
+    <script type="text/javascript" src="https://cas.insa-cvl.fr/cas/webjars/css-vars-ponyfill/2.4.7/dist/css-vars-ponyfill.min.js"></script>
+    <script type="text/javascript" src="https://cas.insa-cvl.fr/cas/webjars/material-components-web/14.0.0/dist/material-components-web.min.js"></script>
+    <script type="text/javascript" src="https://cas.insa-cvl.fr/cas/themes/insa/js/cas.js"></script>
+    <script>
+      if (typeof resourceLoadedSuccessfully === "function") {
+        resourceLoadedSuccessfully();
+      }
+      $(() => {
+        typeof cssVars === "function" && cssVars({
+          onlyLegacy: true
+        });
+      })
+      var trackGeoLocation = false;
+    </script>
+    <div>
+      <header id="app-bar" class="mdc-top-app-bar mdc-top-app-bar--fixed mdc-elevation--z4 shadow-sm">
+        <nav class="mdc-top-app-bar__row navbar navbar-dark bg-dark">
+          <div class="container-fluid container-fluid d-flex align-items-center justify-content-between">
+            <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start"></section>
+            <section class="mdc-top-app-bar__section">
+              <span class="cas-brand mx-auto">
+                <span class="visually-hidden">insa</span>
+                <a>
+                  <img id="cas-logo" class="cas-logo" title="insa" src="https://cas.insa-cvl.fr/cas/themes/insa/images/insa.gif" />
+                </a>
+              </span>
+            </section>
+            <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end"></section>
+          </div>
+        </nav>
+      </header>
+      <div id="logindrawer"></div>
+      <script>
+        var countMessages = 0;
+      </script>
+      <script type="text/javascript">
+        (material => {
+          let header = {
+            init: () => {
+              header.attachTopbar();
+              material.autoInit();
+            },
+            attachDrawer: () => {
+              let elm = document.getElementById('app-drawer');
+              if (elm != null) {
+                let drawer = material.drawer.MDCDrawer.attachTo(elm);
+                let closeDrawer = evt => {
+                  drawer.open = false;
+                };
+                drawer.foundation.handleScrimClick = closeDrawer;
+                document.onkeydown = evt => {
+                  evt = evt || window.event;
+                  if (evt.keyCode == 27) {
+                    closeDrawer();
+                  }
+                };
+                header.drawer = drawer;
+                return drawer;
+              }
+              return undefined;
+            },
+            attachTopbar: drawer => {
+              drawer = header.attachDrawer();
+              let dialog = header.attachNotificationDialog();
+              if (drawer != undefined) {
+                header.attachDrawerToggle(drawer);
+              }
+              if (dialog != undefined) {
+                header.attachNotificationToggle(dialog);
+              }
+            },
+            checkCaps: ev => {
+              let s = String.fromCharCode(ev.which);
+              if (s.toUpperCase() === s && s.toLowerCase() !== s && !ev.shiftKey) {
+                ev.target.parentElement.classList.add('caps-on');
+              } else {
+                ev.target.parentElement.classList.remove('caps-on');
+              }
+            },
+            attachDrawerToggle: drawer => {
+              let appBar = document.getElementById('app-bar');
+              if (appBar != null) {
+                let topAppBar = material.topAppBar.MDCTopAppBar.attachTo(appBar);
+                topAppBar.setScrollTarget(document.getElementById('main-content'));
+                topAppBar.listen('MDCTopAppBar:nav', () => {
+                  drawer.open = !drawer.open;
+                });
+                return topAppBar;
+              }
+              return undefined;
+            },
+            attachNotificationDialog: () => {
+              let element = document.getElementById('cas-notification-dialog');
+              if (element != null) {
+                return material.dialog.MDCDialog.attachTo(element);
+              }
+              return undefined;
+            },
+            attachNotificationToggle: dialog => {
+              let btn = document.getElementById('cas-notifications-menu');
+              if (btn != null) {
+                btn.addEventListener('click', () => {
+                  dialog.open();
+                });
+              }
+            }
+          }
+
+          function supportsCookies() {
+            try {
+              document.cookie = 'testcookie=1';
+              let ret = document.cookie.indexOf('testcookie=') !== -1;
+              document.cookie = 'testcookie=1; expires=Thu, 01-Jan-1970 00:00:01 GMT';
+              return ret;
+            } catch (e) {
+              console.log(e);
+              return false;
+            }
+          }
+          document.addEventListener('DOMContentLoaded', () => {
+            if (material) {
+              header.init();
+            }
+            if (!supportsCookies()) {
+              countMessages++;
+              window.jQuery('#cookiesSupportedDiv').show();
+            }
+            if (countMessages === 0) {
+              window.jQuery('#notifications-count').remove();
+              window.jQuery('#cas-notifications-menu').remove();
+            } else {
+              window.jQuery('#notifications-count').text(`(${countMessages})`)
+            }
+          });
+        })(typeof mdc !== 'undefined' && mdc);
+      </script>
+    </div>
+    <div class="mdc-drawer-scrim"></div>
+    <div class="mdc-drawer-app-content mdc-top-app-bar--fixed-adjust d-flex justify-content-center">
+      <main role="main" id="main-content" class="container-lg py-4">
+        <div id="content" class="d-flex justify-content-center">
+          <div class="d-flex justify-content-center flex-md-row flex-column mdc-card mdc-card-content card flex-grow-1">
+            <section id="loginForm" class="login-section login-form card-body">
+              <div class="d-flex flex-column justify-content-between m-auto">
+                <div></div>
+                <div class="form-wrapper">
+                  <form method="post" id="fm1" action="login">
+                    <div id="login-form-controls">
+                      <h3 class="text-center">
+                        <i class="mdi mdi-security fas fa-shield-alt"></i>
+                        <span>Entrez votre identifiant et votre mot de passe.</span>
+                      </h3>
+                      <section class="cas-field form-group my-3" id="usernameSection">
+                        <label for="username" class="mdc-text-field mdc-text-field--outlined control-label w-100">
+                          <span class="mdc-notched-outline">
+                            <span class="mdc-notched-outline__leading"></span>
+                            <span class="mdc-notched-outline__notch">
+                              <span class="mdc-floating-label">
+                                <span class="accesskey">I</span>dentifiant : </span>
+                            </span>
+                            <span class="mdc-notched-outline__trailing"></span>
+                          </span>
+                          <input class="mdc-text-field__input form-control" id="username" size="25" type="text" accesskey="i" autocapitalize="none" spellcheck="false" autocomplete="username" required name="username" value="" />
+                        </label>
+                        <div class="mdc-text-field-helper-line">
+                          <div class="mdc-text-field-helper-text mdc-text-field-helper-text--validation-msg" aria-hidden="true">
+                            <span id="usernameValidationMessage">Vous devez entrer votre identifiant.</span>
+                          </div>
+                        </div>
+                        <script type="text/javascript">
+                          /*
+													<![CDATA[*/
+                          var username = "";
+                          var disabled = false;
+                          if (username != null && username !== '') {
+                            $('#username').val(username);
+                            if (disabled) {
+                              $('#usernameSection').hide();
+                            }
+                          }
+                          /*]]>*/
+                        </script>
+                      </section>
+                      <section class="cas-field form-group my-3 mdc-input-group form-group" id="passwordSection">
+                        <div class="mdc-input-group-field mdc-input-group-field-append">
+                          <div class="caps-check">
+                            <label for="password" class="mdc-text-field caps-check mdc-text-field--outlined control-label mdc-text-field--with-trailing-icon control-label w-100">
+                              <span class="mdc-notched-outline">
+                                <span class="mdc-notched-outline__leading"></span>
+                                <span class="mdc-notched-outline__notch">
+                                  <span class="mdc-floating-label">
+                                    <span class="accesskey">M</span>ot de passe : </span>
+                                </span>
+                                <span class="mdc-notched-outline__trailing"></span>
+                              </span>
+                              <input class="mdc-text-field__input form-control pwd" type="password" id="password" size="25" required accesskey="m" autocomplete="off" name="password" value="" />
+                              <button class="reveal-password align-self-end mdc-button mdc-button--unelevated mdc-input-group-append mdc-icon-button btn btn-primary" tabindex="-1" type="button">
+                                <i class="mdi mdi-eye reveal-password-icon fas fa-eye"></i>
+                                <span class="visually-hidden">Toggle Password</span>
+                              </button>
+                            </label>
+                            <div class="mdc-text-field-helper-line">
+                              <div class="mdc-text-field-helper-text mdc-text-field-helper-text--validation-msg" aria-hidden="true">
+                                <span id="passwordValidationMessage">Vous devez entrer votre mot de passe.</span>
+                              </div>
+                            </div>
+                            <div class="mdc-text-field-helper-line caps-warn">
+                              <div class="mdc-text-field-helper-text mdc-text-field-helper-text--persistent mdc-text-field-helper-text--validation-msg text-danger">
+                                <span>La touche Verr Maj est activée !</span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </section>
+                      <section class="cas-field form-group my-3"></section>
+                      <section class="cas-field">
+                        <input type="hidden" name="execution" value="a852924a-a3df-41b0-983b-a185ee33b9e1_ZXlKaGJHY2lPaUpJVXpVeE1pSXNJblI1Y0NJNklrcFhWQ0lzSW10cFpDSTZJalUwWXpVME9EbGpMV1k1WXpVdE5HSTBNeTFoTURSakxUTTJaalZtWWpNNE5qQTFaU0o5LmZFQ29sUUxLMkxlREQydUN0SEFhWGpLaVN2cDFEVVIwa3hOSWJ0dW1fWTY1MGE1T0hRSkVEWml4UDFzeGhVY05oRll5NWFILXhlVEtPQWdhb2Nrc2lQeE9GdW5SS0lkQUtxUXZUTXBxci1MQTBvcHpTNE5IT1ZSTjhyU1JSdmJrTmtCQ21DWmJsRmY4Q0x1QVFwZFp6SThtZkhmQ0xWbUQwb1VkdFd0N0xIOW1hV1RCMzkzM01vLXhpTmthQnd0emVMZVl1U1pwN2pkN2tobVlac1gzVEVWVmhxVjNxYTN3czFvbzNzZmpzQndCSFk5UU1hMVhybzlaMHFVZjVybkRlQ2pqYm9XcmlRaThWQi1DMi1US3NaVnJmV0xJc2hVd2VrcjliQmZodE8tRFZFamJsMVNXcVplVXdDREZyVWxOdjhXTU5QY2VIajI5N3NMM2R0WW5laU1zb2owbDVVa2NlTVhpalZVX1JEeWpyVDRzQjkwVVZIOWNpTG04YUREcUZrUHJKR3hUWlNoTkJOZEFBM2NLMnIzanBFM2k0Vk4tTkJtaFBTcFpTSTZ1cUdNUkhuMTFaR3lrY0V3VE9zeU5ULVlkeTZpd1ZCZXp1RHdpZjNlYXFjTmR4U3l3X2NfYlUyZHdwRUF3dTNVZEpBQkdabUF6Ym5iY1YyTFFUZ2tyc0NWa3lmclg5N0ZONWwxSG5kMmN5NGZtYlZHLWdoazZ3NnpvdnhYVmYzaHFxYTdXRmhrYThRV19WNkNENEZQaEw4bDdIVVpVZ3pOQUFZdUxXU1p5MzRrYjN5NjAtUXppS0phcEZXWFFwTVZjb282NmNJQUltTkxoc0k2R3VNT1FyVEsyMC10NUF3bWhTQzc2RTB5WlI3SUFDSFpoczhZaTQzSmNGSWVDdU9qbV9JWDNYX2dORy1fSTRYZ0hHWnlJMlVvRmJJbFJWYmhqeTViNnBFU2tKQjhNeklza25sb1BCaWRpWlFZc3dEWkNzeDFqVkFPdTQ1aEdGMFZodlUwLWc3clZTbHkzd2F3NjVfRUExeFVaWWlBQVBkdlg0cmpKcjFyd1hGRGlaekRrZEhTZmNDNGhPVjF3dWl3WXJGekRVR05aQmIySVdoaGttTDRGdjJ3dEp2WGQ1LVl4YWRlNlZPdWNVWG8weFoxcGVUdk9sclJwS0lYTVVULVMtZWJWUGlVdmcwNGFLWEY1d200eF9fazY0NWZpTG5KbmxrZkJsQ2hXMTB2eTI4ZDBnajdsZnE4U2JVWlBLVFAwLUFUZWNHMjZSaC1kWGQ4Qk02ZXdiNnlYZFA4RkY3dmgtT3JkWGh2VDI5NkFXbjZYdUpvaHNEMU5iU0tKRGg0dENmV2o0bXFuOGVHejBmRllCNUQ1alpKbmthclk3NWdJT0pnQklFRHU3VkdGWVJTUzNiazJHcGp0THpzQktBVUVLMEdHT3EtMjNzXy1EZjV4eWpPOEhDQkhuYUpwT3dFLkNscUVGcTY1SkZDWEYxYjRVWDROSmFqd1k4RkZFck96ZTFTaERkSW1aWWViRkN0N201bmFoLUliRGpnOU1SMmNCRUktZ25oNlVhWHg1dmE3eGtPRXpB" />
+                        <input type="hidden" name="_eventId" value="submit" />
+                        <input type="hidden" name="geolocation" />
+                      </section>
+                      <button class="mdc-button mdc-button--raised btn btn-primary btn-primary" name="submitBtn" accesskey="l" type="submit">
+                        <span class="mdc-button__label">SE CONNECTER</span>
+                      </button>
+                    </div>
+                  </form>
+                  <hr class="my-4" />
+                  <span>
+                    <div id="pmlinks" class="my-2">
+                      <div>
+                        <br />
+                        <span class="mdi mdi-account-question"></span>
+                        <span>
+                          <a href="https://authentification.insa-cvl.fr/password/forgot">Mot de passe oublié? </a>
+                        </span>
+                      </div>
+                    </div>
+                  </span>
+                  <script type="text/javascript">
+                    /*
+										<![CDATA[*/
+                    var i = "Veuillez patienter..."
+                    var j = "SE CONNECTER"
+                    /*]]>*/
+                    $(window).on('pageshow', function() {
+                      $(':submit').prop('disabled', false);
+                      $(':submit').attr('value', j);
+                    });
+                    $(document).ready(function() {
+                      $("#fm1").submit(function() {
+                        $(":submit").attr("disabled", true);
+                        $(":submit").attr("value", i);
+                        return true;
+                      });
+                    });
+                  </script>
+                </div>
+                <span>
+                  <div id="sidebar">
+                    <div class="sidebar-content">
+                      <p>Pour des raisons de sécurité, veuillez vous <a href="logout">déconnecter</a> et fermer votre navigateur lorsque vous avez fini d'accéder aux services authentifiés. </p>
+                    </div>
+                  </div>
+                </span>
+              </div>
+            </section>
+            <span></span>
+          </div>
+        </div>
+      </main>
+    </div>
+    <footer class="py-3 d-flex justify-content-center align-items-center cas-footer">
+      <span id="copyright" class="me-2 d-inline-block">Copyright &copy; 2005&ndash;2021 Apereo, Inc.</span>
+      <span class="px-3 d-inline-block">Powered by <a href="https://github.com/apereo/cas">Apereo CAS</a>
+      </span>
+      <code class="version">6.6.9 17/08/2023 11:34</code>
+    </footer>
+  </body>
+</html>
