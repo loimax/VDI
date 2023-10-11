@@ -27,3 +27,6 @@ class VM(models.Model):
     
     def __str__(self):
         return self.name
+
+    def remove_vm(self):
+        self.delete()

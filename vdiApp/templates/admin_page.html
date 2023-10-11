@@ -78,7 +78,8 @@
                     <input type="hidden" name="vm_name" value="{{ vm.name }}">
                     <h5 class="card-title">{{ vm.name }}</h5>
                     <p class="card-text">from <b>{{ vm.template }}</b> template</p>
-                    <button type="submit" name="start_vm" class="btn btn-primary">Start</a>
+                    <button style="margin-right: 5px;" type="submit" name="start_vm" class="btn btn-primary">Start</a>
+                    <button style="margin-left: 5px;" type="submit" name="remove_vm" class="btn btn-primary">Remove</a>
                 </form>
             </div>
         </div>
@@ -96,7 +97,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form method="post" action="">
+                    <form method="post">
                         {% csrf_token %}
                         <div class="form-group">
                             <label for="vm_name">Nom de la VM :</label>

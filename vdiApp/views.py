@@ -26,8 +26,8 @@ def admin_page(request):
             vm_name = request.POST.get('vm_name')
             vm_template_id = request.POST.get('template')
             vm_template = Template.objects.get(id=vm_template_id)
-            
             vm = VM.objects.create(name=vm_name, template=vm_template, templat_id=vm_template_id)
+            test.create_instance(conn, vm_name, vm_template)
             messages.success(request, 'La VM a été créée avec succès.')
 
         elif 'start_vm' in request.POST:
@@ -38,7 +38,16 @@ def admin_page(request):
             url.append(test.get_console_url(conn, vm_name))
             #envoyer sur VNC
             return redirect("console_page")
+        
+        elif 'remove_vm' in request.POST:
+            vm_name = request.POST.get('vm_name')
+            print(f'Removing {vm_name}')
+            test.remove_instance(conn, vm_name)
+            vm_to_remove = VM.objects.get(name=vm_name)
+            vm_to_remove.remove_vm()
+
         return redirect("admin_page")
+    
     return render(request, 'admin_page.html', {'templates': templates, 'vms': vms})
 
 def professor_page(request):
