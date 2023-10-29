@@ -23,4 +23,5 @@ urlpatterns = [
     path('student/', views.student_page, name='student_page'),
     path('data/', views.data_page, name='data_page'),
     path('console/', views.console_page, name='console_page'),
+    path("login", views.login_request, name="login"),
 ]
