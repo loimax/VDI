@@ -19,13 +19,12 @@ from vdiApp import views
 
 urlpatterns = [
     path('django-admin/', admin.site.urls),
-    
     path('api-auth/', include('rest_framework.urls')),
-    
     path('admin/', views.admin_page, name='admin_page'),
     path('professor/', views.professor_page, name='professor_page'),
     path('student/', views.student_page, name='student_page'),
     path('data/', views.data_page, name='data_page'),
     path('console/', views.console_page, name='console_page'),
     path("login", views.login_request, name="login"),
+    path('dashboard/', views.dashboard_page, name='dashboard_page'),
 ]

@@ -7,18 +7,23 @@ import uuid
 class Template(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField()
+    created_at = models.DateTimeField(default=timezone.now, editable=False)
+    last_interaction = models.DateTimeField(auto_now=True)
     
     def __str__(self):
         return self.name
 
 class User(models.Model):
-    username = models.CharField(max_length=100)
-    first_name = models.CharField(max_length=100)
-    last_name = models.CharField(max_length=100)
-    email = models.CharField(max_length=100)
+    name = models.CharField(max_length=100)
+    first_name = models.CharField(max_length=100, null=True)
+    last_name = models.CharField(max_length=100, null=True)
+    email = models.CharField(max_length=100, null=True)
+    password = models.CharField(max_length=100, null=True)
+    created_at = models.DateTimeField(default=timezone.now, editable=False)
+    last_interaction = models.DateTimeField(auto_now=True)
     
     def __str__(self):
-        return self.name
+        return self.username
 
 class VM(models.Model):
     name = models.CharField(max_length=100)
@@ -26,6 +31,7 @@ class VM(models.Model):
     templat_id = models.IntegerField(default=None, null=True)
     created_at = models.DateTimeField(default=timezone.now, editable=False)
     last_interaction = models.DateTimeField(auto_now=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     
     def __str__(self):
         return self.name
