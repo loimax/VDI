@@ -91,6 +91,7 @@
         <br><br>
         <div style="display:flex;width:100%;justify-content:center;">
             <div style="width:40%">
+                {% block content %} 
                 <form method="post">
                     {% csrf_token %}
                     <label for="username">Nom d'utilisateur:</label>
@@ -102,6 +103,7 @@
                     <input type="submit" value="Se connecter">
                     {% comment %} <button type="submit">Se connecter</button> {% endcomment %}
                 </form>
+                {% endblock %}
             </div>
         <div>
     </div>

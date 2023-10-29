@@ -21,7 +21,14 @@
     </style>
 </head>
 <body>
-    <h1>Page des Étudiants</h1>
+    {% if is_authenticated %}
+        <p>La session est ouverte. Le token est valide.</p>
+    {% else %}
+        <p>La session n'est pas ouverte. Le token n'est pas valide.</p>
+    {% endif %}
+
+
+    <h1>Bonjour {{ user_first_name }}</h1>
     <h2>Templates</h2>
     <div class="cards">
         {% for template in templates %}

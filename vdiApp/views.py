@@ -23,7 +23,7 @@ def login_request(request):
 			if user is not None:
 				login(request, user)
 				messages.info(request, f"You are now logged in as {username}.")
-				return redirect("main:homepage")
+				return redirect("/student/")
 			else:
 				messages.error(request,"Invalid username or password.")
 		else:
@@ -31,6 +31,8 @@ def login_request(request):
 	form = AuthenticationForm()
 	return render(request=request, template_name="login.html", context={"login_form":form})
 
+
+@login_required
 def admin_page(request):
     templates = Template.objects.all()
     vms = VM.objects.all()
@@ -70,13 +72,25 @@ def admin_page(request):
     
     return render(request, 'admin_page.html', {'templates': templates, 'vms': vms})
 
+
+@login_required
 def professor_page(request):
     templates = Template.objects.all()
     vms = VM.objects.all()
 
     return render(request, 'professor_page.html', {'templates': templates, 'vms': vms})
 
+@login_required
 def student_page(request):
+    
+    is_authenticated = request.user.is_authenticated
+    first_name = request.user.first_name
+    last_name = request.user.last_name
+    
+    context = {
+        'is_authenticated': is_authenticated,
+    }
+    
     templates = Template.objects.all()
     vms = VM.objects.all()
 
@@ -100,10 +114,19 @@ def student_page(request):
             vm_name = request.POST.get('vm_name')
             print(f"Starting {vm_name}")
 
+        context = {
+            'templates': templates, 
+            'vms': vms,
+            'is_authenticated': is_authenticated,
+            'user_last_name': last_name,
+            'user_first_name': first_name,
+        }
+
         return redirect('student_page')
     
-    return render(request, 'student_page.html', {'templates': templates, 'vms': vms})
+    return render(request, 'student_page.html', context)
 
+@login_required
 def data_page(request):
     vms = VM.objects.all()
     templates = Template.objects.all()
@@ -116,6 +139,6 @@ def data_page(request):
 
     return JsonResponse(data_json)
 
-
+@login_required
 def console_page(request):
     return redirect(url.pop())
