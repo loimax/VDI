@@ -4,35 +4,52 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.http import JsonResponse
 from django.contrib.auth import login, authenticate
-from .models import Template, VM, User
+from .models import Template, VM
 from django.contrib.auth.forms import AuthenticationForm #add this
 import test
-
+from django.contrib.auth.models import User
+from django.contrib.auth.decorators import user_passes_test
 
 url = []
 conn = test.conn
 
+def is_admin(user):
+    return True
+    return user.username in admin_list
+         
+
+def is_prof(user):
+    return True
+    return user.username in prof_list
+
+def is_student(user):
+    return True
+    return user.username in student_list
+
+
 def login_request(request):
-	if request.method == "POST":
-		form = AuthenticationForm(request, data=request.POST)
-		if form.is_valid():
-			username = form.cleaned_data.get('username')
-			password = form.cleaned_data.get('password')
-			user = authenticate(username=username, password=password)
-			if user is not None:
-				login(request, user)
-				messages.info(request, f"You are now logged in as {username}.")
-				return redirect("/student/")
-			else:
-				messages.error(request,"Invalid username or password.")
-		else:
-			messages.error(request,"Invalid username or password.")
-               
-	form = AuthenticationForm()
-	return render(request=request, template_name="login.html", context={"login_form":form})
+    if request.method == "POST":
+        form = AuthenticationForm(request, data=request.POST)
+        print(form.errors)
+        if form.is_valid():
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            user = authenticate(username=username, password=password)
+            if user is not None:
+                login(request, user)
+                messages.info(request, f"Connecté en tant que {username}.")
+                return redirect("student_page")
+            else:
+                messages.error(request, "Nom d'utilisateur ou mot de passe invalide.")
+        
+        else:
+            messages.error(request, "Nom d'utilisateur ou mot de passe invalide.")
+            
+    form = AuthenticationForm()
+    return render(request, "login.html")
 
-
-#@login_required
+@login_required
+@user_passes_test(is_admin)
 def admin_page(request):
     templates = Template.objects.all()
     vms = VM.objects.all()
@@ -76,7 +93,8 @@ def admin_page(request):
     
     return render(request, 'admin_page.html', {'templates': templates, 'vms': vms})
 
-#@login_required
+@login_required
+@user_passes_test(is_prof)
 def professor_page(request):
     templates = Template.objects.all()
     vms = VM.objects.all()
@@ -88,7 +106,7 @@ def professor_page(request):
             vm_name = request.POST.get('vm_name')
             username = request.POST.get('username')
             vm_template = Template.objects.get(name=template_name)
-            user = User.objects.get(name=username)
+            user = User.objects.get(username=username)
             vm = VM.objects.create(
                 name=vm_name, 
                 template=vm_template, 
@@ -117,19 +135,18 @@ def professor_page(request):
                 messages.error(request, "Cet utilisateur existe déjà.")
             else:
                 # Créer l'utilisateur uniquement s'il n'existe pas encore
-                user = User.objects.create(
-                    name=f"{firstname}.{lastname}",
-                    first_name=firstname,
-                    last_name=lastname,
+                user = User.objects.create_user(
+                    username=f"{firstname}.{lastname}",
                     email=email,
-                    password=password
+                    password=password,
+                    first_name=firstname,
+                    last_name=lastname
                 )
-                user.save()
                 messages.success(request, "L'utilisateur a été créé avec succès.")
 
         elif 'delete_user' in request.POST:
             username = request.POST.get('username')
-            user = User.objects.get(name=username)
+            user = User.objects.get(username=username)
             user.delete()
             messages.success(request, "L'utilisateur a été supprimé avec succès.")
         
@@ -138,9 +155,11 @@ def professor_page(request):
     return render(request, 'professor_page.html', {'templates': templates, 'vms': vms, 'users': users})
 
 @login_required
+@user_passes_test(is_student)
 def student_page(request):
     
     is_authenticated = request.user.is_authenticated
+    username = request.user.username
     first_name = request.user.first_name
     last_name = request.user.last_name
     
@@ -166,19 +185,20 @@ def student_page(request):
             url.append(test.get_console_url(conn, vm_name))
             return redirect("console_page")
 
-        context = {
+        return redirect('student_page')
+
+    context = {
             'templates': templates, 
             'vms': vms,
             'is_authenticated': is_authenticated,
+            'username': username,
             'user_last_name': last_name,
             'user_first_name': first_name,
         }
-
-        return redirect('student_page')
     
     return render(request, 'student_page.html', context)
 
-#@login_required
+@login_required
 def data_page(request):
     vms = VM.objects.all()
     templates = Template.objects.all()
@@ -186,7 +206,7 @@ def data_page(request):
 
     template_data = [{'name': template.name, 'id': template.id, 'description': template.description, 'created_at': template.created_at, 'last_interaction': template.last_interaction} for template in templates]
     vm_data = [{'name': vm.name, 'id': vm.id, 'template': vm.template.name, 'template_id': vm.templat_id, 'created_at': vm.created_at, 'last_interaction': vm.last_interaction} for vm in vms]
-    user_data = [{'name': user.name, 'id': user.id, 'email': user.email, 'first_name': user.first_name, 'last_name': user.last_name, 'created_at': user.created_at, 'last_interaction': user.last_interaction} for user in users]
+    user_data = [{'username': user.username, 'id': user.id, 'email': user.email, 'first_name': user.first_name, 'last_name': user.last_name} for user in users]
     data_json = {'templates': template_data, 'vms': vm_data, 'users': user_data}
 
     return JsonResponse(data_json)

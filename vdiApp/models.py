@@ -1,8 +1,7 @@
 from django.utils import timezone
 from django.db import models
 from django.db.models.signals import pre_save
-from django.dispatch import receiver
-import uuid
+from django.contrib.auth.models import User
 
 class Template(models.Model):
     name = models.CharField(max_length=100)
@@ -12,18 +11,6 @@ class Template(models.Model):
     
     def __str__(self):
         return self.name
-
-class User(models.Model):
-    name = models.CharField(max_length=100)
-    first_name = models.CharField(max_length=100, null=True)
-    last_name = models.CharField(max_length=100, null=True)
-    email = models.CharField(max_length=100, null=True)
-    password = models.CharField(max_length=100, null=True)
-    created_at = models.DateTimeField(default=timezone.now, editable=False)
-    last_interaction = models.DateTimeField(auto_now=True)
-    
-    def __str__(self):
-        return self.username
 
 class VM(models.Model):
     name = models.CharField(max_length=100)
