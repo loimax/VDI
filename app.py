@@ -10,19 +10,15 @@ def home():
 def login():
     return render_template('login.html')
 
-@app.route('/admin')
+@app.route('/admin', methods=['GET', 'POST'])
 def admin():
     return render_template('admin.html')
 
-@app.route('/ext')
-def ext():
-    return render_template('ext.html')
-
-@app.route('/professor')
+@app.route('/professor', methods=['GET', 'POST'])
 def professor():
     return render_template('professor.html')
 
-@app.route('/student')
+@app.route('/student', methods=['GET', 'POST'])
 def student():
     return render_template('student.html')
 
