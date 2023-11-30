@@ -36,7 +36,29 @@
 
     <!-- Modal de création de Template -->
     <div class="modal fade" id="createTemplateModal" tabindex="-1" role="dialog" aria-labelledby="createTemplateModalLabel" aria-hidden="true">
-        <!-- Le reste du contenu du modal -->
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-dark text-white">
+                    <h5 class="modal-title" id="createTemplateModalLabel">Créer Template</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body bg-dark text-white">
+                    <form method="post" action="">
+                        <div class="form-group">
+                            <label for="template_name">Nom du Template :</label>
+                            <input type="text" class="form-control" id="template_name" name="template_name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="template_description">Description du Template :</label>
+                            <textarea class="form-control" id="template_description" name="template_description"></textarea>
+                        </div>
+                        <button type="submit" name="create_template" class="btn btn-info">Créer Template</button>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script>

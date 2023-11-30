@@ -3,6 +3,7 @@
 {% block title %}Page des Professeurs{% endblock %}
 
 {% block content %}
+
     <div class="container">
         <div class="row">
             <div class="col-md-10">
@@ -100,19 +101,102 @@
         </div>
     </div>
     
-    <!-- Modal de modification de mot de passe -->
-    <div class="modal fade" id="editUserModal" tabindex="-1" role="dialog" aria-labelledby="editUserModalLabel" aria-hidden="true">
-        <!-- Le reste du contenu du modal -->
-    </div>
-
     <!-- Modal de création de VM -->
     <div class="modal fade" id="createVmModal" tabindex="-1" role="dialog" aria-labelledby="createVmModalLabel" aria-hidden="true">
-        <!-- Le reste du contenu du modal -->
+        <div class="modal-dialog" role="document">
+            <div class="modal-content bg-dark text-white">
+                <div class="modal-header">      
+                    <h5 class="modal-title" id="createVmModalLabel">Créer VM</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body bg-dark text-white">
+                    <form method="post">
+                        <div class="form-group">
+                            <label for="vm_name">Nom de la VM :</label>
+                            <input type="text" class="form-control" id="vm_name" name="vm_name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="template_select">Sélectionnez un Template :</label>
+                            <select class="form-control" id="template_select" name="template_name">
+                                {% for template in templates %}
+                                    <option value="{{ template.name }}">{{ template.name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="user_select">Associez un utilisateur :</label>
+                            <select class="form-control" id="user_select" name="username">
+                                {% for user in users %}
+                                    <option value="{{ user.name }}">{{ user.name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <button type="submit" name="create_vm_out" class="btn btn-info">Créer VM</button>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- Modal de création de User -->
     <div class="modal fade" id="createUserModal" tabindex="-1" role="dialog" aria-labelledby="createUserModalLabel" aria-hidden="true">
-        <!-- Le reste du contenu du modal -->
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-dark text-white">
+                    <h5 class="modal-title" id="createUserModalLabel">Créer utilisateur</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body bg-dark text-white">
+                    <form method="post">
+                        <div class="form-group">
+                            <label for="firstname">Prénom de l'utilisateur :</label>
+                            <input type="text" class="form-control" id="firstname" name="firstname" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastname">Nom de l'utilisateur :</label>
+                            <input type="text" class="form-control" id="lastname" name="lastname" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Adresse électronique :</label>
+                            <input type="text" class="form-control" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Mot de passe :</label>
+                            <input type="password" class="form-control" id="password" name="password" required>
+                        </div>
+                        <button type="submit" name="create_user" class="btn btn-info">Créer utilisateur</button>
+                    </form>
+                </div>                
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de modification de mot de passe -->
+    <div class="modal fade" id="editUserModal" tabindex="-1" role="dialog" aria-labelledby="editUserModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-dark text-white">
+                    <h5 class="modal-title" id="editUserModalLabel">Modifier le mot de passe</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body bg-dark text-white">
+                    <form method="post">
+                        <input type="hidden" name="edit_user_id" id="edit-user-id">
+                        <div class="form-group">
+                            <label for="new_password">Nouveau mot de passe :</label>
+                            <input type="password" class="form-control" id="new_password" name="new_password" required>
+                        </div>
+                        <button type="submit" name="edit_user_password" class="btn btn-info">Enregistrer</button>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script>

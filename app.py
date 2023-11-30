@@ -6,7 +6,7 @@ app = Flask(__name__)
 def home():
     return redirect(url_for('login'))
 
-@app.route('/login')
+@app.route('/login', methods=['GET', 'POST'])
 def login():
     return render_template('login.html')
 
@@ -14,9 +14,9 @@ def login():
 def admin():
     return render_template('admin.html')
 
-@app.route('/dashboard')
-def dashboard():
-    return render_template('dashboard.html')
+@app.route('/ext')
+def ext():
+    return render_template('ext.html')
 
 @app.route('/professor')
 def professor():
