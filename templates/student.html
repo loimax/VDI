@@ -5,8 +5,26 @@
 {% block content %}
 
     <script>
+        function createVmFromTemplate(templateId) {
+            console.log(templateId);
+            $.ajax({
+                type: 'POST',
+                url: 'https://api.insa-cvl.com/vm/create',
+                contentType: 'application/json;charset=UTF-8',
+                data: JSON.stringify({ template_id: templateId }),
+                xhrFields: {
+                    withCredentials: true
+                },
+                success: function (response) {
+                    var responseData = response;
+                    alert(responseData);
+                },
+                error: function (error) {
+                    alert('Erreur d\'obtention d\'informations de profil');
+                }
+            });
+        }
         $(document).ready(function () {
-            getUserProfile();
 
             function getUserProfile() {
                 $.ajax({
@@ -25,10 +43,48 @@
                         $('#id').text('ID: ' + user.id);
                     },
                     error: function (error) {
-                        alert('Error d\'obtiention d\'informations de profil');
+                        alert('Erreur d\'obtiention d\'informations de profil');
                     }
                 });
             }
+
+            function getTemplates() {
+                $.ajax({
+                    type: 'GET',
+                    url: 'https://api.insa-cvl.com/template',
+                    contentType: 'application/json;charset=UTF-8',
+                    xhrFields: {
+                        withCredentials: true
+                    },
+                    success: function (response) {
+                        var templates = response;
+                        console.log(templates);
+                        templatesDiv = $('#templates-div');
+                        templates.forEach(function (template) {
+                            var template_id = template.id;
+                            var card = $('<div class="card" id="'+ template_id + '">');
+                            var cardBody = $('<div class="card-body bg-dark text-white">');
+                            var form = $('<form method="post">');
+                            form.append('<input type="hidden" name="template_name" value="' + template.name + '">');
+                            form.append('<input type="hidden" name="template_id" value="' + template.id + '">');
+                            form.append('<h5 class="card-title">' + template.name + '</h5>');
+                            if (template.description) {
+                                form.append('<p class="card-text">' + template.description + '</p>');
+                            }
+                            form.append('<button id="start_btn "type="button" class="btn btn-info" onclick="createVmFromTemplate(\'' + template.id + '\')">Démarrer</button>');
+                            cardBody.append(form);
+                            card.append(cardBody);
+                            templatesDiv.append(card);
+                        });
+                    },
+                    error: function (error) {
+                        alert('Erreur d\'obtiention d\'informations de templates');
+                    }
+                });
+            }
+
+            getUserProfile();
+            getTemplates();
         });
     </script>
 
@@ -54,25 +110,8 @@
 
     <div class="tab-content">
         <div class="tab-pane active" id="rubrique1">
-            <h1 class="text-left">Machines virtuelles disponibles</h1>
             <div class="mt-4">
-                <div class="cards d-flex justify-content-start">
-                    {% for template in templates %}
-                        <div class="card">
-                            <div class="card-body bg-dark text-white">
-                                <form method="post">
-                                    <input type="hidden" name="template_name" value="{{ template.name }}">
-                                    <input type="hidden" name="template_id" value="{{ template.id }}">
-                                    <h5 class="card-title">{{ template.name }}</h5>
-                                    {% if template.description %}
-                                        <p class="card-text">{{ template.description }}</p>
-                                    {% endif %}
-                                    <button type="submit" name="create_start_vm" class="btn btn-info">Démarrer</button>
-                                </form>
-                            </div>
-                        </div>
-                    {% endfor %}
-                </div>
+                <div id="templates-div" class="cards d-flex justify-content-start"></div>
             </div>
         </div>
     </div>
