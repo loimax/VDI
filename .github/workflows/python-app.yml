@@ -25,11 +25,6 @@ jobs:
       run: pwd
     - name: cp command
       run: cp -r * /home/alex/VDI-APP-INSA
-
-  restart:
-    runs-on: self-hosted
-
-    steps:
     - name: api-service restart
       run: sudo systemctl restart app-vdi
     - name: api-service status
