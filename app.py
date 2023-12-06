@@ -22,5 +22,9 @@ def professor():
 def student():
     return render_template('student.html')
 
+@app.route('/viewer', methods=['GET'])
+def viewer():
+    return render_template('viewer.html')
+
 if __name__ == '__main__':
     app.run(debug=True)

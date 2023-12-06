@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block title %}Page des Étudiants{% endblock %}
+
+{% block content %}
+
+        <!-- Add HTML elements for the VNC viewer here -->
+        <div id="vncViewerContainer"></div>
+
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                // Function to get the value of a URL parameter by name
+                function getParameterByName(name, url) {
+                    if (!url) url = window.location.href;
+                    name = name.replace(/[\[\]]/g, "\\$&");
+                    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                        results = regex.exec(url);
+                    if (!results) return null;
+                    if (!results[2]) return '';
+                    return decodeURIComponent(results[2].replace(/\+/g, " "));
+                }
+    
+                // Get the VNC URL parameter from the URL
+                var vncUrl = getParameterByName("vncUrl");
+    
+                // Check if a VNC URL is present
+                if (vncUrl) {
+                    // Display the VNC viewer using the provided URL
+                    displayVNCViewer(vncUrl);
+                } else {
+                    // Handle the case where the VNC URL parameter is missing
+                    console.error("VNC URL parameter is missing.");
+                }
+            });
+    
+            // Function to display the VNC viewer with the provided URL
+            function displayVNCViewer(vncUrl) {
+                // Initialize the VNC viewer using noVNC
+                var vncViewer = new RFB(document.getElementById('vncViewerContainer'), vncUrl, {});
+                vncViewer.connect();
+            }
+        </script>
+
+{% endblock %}

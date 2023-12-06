@@ -69,6 +69,11 @@
             a {
                 color: inherit;
             }
+
+            a:hover {
+                cursor:hand;
+            }
+
         </style>
     </head>
 
@@ -113,10 +118,19 @@
             <script>
                 document.addEventListener('DOMContentLoaded', function () {
                     const urlParams = new URLSearchParams(window.location.search);
-                    const errorMessage = urlParams.get('error');
+                    const errorMessage = decodeURIComponent(urlParams.get('error'));
+                    const successMessage = decodeURIComponent(urlParams.get('success'));
 
-                    if (errorMessage) {
-                        updateAlert(decodeURIComponent(errorMessage));
+
+                    console.log("error: " + errorMessage);
+                    console.log("success: " + successMessage);
+
+                    if (errorMessage != "null") {
+                        updateAlert(errorMessage);
+                    }
+
+                    else if (successMessage != "null") {
+                        updateAlert(successMessage);
                     }
                 });
                 function updateAlert(message) {
