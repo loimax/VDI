@@ -7,6 +7,7 @@
     <script>
         function checkIfVmAlive(templateId) {
             return new Promise(function (resolve, reject) {
+                showLoadingCardModal(templateId);   
                 $.ajax({
                     type: 'GET',
                     url: 'https://api.insa-cvl.com/vm/status/template/' + templateId,
@@ -17,8 +18,10 @@
                     success: function (response) {
                         console.log("VM: " + templateId + ": STATE: " + response.vm_state + " STATUS: " + response.status);
                         if (response.vm_state == "1" && response.status == "ACTIVE") {
+                            hideLoadingCardModal(templateId);
                             resolve(1); 
                         } else {
+                            hideLoadingCardModal(templateId);   
                             resolve(0);
                         }
                     },
@@ -69,6 +72,14 @@
             }
         }
 
+        function showLoadingCardModal(templateId) {
+            $("#" + templateId + "-loading-modal").css("display", "block");
+        }
+
+        function hideLoadingCardModal(templateId) {
+            $("#" + templateId + "-loading-modal").css("display", "none");
+        }
+
         async function getVmStatus(templateId) {
             try {
                 var output = await checkIfVmAlive(templateId);
@@ -82,14 +93,26 @@
 
         function updateButtons(templateId) {
             var templateCard = $('#' + templateId);
+
             var startVmBtn = templateCard.find("#start_vm_btn");
-            startVmBtn.text("Ouvrir");
-            startVmBtn.attr('onclick', 'openVm(\'' + templateId + '\')');
-            startVmBtn.attr('id', "open_vm_btn");
-            var space = $('<div style="margin-top: 10px;"></div>'); 
-            var deleteBtn = $('<button id="delete_vm_btn" type="button" class="btn btn-danger" onclick="deleteVm(\'' + templateId + '\')">Supprimer</button>');
+            startVmBtn.text("Ouvrir").attr({
+                'onclick': 'openVm(\'' + templateId + '\')',
+                'id': 'open_vm_btn'
+            });
+
+            var space = $('<div>').css('margin-top', '10px');
+
+            var deleteBtn = $('<button>').attr({
+                'id': 'delete_vm_btn',
+                'type': 'button',
+                'class': 'btn btn-danger'
+            }).on('click', function () {
+                deleteVm(templateId);
+            }).text('Supprimer');
+
             templateCard.find(".card-body").append(space, deleteBtn);
         }
+
 
         async function createVmFromTemplate(templateId) {
             showLoadingModal(); 
@@ -144,6 +167,72 @@
             })
         }
 
+        function createTemplateCard(template) {
+            var templateCard = $('<div>').addClass('card').attr('id', template.id);
+            var cardBody = createCardBody(template);
+            templateCard.append(cardBody);
+            return templateCard;
+        }
+
+        function createCardBody(template) {
+            var cardBody = $('<div>').addClass('card-body bg-dark text-white');
+            var form = createForm(template);
+            var ldsDefaultContainer = createLdsDefaultContainer(template.id);
+            cardBody.append(form, ldsDefaultContainer);
+            return cardBody;
+        }
+
+        function createForm(template) {
+            var form = $('<form>').attr({
+                method: 'post',
+                id: 'templateForm'
+            });
+            form.append(
+                $('<input>').attr({
+                    type: 'hidden',
+                    name: 'template_name',
+                    value: template.name
+                }),
+                $('<input>').attr({
+                    type: 'hidden',
+                    name: 'template_id',
+                    value: template.id
+                }),
+                $('<h5>').addClass('card-title').text(template.name),
+                template.description ? $('<p>').addClass('card-text').text(template.description) : null,
+                $('<button>').attr({
+                    id: 'start_vm_btn',
+                    type: 'button',
+                    class: 'btn btn-info'
+                }).on('click', function () {
+                    createVmFromTemplate(template.id);
+                }).text('Démarrer')
+            );
+            return form;
+        }
+
+        function createLdsDefaultContainer(templateId) {
+            var ldsDefaultContainer = $('<div>').addClass('lds-default-container');
+            var ldsDefaultSpinner = createLdsDefaultSpinner(templateId);
+            ldsDefaultContainer.append(ldsDefaultSpinner);
+            return ldsDefaultContainer;
+        }
+
+        function createLdsDefaultSpinner(templateId) {
+            var ldsDefaultSpinner = $('<div>').addClass('lds-default').attr('id', templateId + '-loading-modal');
+            for (var i = 0; i < 12; i++) {
+                var childDiv = $('<div>');
+                ldsDefaultSpinner.append(childDiv);
+            }
+            return ldsDefaultSpinner;
+        }
+
+        function addTemplateToDOM(template) {
+            var templateCard = createTemplateCard(template);
+            templatesDiv.append(templateCard);
+            getVmStatus(template.id);
+        }
+
         $(document).ready(function () {
 
             function getTemplates() {
@@ -157,23 +246,7 @@
                     success: function (response) {
                         var templates = response;
                         templatesDiv = $('#templates-div');
-                        templates.forEach(function (template) {
-                            var template_id = template.id;
-                            var card = $('<div class="card" id="'+ template_id + '">');
-                            var cardBody = $('<div class="card-body bg-dark text-white">');
-                            var form = $('<form method="post" id="templateForm">');
-                            form.append('<input type="hidden" name="template_name" value="' + template.name + '">');
-                            form.append('<input type="hidden" name="template_id" value="' + template.id + '">');
-                            form.append('<h5 class="card-title">' + template.name + '</h5>');
-                            if (template.description) {
-                                form.append('<p class="card-text">' + template.description + '</p>');
-                            }
-                            form.append('<button id="start_vm_btn" type="button" class="btn btn-info" onclick="createVmFromTemplate(\'' + template.id + '\')">Démarrer</button>');
-                            cardBody.append(form);
-                            card.append(cardBody);
-                            templatesDiv.append(card);
-                            getVmStatus(template_id);
-                        });
+                        templates.forEach(addTemplateToDOM);
                     },
                     error: function (error) {
                         alert('Erreur d\'obtention d\'informations de templates');
@@ -184,14 +257,6 @@
             getTemplates();
         });
     </script>
-
-    <div>
-        <p id="email">Email: </p>
-        <p id="name">Name: </p>
-        <p id="surname">Surname: </p>
-        <p id="role">Role: </p>
-        <p id="id">ID: </p>
-    </div>
 
     <div class="container">
         <div class="row">
