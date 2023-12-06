@@ -5,8 +5,76 @@
 {% block content %}
 
     <script>
+        function checkIfVmAlive(templateId) {
+            return new Promise(function (resolve, reject) {
+                $.ajax({
+                    type: 'GET',
+                    url: 'https://api.insa-cvl.com/vm/status/template/' + templateId,
+                    contentType: 'application/json;charset=UTF-8',
+                    xhrFields: {
+                        withCredentials: true
+                    },
+                    success: function (response) {
+                        console.log("VM: " + templateId + ": STATE: " + response.vm_state + " STATUS: " + response.status);
+                        if (response.vm_state == "1" || response.status == "ACTIVE") {
+                            resolve(1);
+                        } else {
+                            resolve(0);
+                        }
+                    },
+                    error: function (error) {
+                        reject("Erreur d'obtention d'informations de la VM");
+                    }
+                });
+            });
+        }
+
+        async function openVm(templateId) {
+            try {
+                var output = await checkIfVmAlive(templateId);
+                if (output == 1) {
+                    console.log('opening VM');
+                }
+            } catch (error) {
+                alert(error);
+            }
+        }
+
+
+        async function deleteVm(templateId) {
+            try {
+                var output = await checkIfVmAlive(templateId);
+                if (output == 1) {
+                    console.log('deleting VM');
+                }
+            } catch (error) {
+                alert(error);
+            }
+        }
+
+        async function getVmStatus(templateId) {
+            try {
+                var output = await checkIfVmAlive(templateId);
+                if (output == 1) {
+                    updateButtons(templateId);
+                }
+            } catch (error) {
+                alert(error);
+            }
+        }
+
+        function updateButtons(templateId) {
+            var templateCard = $('#' + templateId);
+            var startVmBtn = templateCard.find("#start_vm_btn");
+            startVmBtn.text("Ouvrir");
+            startVmBtn.attr('onclick', 'openVm(\'' + templateId + '\')');
+            startVmBtn.attr('id', "open_vm_btn");
+            var space = $('<div style="margin-top: 10px;"></div>'); 
+            var deleteBtn = $('<button id="delete_vm_btn" type="button" class="btn btn-danger" onclick="deleteVm(\'' + templateId + '\')">Supprimer</button>');
+            templateCard.find(".card-body").append(space, deleteBtn);
+        }
+
         function createVmFromTemplate(templateId) {
-            console.log(templateId);
             $.ajax({
                 type: 'POST',
                 url: 'https://api.insa-cvl.com/vm/create',
@@ -16,8 +84,8 @@
                     withCredentials: true
                 },
                 success: function (response) {
-                    var responseData = response;
-                    alert(responseData);
+                    alert('VM créée');
+                    location.reload();
                 },
                 error: function (error) {
                     alert('Erreur d\'obtention d\'informations de profil');
@@ -25,28 +93,6 @@
             });
         }
         $(document).ready(function () {
-
-            function getUserProfile() {
-                $.ajax({
-                    type: 'GET',
-                    url: 'https://api.insa-cvl.com/profile',
-                    contentType: 'application/json;charset=UTF-8',
-                    xhrFields: {
-                        withCredentials: true
-                    },
-                    success: function (response) {
-                        var user = response;
-                        $('#email').text('Email: ' + user.email);
-                        $('#name').text('Name: ' + user.first_name);
-                        $('#surname').text('Surname: ' + user.last_name);
-                        $('#role').text('Role: ' + user.role);
-                        $('#id').text('ID: ' + user.id);
-                    },
-                    error: function (error) {
-                        alert('Erreur d\'obtiention d\'informations de profil');
-                    }
-                });
-            }
 
             function getTemplates() {
                 $.ajax({
@@ -58,32 +104,31 @@
                     },
                     success: function (response) {
                         var templates = response;
-                        console.log(templates);
                         templatesDiv = $('#templates-div');
                         templates.forEach(function (template) {
                             var template_id = template.id;
                             var card = $('<div class="card" id="'+ template_id + '">');
                             var cardBody = $('<div class="card-body bg-dark text-white">');
-                            var form = $('<form method="post">');
+                            var form = $('<form method="post" id="templateForm">');
                             form.append('<input type="hidden" name="template_name" value="' + template.name + '">');
                             form.append('<input type="hidden" name="template_id" value="' + template.id + '">');
                             form.append('<h5 class="card-title">' + template.name + '</h5>');
                             if (template.description) {
                                 form.append('<p class="card-text">' + template.description + '</p>');
                             }
-                            form.append('<button id="start_btn "type="button" class="btn btn-info" onclick="createVmFromTemplate(\'' + template.id + '\')">Démarrer</button>');
+                            form.append('<button id="start_vm_btn" type="button" class="btn btn-info" onclick="createVmFromTemplate(\'' + template.id + '\')">Démarrer</button>');
                             cardBody.append(form);
                             card.append(cardBody);
                             templatesDiv.append(card);
+                            getVmStatus(template_id);
                         });
                     },
                     error: function (error) {
-                        alert('Erreur d\'obtiention d\'informations de templates');
+                        alert('Erreur d\'obtention d\'informations de templates');
                     }
                 });
             }
 
-            getUserProfile();
             getTemplates();
         });
     </script>

@@ -15,16 +15,104 @@
             integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
             crossorigin="anonymous"></script>
         <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-
     </head>
 
     <body>
         <nav class="navbar navbar-dark bg-dark">
             <div class="container">
                 <a class="navbar-brand" href="/">Accueil</a>
-                <a class="navbar-brand ml-auto" href="/login">Connexion</a>
+                <a id="connexionBtn" class="navbar-brand ml-auto">Connexion</a>
             </div>
         </nav>
+        <div class="modal" id="alertModal" tabindex="-1" role="dialog" aria-labelledby="alertModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="alertModalLabel"></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body" id="alertModalMessage"></div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            function showAlertModal(title, message) {
+                var modalTitle = document.getElementById('alertModalLabel');
+                var modalMessage = document.getElementById('alertModalMessage');
+
+                modalTitle.textContent = title;
+                modalMessage.textContent = message;
+
+                var alertModal = new bootstrap.Modal(document.getElementById('alertModal'));
+                alertModal.show();
+            }
+
+            function logout() {
+                $.ajax({
+                    type: 'GET',
+                    url: 'https://api.insa-cvl.com/logout',
+                    contentType: 'application/json;charset=UTF-8',
+                    xhrFields: {
+                        withCredentials: true
+                    },
+                    success: function (response) {
+                        alert(response.message);
+                        window.location = "/login";
+                    },
+                    error: function (error) {
+                        alert('Erreur lors de la déconnexion');
+                    }
+                });
+            }
+
+
+            function redirectToLogin() {
+                window.location.href = '/login';
+            }
+
+            function updateConnectionStatus(isConnected) {
+                if (isConnected) {
+                    $('#connexionBtn').text('Déconnexion');
+                    $('#connexionBtn').attr('onclick', 'logout()');
+                } else {
+                    $('#connexionBtn').text('Connexion');
+                    $('#connexionBtn').attr('onclick', 'redirectToLogin()');
+                }
+            }
+
+            function getUserProfile() {
+                $.ajax({
+                    type: 'GET',
+                    url: 'https://api.insa-cvl.com/profile',
+                    contentType: 'application/json;charset=UTF-8',
+                    xhrFields: {
+                        withCredentials: true
+                    },
+                    success: function (response) {
+                        var user = response;
+                        $('#email').text('Email: ' + user.email);
+                        $('#name').text('Name: ' + user.first_name);
+                        $('#surname').text('Surname: ' + user.last_name);
+                        $('#role').text('Role: ' + user.role);
+                        $('#id').text('ID: ' + user.id);
+                        updateConnectionStatus(true);
+                    },
+                    error: function (error) {
+                        updateConnectionStatus(false);
+                        window.location = "/login?error=Vous%20n'êtes%20pas%20connecté.%20Redirection....";
+                    }
+                });
+            }
+
+            $(document).ready(function () {
+                getUserProfile();
+            });
+        </script>
 
         <style>
             .cards {
@@ -88,7 +176,7 @@
             a {
                 color: inherit;
             }
-        </style>
+        </style>    
         {% block content %}{% endblock %}
 
     </body>
