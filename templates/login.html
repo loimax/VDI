@@ -140,8 +140,25 @@
             '<span aria-hidden="true">x</span></button>';
                     existingAlert.style.display = 'block';
                 }
+                function getUserProfile() {
+                    $.ajax({
+                        type: 'GET',
+                        url: 'https://api.insa-cvl.com/profile',
+                        contentType: 'application/json;charset=UTF-8',
+                        xhrFields: {
+                            withCredentials: true
+                        },
+                        success: function (response) {
+                            window.location = "/student";
+                        },
+                        error: function (error) { 
+                            window.location = "/login";
+                        }
+                    });
+                }
 
                 $(document).ready(function () {
+                    // getUserProfile();
                     $('form').submit(function (e) {
                         e.preventDefault();
             
