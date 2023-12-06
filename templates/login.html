@@ -121,7 +121,6 @@
                     const errorMessage = decodeURIComponent(urlParams.get('error'));
                     const successMessage = decodeURIComponent(urlParams.get('success'));
 
-
                     console.log("error: " + errorMessage);
                     console.log("success: " + successMessage);
 
@@ -141,7 +140,27 @@
                     existingAlert.style.display = 'block';
                 }
 
+                function getUserProfile() {
+                    $.ajax({
+                        type: 'GET',
+                        url: 'https://api.insa-cvl.com/profile',
+                        contentType: 'application/json;charset=UTF-8',
+                        xhrFields: {
+                            withCredentials: true
+                        },
+                        success: function (response) {
+                            var user = response;
+                            window.location = "/student";
+                        },
+                        error: function (error) { 
+                            window.location = "/login";
+                        }
+                    });
+                }
+
                 $(document).ready(function () {
+                    getUserProfile();
+
                     $('form').submit(function (e) {
                         e.preventDefault();
             
