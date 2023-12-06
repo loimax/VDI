@@ -85,7 +85,9 @@
                         withCredentials: true
                     },
                     success: function (response) {
-                        window.location = "/login?success=" + encodeURIComponent("Déconnecté avec succès");
+                        setTimeout(function () {
+                            window.location = "/login?success=" + encodeURIComponent("Déconnecté avec succès");
+                        }, 1000);
                     },
                     error: function (error) {
                         alert('Erreur lors de la déconnexion');
@@ -118,6 +120,7 @@
                     },
                     success: function (response) {
                         var user = response;
+                        console.log(user);
                         $('#email').text('Email: ' + user.email);
                         $('#name').text('Name: ' + user.first_name);
                         $('#surname').text('Surname: ' + user.last_name);
@@ -198,6 +201,10 @@
 
             a {
                 color: inherit;
+            }
+
+            a:hover {
+                cursor: pointer;
             }
         </style>    
         {% block content %}{% endblock %}

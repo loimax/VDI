@@ -149,16 +149,19 @@
                             withCredentials: true
                         },
                         success: function (response) {
-                            window.location = "/student";
+                            console.log(response);
+                            //window.location = "/student";
                         },
                         error: function (error) { 
-                            window.location = "/login";
+                            console.log(error);
+                            //window.location = "/login";
                         }
                     });
                 }
 
                 $(document).ready(function () {
-                    // getUserProfile();
+
+                    getUserProfile();
                     $('form').submit(function (e) {
                         e.preventDefault();
             
