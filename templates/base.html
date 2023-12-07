@@ -86,13 +86,13 @@
                         withCredentials: true
                     },
                     success: function (response) {
-                        setTimeout(function (response) {
-                            console.log(response);
-                            if (response.cas === true) {
-                                window.location = "https://cas.insa-cvl.fr/cas/logout?service=https://api.insa-cvl.com"
-                            } else {
+                        console.log(response);
+                        if (response.cas === true) {
+                            window.location = "https://cas.insa-cvl.fr/cas/logout?service=https://api.insa-cvl.com"
+                        } 
+                        setTimeout(function () {
                                 window.location = "/login?success=" + encodeURIComponent("Déconnecté avec succès");
-                            }
+  
                         }, 1000);
                     },
                     error: function (error) {
