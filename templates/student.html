@@ -83,34 +83,48 @@
         async function getVmStatus(templateId) {
             try {
                 var output = await checkIfVmAlive(templateId);
-                if (output == 1) {
-                    updateButtons(templateId);
-                }
+                updateButtons(templateId, output);
             } catch (error) {
                 alert(error);
             }
         }
 
-        function updateButtons(templateId) {
+        function updateButtons(templateId, isVmAlive) {
             var templateCard = $('#' + templateId);
-            var startVmBtn = templateCard.find("#start_vm_btn");
-            startVmBtn.text("Ouvrir").attr({
-                'onclick': 'openVm(\'' + templateId + '\')',
-                'id': 'open_vm_btn'
-            });
 
-            var space = $('<div>').css('margin-top', '10px');
+            templateCard.find("#start_vm_btn, #open_vm_btn, #delete_vm_btn").remove();
 
-            var deleteBtn = $('<button>').attr({
-                'id': 'delete_vm_btn',
-                'type': 'button',
-                'class': 'btn btn-danger'
-            }).on('click', function () {
-                deleteVm(templateId);
-            }).text('Supprimer');
+            var cardBody = templateCard.find(".card-body");
 
+            if (isVmAlive == 1) {
+                var openVmBtn = $('<button>').attr({
+                    'id': 'open_vm_btn',
+                    'type': 'button',
+                    'class': 'btn btn-success'
+                }).on('click', function () {
+                    openVm(templateId);
+                }).text('Ouvrir');
 
-            templateCard.find(".card-body").append(space, deleteBtn);
+                var deleteBtn = $('<button>').attr({
+                    'id': 'delete_vm_btn',
+                    'type': 'button',
+                    'class': 'btn btn-danger'
+                }).on('click', function () {
+                    deleteVm(templateId);
+                }).text('Supprimer');
+
+                cardBody.append(openVmBtn, $('<div>').css('margin-top', '10px'), deleteBtn);
+            } else {
+                var startVmBtn = $('<button>').attr({
+                    'id': 'start_vm_btn',
+                    'type': 'button',
+                    'class': 'btn btn-info'
+                }).on('click', function () {
+                    createVmFromTemplate(templateId);
+                }).text('Démarrer');
+
+                cardBody.append(startVmBtn);
+            }
         }
 
         async function createVmFromTemplate(templateId) {
