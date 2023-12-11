@@ -3,66 +3,205 @@
 {% block title %}Page d'Administration{% endblock %}
 
 {% block content %}
-    <h1 class="text-left mt-4">Templates de machines virtuelles créés</h1>
 
-    <div class="mt-4">
-        <div class="cards d-flex justify-content-start">
-            {% for template in templates %}
-                <div class="card">
-                    <div class="card-body bg-dark text-white">
-                        <h5 class="card-title">{{ template.name }}</h5>
-                        {% if template.description %}
-                            <p class="card-text">{{ template.description }}</p>
-                        {% endif %}
-                        <form method="post">
-                            <input type="hidden" name="template_name" value="{{ template.name }}">
-                            <input type="hidden" name="template_id" value="{{ template.id }}">
-                            <button type="submit" name="create_start_vm" class="btn btn-info">Démarrer</button>
-                            <button type="submit" name="delete_template" class="btn btn-danger">Supprimer</button>
-                        </form>
-                    </div>
-                </div>
-            {% endfor %}
-            <div class="card" id="addTemplateCard" style="width: 18rem;">
-                <div class="card-body bg-info text-white">
-                    <h5 class="card-title text-center">Créer</h5>
-                    <p class="card-text" style="font-size: 36px; text-align: center;"><b>+</b></p>
-                </div>
-            </div> 
+    <div class="container">
+        <div class="row">
+            <div class="col-md-10">
+                <ul class="nav nav-tabs">
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#rubrique1">VMs actives</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#rubrique2">Comptes</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#rubrique3">Templates</a>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
 
-    <hr>
-
-    <!-- Modal de création de Template -->
-    <div class="modal fade" id="createTemplateModal" tabindex="-1" role="dialog" aria-labelledby="createTemplateModalLabel" aria-hidden="true">
+    <!-- Modal de création de User -->
+    <div class="modal fade" id="createUserModal" tabindex="-1" role="dialog" aria-labelledby="createUserModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header bg-dark text-white">
-                    <h5 class="modal-title" id="createTemplateModalLabel">Créer Template</h5>
+                    <h5 class="modal-title" id="createUserModalLabel">Créer utilisateur</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body bg-dark text-white">
-                    <form method="post" action="">
+                    <form method="post">
                         <div class="form-group">
-                            <label for="template_name">Nom du Template :</label>
-                            <input type="text" class="form-control" id="template_name" name="template_name" required>
+                            <label for="firstname">Prénom de l'utilisateur :</label>
+                            <input type="text" class="form-control" id="firstname" name="firstname" required>
                         </div>
                         <div class="form-group">
-                            <label for="template_description">Description du Template :</label>
-                            <textarea class="form-control" id="template_description" name="template_description"></textarea>
+                            <label for="lastname">Nom de l'utilisateur :</label>
+                            <input type="text" class="form-control" id="lastname" name="lastname" required>
                         </div>
-                        <button type="submit" name="create_template" class="btn btn-info">Créer Template</button>
+                        <div class="form-group">
+                            <label for="email">Adresse électronique :</label>
+                            <input type="text" class="form-control" id="email" name="email" required>
+                        </div>
+                        <button type="submit" name="create_user" class="btn btn-info">Créer utilisateur</button>
                     </form>
-                </div>
+                </div>                
             </div>
         </div>
     </div>
 
+    <div class="tab-content">
+
+        <div class="tab-pane" id="rubrique1">
+            <h1 class="text-left">Machines virtuelles actives</h1>
+            <div class="mt-4">
+                <div class="cards d-flex justify-content-start">
+                    {% for vm in vms %}
+                        <form method="post">
+                            <div class="card">
+                                <div class="card-body bg-dark text-white">
+                                    <input type="hidden" name="vm_name" value="{{ vm.name }}">
+                                    <h5 class="card-title">{{ vm.name }}</h5>
+                                    <p class="card-text">depuis le <b>{{ vm.template }}</b> template</p>
+                                    <p>appartient à: <b>{{ vm.user.name }}</b></p>
+                                </div>
+                                <button type="submit" name="delete_vm" class="btn btn-danger">Supprimer</button>
+                            </div>
+                        </form>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <div class="tab-pane" id="rubrique2">
+            <h1 class="text-left">Comptes utilisateurs</h1>
+            <div class="mt-4">
+                <div id="users-div" class="cards d-flex justify-content-start"></div>
+            </div>
+            <hr>
+            <div class="mt-4">
+                <div id="create-user-div" class="cards d-flex justify-content-start"></div>
+            </div>
+        </div>
+
+        <div class="tab-pane" id="rubrique3">
+            <h1 class="text-left">Templates de VMs</h1>
+            <div class="mt-4">
+                <div id="templates-div" class="cards d-flex justify-content-start"></div>
+            </div>
+        </div>
+    </div>
+
+    <hr>
+
     <script>
+        function getUsers() {
+            $.ajax({
+                type: 'GET',
+                url: 'https://api.insa-cvl.com/users',
+                contentType: 'application/json;charset=UTF-8',
+                xhrFields: {
+                    withCredentials: true
+                },
+                success: function (response) {
+                    var users = response;
+                    usersDiv = $('#users-div');
+                    users.forEach(addUserToDOM);
+                },
+                error: function (error) {
+                    alert('Erreur d\'obtention d\'informations d\'users');
+                }
+            });
+        }
+        
+        function addTemplateToDOM(template) {
+            var templateCard = createTemplateCard(template);
+            templatesDiv.append(templateCard);
+        }
+
+        function addUserToDOM(user) {
+            var userCard = createUserCard(user);
+            userDiv.append(userCard);
+        }
+
+        function createUserForm(user) {
+            var form = $('<form>').attr({
+                method: 'post',
+                id: 'userForm'
+            });
+            form.append(
+                $('<input>').attr({
+                    type: 'hidden',
+                    name: 'user_name',
+                    value: user.first_name + " " + user.last_name
+                }),
+                $('<input>').attr({
+                    type: 'hidden',
+                    name: 'user_id',
+                    value: user.id
+                }),
+                $('<h5>').addClass('card-title').text(user.first_name + " " + user.last_name),
+                user.email ? $('<p>').addClass('card-text').text(user.email) : null,
+            );
+            return form;
+        }
+
+        function createUserCard(user) {
+            var userCard = $('<div>').addClass('card').attr('id', user.id);
+            var cardBody = createTemplateCardBody(user);
+            userCard.append(cardBody);
+            return userCard;
+        }
+
+        function createUserCardBody(user) {
+            var cardBody = $('<div>').addClass('card-body bg-dark text-white');
+            var form = createUserForm(user);
+            cardBody.append(form);
+            return cardBody;
+        }
+
+        function createTemplateForm(template) {
+            var form = $('<form>').attr({
+                method: 'post',
+                id: 'templateForm'
+            });
+            form.append(
+                $('<input>').attr({
+                    type: 'hidden',
+                    name: 'template_name',
+                    value: template.name
+                }),
+                $('<input>').attr({
+                    type: 'hidden',
+                    name: 'template_id',
+                    value: template.id
+                }),
+                $('<h5>').addClass('card-title').text(template.name),
+                template.description ? $('<p>').addClass('card-text').text(template.description) : null,
+            );
+            return form;
+        }
+
+        function createTemplateCard(template) {
+            var templateCard = $('<div>').addClass('card').attr('id', template.id);
+            var cardBody = createTemplateCardBody(template);
+            templateCard.append(cardBody);
+            return templateCard;
+        }
+
+        function createTemplateCardBody(template) {
+            var cardBody = $('<div>').addClass('card-body bg-dark text-white');
+            var form = createTemplateForm(template);
+            cardBody.append(form);
+            return cardBody;
+        }
+
         $(document).ready(function () {
+            getTemplates();
+            getUsers();
             $('#addTemplateCard').on('click', function () {
                 $("#createTemplateModal").modal("show");
             });

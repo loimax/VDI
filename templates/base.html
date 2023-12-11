@@ -131,12 +131,36 @@
                         $('#name').text('Name: ' + user.first_name);
                         $('#surname').text('Surname: ' + user.last_name);
                         $('#role').text('Role: ' + user.role);
+                        /*
+                        user
+                        prof
+                        admin
+                        */
                         $('#id').text('ID: ' + user.id);
                         updateConnectionStatus(true);
                     },
                     error: function (error) {
                         updateConnectionStatus(false);
                         window.location = "/login?error=" + encodeURIComponent('Vous%20n\'êtes%20pas%20connecté.%20Redirection....');
+                    }
+                });
+            }
+
+            function getTemplates() {
+                $.ajax({
+                    type: 'GET',
+                    url: 'https://api.insa-cvl.com/template',
+                    contentType: 'application/json;charset=UTF-8',
+                    xhrFields: {
+                        withCredentials: true
+                    },
+                    success: function (response) {
+                        var templates = response;
+                        templatesDiv = $('#templates-div');
+                        templates.forEach(addTemplateToDOM);
+                    },
+                    error: function (error) {
+                        alert('Erreur d\'obtention d\'informations de templates');
                     }
                 });
             }

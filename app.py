@@ -18,9 +18,9 @@ def admin():
 def professor():
     return render_template('professor.html')
 
-@app.route('/student', methods=['GET', 'POST'])
-def student():
-    return render_template('student.html')
+@app.route('/dashboard', methods=['GET', 'POST'])
+def dashboard():
+    return render_template('dashboard.html')
 
 @app.route('/viewer', methods=['GET'])
 def viewer():
