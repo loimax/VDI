@@ -109,7 +109,14 @@
                 success: function (response) {
                     var users = response;
                     usersDiv = $('#users-div');
+
+                    var table = $('<table>').addClass('table');
+                    var thead = $('<thead>').append('<tr><th>Prénom</th><th>Nom</th><th>Email</th></tr>');
+                    table.append(thead);
+
                     users.forEach(addUserToDOM);
+
+                    usersDiv.append(table);
                 },
                 error: function (error) {
                     alert('Erreur d\'obtention d\'informations d\'users');
@@ -127,41 +134,7 @@
             usersDiv.append(userCard);
         }
 
-        function createUserForm(user) {
-            var form = $('<form>').attr({
-                method: 'post',
-                id: 'userForm'
-            });
-            form.append(
-                $('<input>').attr({
-                    type: 'hidden',
-                    name: 'user_name',
-                    value: user.first_name + " " + user.last_name
-                }),
-                $('<input>').attr({
-                    type: 'hidden',
-                    name: 'user_id',
-                    value: user.id
-                }),
-                $('<h5>').addClass('card-title').text(user.first_name + " " + user.last_name),
-                user.email ? $('<p>').addClass('card-text').text(user.email) : null,
-            );
-            return form;
-        }
-
-        function createUserCard(user) {
-            var userCard = $('<div>').addClass('card').attr('id', user.id);
-            var cardBody = createTemplateCardBody(user);
-            userCard.append(cardBody);
-            return userCard;
-        }
-
-        function createUserCardBody(user) {
-            var cardBody = $('<div>').addClass('card-body bg-dark text-white');
-            var form = createUserForm(user);
-            cardBody.append(form);
-            return cardBody;
-        }
+   
 
         function createTemplateForm(template) {
             var form = $('<form>').attr({
