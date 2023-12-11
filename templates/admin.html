@@ -79,8 +79,15 @@
         <div class="tab-pane" id="rubrique2">
             <h1 class="text-left">Comptes utilisateurs</h1>
             <div class="mt-4">
-                <div id="users-div" class="cards d-flex justify-content-start"></div>
-            </div>
+                <table class="table" id="users-table">
+                    <thead>
+                        <tr>
+                            <th>Prénom</th>
+                            <th>Nom</th>
+                            <th>Email</th>
+                        </tr>
+                    </thead>
+                </table>
             <hr>
             <div class="mt-4">
                 <div id="create-user-div" class="cards d-flex justify-content-start"></div>
@@ -109,16 +116,26 @@
                 success: function (response) {
                     var users = response;
                     usersDiv = $('#users-div');
-
-                    var table = $('<table>').addClass('table');
-                    var thead = $('<thead>').append('<tr><th>Prénom</th><th>Nom</th><th>Email</th></tr>');
-                    table.append(thead);
-                    usersDiv.append(table);
+                    createUsersTable(users, usersDiv);
                 },
                 error: function (error) {
                     alert('Erreur d\'obtention d\'informations d\'users');
                 }
             });
+        }
+
+        function createUsersTable(users, usersDiv) {
+            users.forEach(addUserToTable);
+            usersDiv.append(table);
+        }
+
+        function addUserToTable(user) {
+            var row = $('<tr>');
+            row.append('<td>' + user.first_name + '</td>');
+            row.append('<td>' + user.last_name + '</td>');
+            row.append('<td>' + user.email + '</td>');
+
+            $('#users-table').append(row);
         }
         
         function addTemplateToDOM(template) {
