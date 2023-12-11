@@ -23,6 +23,7 @@
         <nav class="navbar navbar-dark bg-dark">
             <div class="container">
                 <a class="navbar-brand" href="/">Accueil</a>
+                <a id="adminBtn" class="navbar-brand ml-auto" href="/admin" aria-hidden="true">Espace admin</a>
                 <a id="connexionBtn" class="navbar-brand ml-auto">Connexion</a>
             </div>
         </nav>
@@ -137,6 +138,11 @@
                         admin
                         */
                         $('#id').text('ID: ' + user.id);
+                        if (user.role === 'admin') {
+                            $('#adminBtn').show();
+                        } else {
+                            $('#adminBtn').hide();
+                        }
                         updateConnectionStatus(true);
                     },
                     error: function (error) {
