@@ -35,9 +35,12 @@
     
             // Function to display the VNC viewer with the provided URL
             function displayVNCViewer(vncUrl) {
-                // Initialize the VNC viewer using noVNC
-                var vncViewer = new RFB(document.getElementById('vncViewerContainer'), vncUrl, {});
-                vncViewer.connect();
+                var iframe = document.createElement('iframe');
+                iframe.src = vncUrl;
+                iframe.width = "100%";
+                iframe.height = "100%";
+                iframe.style.border = "none";
+                document.getElementById('vncViewerContainer').appendChild(iframe);
             }
         </script>
 
