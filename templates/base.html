@@ -23,6 +23,7 @@
         <nav class="navbar navbar-dark bg-dark">
             <div class="container">
                 <a class="navbar-brand" href="/">Accueil</a>
+                <a id="profBtn" class="navbar-brand ml-auto" href="/professor" aria-hidden="true">Espace Prof</a>
                 <a id="adminBtn" class="navbar-brand ml-auto" href="/admin" aria-hidden="true">Espace admin</a>
                 <a id="connexionBtn" class="navbar-brand ml-auto">Connexion</a>
             </div>
@@ -142,6 +143,11 @@
                             $('#adminBtn').show();
                         } else {
                             $('#adminBtn').hide();
+                        }
+                        if (user.role === 'prof') {
+                            $('#profBtn').show();
+                        } else {
+                            $('#profBtn').hide();
                         }
                         updateConnectionStatus(true);
                     },
