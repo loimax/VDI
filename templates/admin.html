@@ -113,9 +113,6 @@
                     var table = $('<table>').addClass('table');
                     var thead = $('<thead>').append('<tr><th>Prénom</th><th>Nom</th><th>Email</th></tr>');
                     table.append(thead);
-
-                    users.forEach(addUserToDOM);
-
                     usersDiv.append(table);
                 },
                 error: function (error) {
@@ -128,13 +125,6 @@
             var templateCard = createTemplateCard(template);
             templatesDiv.append(templateCard);
         }
-
-        function addUserToDOM(user) {
-            var userCard = createUserCard(user);
-            usersDiv.append(userCard);
-        }
-
-   
 
         function createTemplateForm(template) {
             var form = $('<form>').attr({
