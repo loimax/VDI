@@ -1,0 +1,13 @@
+[Unit]
+Description=Gunicorn instance to serve APP VDI
+After=network.target
+
+[Service]
+User=alex
+Group=alex
+WorkingDirectory=/home/alex/VDI-APP-INSA
+Environment="PATH=/home/alex/.local/bin"
+ExecStart=/home/alex/.local/bin/gunicorn --access-logfile /var/log/VDI/APP/access.log --error-logfile /var/log/VDI/APP/error.log --workers 3 --bind 0.0.0.0:5000 wsgi:app
+
+[Install]
+WantedBy=multi-user.target
