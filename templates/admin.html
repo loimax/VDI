@@ -102,6 +102,7 @@
                 },
                 success: function (response) {
                     var vms = response;
+                    console.log(vms);
                     vmsDiv = $('#vms-div');
                     vms.forEach(addVMToDOM);
                 },
@@ -163,17 +164,12 @@
                 success: function (response) {
                     var users = response;
                     usersDiv = $('#users-div');
-                    createUsersTable(users, usersDiv);
+                    users.forEach(addUserToTable);
                 },
                 error: function (error) {
                     alert('Erreur d\'obtention d\'informations d\'users');
                 }
             });
-        }
-
-        function createUsersTable(users, usersDiv) {
-            users.forEach(addUserToTable);
-            usersDiv.append(table);
         }
 
         function addUserToTable(user) {
