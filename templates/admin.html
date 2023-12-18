@@ -9,7 +9,7 @@
             <div class="col-md-10">
                 <ul class="nav nav-tabs">
                     <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#rubrique1">VMs actives</a>
+                        <a class="nav-link active" data-toggle="tab" href="#rubrique1">VMs actives</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" data-toggle="tab" href="#rubrique2">Comptes</a>
@@ -160,6 +160,7 @@
                             withCredentials: true
                         },
                         success: function (response) {
+                            console.log(response);
                             hideLoadingModal();
                             location.reload();
                         },
