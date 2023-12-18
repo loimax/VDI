@@ -56,23 +56,9 @@
     <div class="tab-content">
 
         <div class="tab-pane" id="rubrique1">
-            <h1 class="text-left">Machines virtuelles actives</h1>
+            <h1 class="text-left">Liste des VMs actives</h1>
             <div class="mt-4">
-                <div class="cards d-flex justify-content-start">
-                    {% for vm in vms %}
-                        <form method="post">
-                            <div class="card">
-                                <div class="card-body bg-dark text-white">
-                                    <input type="hidden" name="vm_name" value="{{ vm.name }}">
-                                    <h5 class="card-title">{{ vm.name }}</h5>
-                                    <p class="card-text">depuis le <b>{{ vm.template }}</b> template</p>
-                                    <p>appartient à: <b>{{ vm.user.name }}</b></p>
-                                </div>
-                                <button type="submit" name="delete_vm" class="btn btn-danger">Supprimer</button>
-                            </div>
-                        </form>
-                    {% endfor %}
-                </div>
+                <div id="vms-div" class="cards d-flex justify-content-start"></div>
             </div>
         </div>
 
@@ -89,6 +75,7 @@
                     </thead>
                 </table>
             <hr>
+            </div>
             <div class="mt-4">
                 <div id="create-user-div" class="cards d-flex justify-content-start"></div>
             </div>
@@ -105,6 +92,66 @@
     <hr>
 
     <script>
+        function getVms() {
+            $.ajax({
+                type: 'GET',
+                url: 'https://api.insa-cvl.com/vm',
+                contentType: 'application/json;charset=UTF-8',
+                xhrFields: {
+                    withCredentials: true
+                },
+                success: function (response) {
+                    var vms = response;
+                    vmsDiv = $('#vms-div');
+                    vms.forEach(addVMToDOM);
+                },
+                error: function (error) {
+                    alert('Erreur d\'obtention d\'informations d\'users');
+                }
+            });
+        }
+
+        function addVMToDOM(vm) {
+            var vmCard = createVmCard(vm);
+            vmsDiv.append(vmCard);
+        }
+
+        function createVmForm(vm) {
+            var form = $('<form>').attr({
+                method: 'post',
+                id: 'vmForm'
+            });
+            form.append(
+                $('<input>').attr({
+                    type: 'hidden',
+                    name: 'vm_id',
+                    value: vm.id
+                }),
+                $('<h5>').addClass('card-title').text('Nom: ' + vm.name),
+                $('<p>').addClass('card-text').text('Template ID: ' + vm.template_id),
+                $('<p>').addClass('card-text').text('User ID: ' + vm.users_id),
+                $('<p>').addClass('card-text').text('Date de création: ' + vm.creationDate),
+                $('<button>').addClass('btn btn-danger').text('Supprimer').on('click', function () {
+                    deleteVm(vm.id);
+                })
+            );
+            return form;
+        }
+
+        function createVmCard(vm) {
+            var vmCard = $('<div>').addClass('card').attr('id', vm.id);
+            var cardBody = createVmCardBody(vm);
+            vmCard.append(cardBody);
+            return vmCard;
+        }
+
+        function createVmCardBody(vm) {
+            var cardBody = $('<div>').addClass('card-body bg-dark text-white');
+            var form = createVmForm(vm);
+            cardBody.append(form);
+            return cardBody;
+        }
+
         function getUsers() {
             $.ajax({
                 type: 'GET',
