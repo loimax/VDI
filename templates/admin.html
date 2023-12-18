@@ -108,7 +108,10 @@
         }
 
         function createLdsDefaultSpinner(id) {
-            var ldsDefaultSpinner = $('<div>').addClass('lds-default').attr('id', id + '-loading-modal');
+            var ldsDefaultSpinner = $('<div>')
+            .addClass('lds-default')
+            .attr('id', id + '-loading-modal')
+            .css('display', 'none');            
             for (var i = 0; i < 12; i++) {
                 var childDiv = $('<div>');
                 ldsDefaultSpinner.append(childDiv);
@@ -143,16 +146,16 @@
             });
         }
 
-        async function deleteVm(id) {
+        async function deleteVm(vm_id) {
             try {
-                var output = await checkIfVmAlive(id);
+                var output = await checkIfVmAlive(vm_id);
                 if (output == 1) {
                     showLoadingModal();
                     $.ajax({
                         type: 'DELETE',
                         url: 'https://api.insa-cvl.com/vm/delete_admin',
                         contentType: 'application/json;charset=UTF-8',
-                        data: JSON.stringify({ template_id: id }),
+                        data: JSON.stringify({ id: vm_id }),
                         xhrFields: {
                             withCredentials: true
                         },
@@ -213,7 +216,7 @@
                 $('<p>').addClass('card-text').text('User ID: ' + vm.users_id),
                 $('<p>').addClass('card-text').text('Date de création: ' + vm.creationDate),
                 $('<button>').addClass('btn btn-danger').text('Supprimer').on('click', function () {
-                    // deleteVm(vm.id);
+                    deleteVm(vm.id);
                     console.log('suppression de la VM ' + vm.id);
                 })
             );
