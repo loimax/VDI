@@ -183,23 +183,10 @@
         </script>
 
         <style>
-            body {
-                background-color: white; /* Updated Background */
-                color: #3A3A3A; /* Darker Text for Contrast */
-                font-family: Arial, sans-serif;
-            }
-
-            .navbar {
-                background-color: #F44336; /* Light Red */
-                border-bottom: 3px solid #EC1E11; /* Red */
-            }
-
-            .navbar-dark .navbar-nav .nav-link {
-                color: white;
-            }
-
-            .navbar-dark .navbar-nav .nav-link:hover {
-                color: #EC1E11; /* Red */
+            .lds-default-container {
+                display: flex;
+                justify-content: center;
+                align-items: center;
             }
 
             .cards {
@@ -211,15 +198,13 @@
             }
 
             .card {
-                background-color: white; /* Card Background */
-                border: 1px solid #EC1E11; /* Red Border */
                 width: 18rem;
                 margin: 10px;
-                color: #3A3A3A; /* Text Color */
             }
 
-            h1, h2, p {
-                color: #3A3A3A; /* Darker Text for Better Readability */
+            body {
+                background-color: #333;
+                color: white;
             }
 
             h1 {
@@ -235,23 +220,41 @@
 
             p {
                 font-size: 16px;
+                color: #666;
             }
 
-            .lds-default-container {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-            }
-
-            #addTemplateCard, #addUserCard, #addVMOutCard {
+            #addTemplateCard {
                 cursor: pointer;
             }
 
-            a, a:hover {
-                color: inherit; /* Maintain Color Inheritance */
+            #addUserCard, #addVMOutCard {
                 cursor: pointer;
             }
-        </style>   
+
+            .navbar {
+                background-color: #343A40;
+            }
+
+            .navbar-dark .navbar-nav .nav-link {
+                color: white;
+            }
+
+            .navbar-dark .navbar-nav .nav-link:hover {
+                color: #17A2B8;
+            }
+
+            .nav-item {
+                padding: 0 20px;
+            }
+
+            a {
+                color: inherit;
+            }
+
+            a:hover {
+                cursor: pointer;
+            }
+        </style>    
         {% block content %}{% endblock %}
 
         <div>
