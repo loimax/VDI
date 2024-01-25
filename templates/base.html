@@ -23,8 +23,8 @@
         <nav class="navbar navbar-dark bg-dark">
             <div class="container">
                 <a class="navbar-brand" href="/">Accueil</a>
-                <a id="profBtn" class="navbar-brand ml-auto" href="/professor" aria-hidden="true">Espace Prof</a>
-                <a id="adminBtn" class="navbar-brand ml-auto" href="/admin" aria-hidden="true">Espace admin</a>
+                <a id="profBtn" class="navbar-brand ml-auto" href="/professor" aria-hidden="true" style="display: none;">Espace Prof</a>
+                <a id="adminBtn" class="navbar-brand ml-auto" href="/admin" aria-hidden="true" style="display: none;">Espace admin</a>
                 <a id="connexionBtn" class="navbar-brand ml-auto">Connexion</a>
             </div>
         </nav>
@@ -210,21 +210,14 @@
                         $('#name').text('Name: ' + user.first_name);
                         $('#surname').text('Surname: ' + user.last_name);
                         $('#role').text('Role: ' + user.role);
-                        /*
-                        user
-                        prof
-                        admin
-                        */
                         $('#id').text('ID: ' + user.id);
-                        if (user.role === 'admin') {
-                            $('#adminBtn').show();
-                        } else {
-                            $('#adminBtn').hide();
-                        }
-                        if (user.role === 'prof') {
+
+                        var userRole = user.role;
+                        if (userRole === 'prof') {
                             $('#profBtn').show();
-                        } else {
-                            $('#profBtn').hide();
+                        }
+                        if (userRole === 'admin') {
+                            $('#adminBtn').show();
                         }
                         updateConnectionStatus(true);
                     },
