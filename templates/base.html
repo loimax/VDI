@@ -60,6 +60,60 @@
             </div>
         </div>
         <script>
+            function showLoadingCardModal(id) {
+                $("#" + id + "-loading-modal").css("display", "block");
+            }
+
+            function hideLoadingCardModal(id) {
+                $("#" + id + "-loading-modal").css("display", "none");
+            }
+
+            function createLdsDefaultContainer(id) {
+                var ldsDefaultContainer = $('<div>').addClass('lds-default-container');
+                var ldsDefaultSpinner = createLdsDefaultSpinner(id);
+                ldsDefaultContainer.append(ldsDefaultSpinner);
+                return ldsDefaultContainer;
+            }
+
+            function createLdsDefaultSpinner(id) {
+                var ldsDefaultSpinner = $('<div>')
+                .addClass('lds-default')
+                .attr('id', id + '-loading-modal')
+                .css('display', 'none');            
+                for (var i = 0; i < 12; i++) {
+                    var childDiv = $('<div>');
+                    ldsDefaultSpinner.append(childDiv);
+                }
+                return ldsDefaultSpinner;
+            }
+
+            function checkIfVmAlive(id) {
+                return new Promise(function (resolve, reject) {
+                    showLoadingCardModal(id);   
+                    $.ajax({
+                        type: 'GET',
+                        url: 'https://api.insa-cvl.com/vm/status/template/' + id,
+                        contentType: 'application/json;charset=UTF-8',
+                        xhrFields: {
+                            withCredentials: true
+                        },
+                        success: function (response) {
+                            console.log("VM: " + id + ": STATE: " + response.vm_state + " STATUS: " + response.status);
+                            if (response.vm_state == "1" && response.status == "ACTIVE") {
+                                hideLoadingCardModal(id);
+                                resolve(1); 
+                            } else {
+                                hideLoadingCardModal(id);
+                                resolve(0);
+                            }
+                        },
+                        error: function (error) {
+                            reject("Erreur d'obtention d'informations de la VM");
+                        }
+                    });
+                });
+            }
+
             function showLoadingModal() {
                 $('#loadingModal').modal('show');
             }

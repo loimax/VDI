@@ -21,24 +21,10 @@
 
     <div class="tab-content">
 
-        <div class="tab-pane" id="rubrique1">
+        <div class="tab-pane active" id="rubrique1">
             <h1 class="text-left">Machines virtuelles actives de vos utilisateurs</h1>
             <div class="mt-4">
-                <div class="cards d-flex justify-content-start">
-                    {% for vm in vms %}
-                        <form method="post">
-                            <div class="card">
-                                <div class="card-body bg-dark text-white">
-                                    <input type="hidden" name="vm_name" value="{{ vm.name }}">
-                                    <h5 class="card-title">{{ vm.name }}</h5>
-                                    <p class="card-text">depuis le <b>{{ vm.template }}</b> template</p>
-                                    <p>appartient à: <b>{{ vm.user.name }}</b></p>
-                                </div>
-                                <button type="submit" name="delete_vm" class="btn btn-danger">Supprimer</button>
-                            </div>
-                        </form>
-                    {% endfor %}
-                </div>
+                <div id="vms-div" class="cards d-flex justify-content-start"></div>
             </div>
         </div>
 
@@ -129,6 +115,99 @@
     </div>
 
     <script>
+        async function deleteVm(id) {
+            try {
+                var output = await checkIfVmAlive(id);
+                if (output == 1) {
+                    showLoadingModal();
+                    $.ajax({
+                        type: 'DELETE',
+                        url: 'https://api.insa-cvl.com/vm/delete_admin',
+                        contentType: 'application/json;charset=UTF-8',
+                        data: JSON.stringify({ vm_id: id }),
+                        xhrFields: {
+                            withCredentials: true
+                        },
+                        success: function (response) {
+                            console.log(response);
+                            hideLoadingModal();
+                            location.reload();
+                        },
+                        error: function (error) {
+                            alert('Erreur de suppression de la VM');
+                            hideLoadingModal(); 
+                        }
+                    });
+                }
+            } catch (error) {
+                alert(error);
+                hideLoadingModal(); 
+            }
+        }
+
+        function getVms() {
+            $.ajax({
+                type: 'GET',
+                url: 'https://api.insa-cvl.com/myvmusers',
+                contentType: 'application/json;charset=UTF-8',
+                xhrFields: {
+                    withCredentials: true
+                },
+                success: function (response) {
+                    var vms = response;
+                    console.log(vms);
+                    vmsDiv = $('#vms-div');
+                    vms.forEach(addVMToDOM);
+                },
+                error: function (error) {
+                    alert('Erreur d\'obtention d\'informations des VMs des users');
+                }
+            });
+        }
+
+        function addVMToDOM(vm) {
+            var vmCard = createVmCard(vm);
+            vmsDiv.append(vmCard);
+        }
+
+        function createVmForm(vm) {
+            var form = $('<form>').attr({
+                method: 'post',
+                id: 'vmForm'
+            });
+            form.append(
+                $('<input>').attr({
+                    type: 'hidden',
+                    name: 'vm_id',
+                    value: vm.id
+                }),
+                $('<h5>').addClass('card-title').text('Nom: ' + vm.template_name + "---" + vm.first_name + "-" + vm.last_name),
+                $('<p>').addClass('card-text').text('Template ID: ' + vm.template_id),
+                $('<p>').addClass('card-text').text('User ID: ' + vm.users_id),
+                $('<p>').addClass('card-text').text('Date de création: ' + vm.creationDate),
+                $('<button>').addClass('btn btn-danger').text('Supprimer').on('click', function () {
+                    deleteVm(vm.id);
+                    console.log('suppression de la VM ' + vm.id);
+                })
+            );
+            return form;
+        }
+
+        function createVmCard(vm) {
+            var vmCard = $('<div>').addClass('card').attr('id', vm.id);
+            var cardBody = createVmCardBody(vm);
+            vmCard.append(cardBody);
+            return vmCard;
+        }
+
+        function createVmCardBody(vm) {
+            var cardBody = $('<div>').addClass('card-body bg-dark text-white');
+            var form = createVmForm(vm);    
+            var ldsDefaultContainer = createLdsDefaultContainer(vm.id);
+            cardBody.append(form, ldsDefaultContainer);
+            return cardBody;
+        }
+
         function getMyUsers() {
             $.ajax({
                 type: 'GET',
@@ -189,7 +268,7 @@
                 },
                 error: function (error) {
                     console.error(error);
-                    alert('Erreur lors du changement de mot de passe.');
+                    alert('Erreur lors du changement de mot de passe. L\'utilisateur est peut-être du CAS.');
                 }
             });
         }
