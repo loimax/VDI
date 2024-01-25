@@ -93,7 +93,7 @@
                     <h5 class="modal-title" id="editUserModalLabel">Modifier le mot de passe</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
-                    </button>
+                    </button>   
                 </div>
                 <div class="modal-body bg-dark text-white">
                     <form method="post" id="editUserForm">
@@ -154,7 +154,6 @@
                 },
                 success: function (response) {
                     var vms = response;
-                    console.log(vms);
                     vmsDiv = $('#vms-div');
                     vms.forEach(addVMToDOM);
                 },
@@ -286,6 +285,7 @@
                 success: function (response) {
                     console.log(response);
                     alert('Utilisateur supprimé avec succès!');
+                    location.reload();
                 },
                 error: function (error) {
                     console.error(error);
@@ -318,6 +318,7 @@
                 success: function (response) {
                     console.log(response);
                     alert('Utilisateur créé avec succès! Mot de passe: ' + response.password);
+                    location.reload();
                 },
                 error: function (error) {
                     console.error(error);
