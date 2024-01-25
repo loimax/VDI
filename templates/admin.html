@@ -181,17 +181,17 @@
         }
 
         function createVmForm(vm) {
-            var form = $('<form>').attr({
-                method: 'post',
-                id: 'vmForm'
-            });
-            form.append(
+            var cardBody = $('<div>').addClass('card-body bg-dark text-white');
+    
+            var infoContainer = $('<div>');
+
+            infoContainer.append(
                 $('<input>').attr({
                     type: 'hidden',
                     name: 'vm_id',
                     value: vm.id
                 }),
-                $('<h5>').addClass('card-title').text('Nom: ' + vm.template_name + "---" + vm.first_name + "-" + vm.last_name),
+                $('<h5>').addClass('card-title').text('Nom: ' + vm.template_name + '---' + vm.first_name + '-' + vm.last_name),
                 $('<p>').addClass('card-text').text('Template ID: ' + vm.template_id),
                 $('<p>').addClass('card-text').text('User ID: ' + vm.users_id),
                 $('<p>').addClass('card-text').text('Date de création: ' + vm.creationDate),
@@ -199,7 +199,9 @@
                     deleteVmAdmin(vm.id);
                 })
             );
-            return form;
+
+            cardBody.append(infoContainer);
+            return cardBody;
         }
 
         function createVmCard(vm) {
