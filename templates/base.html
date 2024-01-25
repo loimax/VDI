@@ -60,6 +60,33 @@
             </div>
         </div>
         <script>
+            function checkIfVmAliveAdmin(vmId) {
+                return new Promise(function (resolve, reject) {
+                    showLoadingCardModal(vmId);   
+                    $.ajax({
+                        type: 'GET',
+                        url: 'https://api.insa-cvl.com/vm/status/id/' + vmId,
+                        contentType: 'application/json;charset=UTF-8',
+                        xhrFields: {
+                            withCredentials: true
+                        },
+                        success: function (response) {
+                            console.log("VM: " + vmId + ": STATE: " + response.vm_state + " STATUS: " + response.status);
+                            if (response.vm_state == "1" && response.status == "ACTIVE") {
+                                hideLoadingCardModal(vmId);
+                                resolve(1); 
+                            } else {
+                                hideLoadingCardModal(vmId);
+                                resolve(0);
+                            }
+                        },
+                        error: function (error) {
+                            reject("Erreur d'obtention d'informations de la VM");
+                        }
+                    });
+                });
+            }
+
             function showLoadingCardModal(id) {
                 $("#" + id + "-loading-modal").css("display", "block");
             }
