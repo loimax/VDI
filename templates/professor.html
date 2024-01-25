@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %}Page des Professeurs{% endblock %}
+{% block title %}VDI - Professeur{% endblock %}
 
 {% block content %}
 
@@ -9,7 +9,7 @@
             <div class="col-md-10">
                 <ul class="nav nav-tabs">
                     <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#rubrique1">VMs actives</a>
+                        <a class="nav-link active" data-toggle="tab" href="#rubrique1">VMs actives</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" data-toggle="tab" href="#rubrique2">Comptes</a>
@@ -148,7 +148,7 @@
         function getVms() {
             $.ajax({
                 type: 'GET',
-                url: 'https://api.insa-cvl.com/myvmusers',
+                url: 'https://api.insa-cvl.com/myvmsusers',
                 contentType: 'application/json;charset=UTF-8',
                 xhrFields: {
                     withCredentials: true
