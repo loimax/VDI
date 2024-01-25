@@ -115,37 +115,10 @@
     </div>
 
     <script>
-        function checkIfVmAliveProf(templateId) {
-            return new Promise(function (resolve, reject) {
-                showLoadingCardModal(templateId);   
-                $.ajax({
-                    type: 'GET',
-                    url: 'https://api.insa-cvl.com/vm/status/template/' + templateId,
-                    contentType: 'application/json;charset=UTF-8',
-                    xhrFields: {
-                        withCredentials: true
-                    },
-                    success: function (response) {
-                        console.log("VM: " + templateId + ": STATE: " + response.vm_state + " STATUS: " + response.status);
-                        if (response.vm_state == "1" && response.status == "ACTIVE") {
-                            hideLoadingCardModal(templateId);
-                            resolve(1); 
-                        } else {
-                            hideLoadingCardModal(templateId);
-                            resolve(0);
-                        }
-                    },
-                    error: function (error) {
-                        reject("Erreur d'obtention d'informations de la VM");
-                    }
-                });
-            });
-        }
 
         async function deleteVmProf(id) {
-            console.log("Suppresion de "+ id);
             try {
-                var output = await checkIfVmAliveProf(id);
+                var output = await checkIfVmAlive(id);
                 if (output == 1) {
                     showLoadingModal();
                     $.ajax({
@@ -157,7 +130,6 @@
                             withCredentials: true
                         },
                         success: function (response) {
-                            console.log("response:"+response);
                             hideLoadingModal();
                             location.reload();
                         },
@@ -168,7 +140,6 @@
                     });
                 }
             } catch (error) {
-                console.log("marche pas");
                 alert(error);
                 hideLoadingModal(); 
             }
@@ -215,7 +186,7 @@
                 $('<p>').addClass('card-text').text('User ID: ' + vm.users_id),
                 $('<p>').addClass('card-text').text('Date de création: ' + vm.creationDate),
                 $('<button>').addClass('btn btn-danger').text('Supprimer').on('click', function () {
-                    deleteVmProf(vm.id);
+                    deleteVmProf(vm.template_id);
                     console.log('suppression de la VM ' + vm.id);
                 })
             );
