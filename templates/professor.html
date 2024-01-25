@@ -254,6 +254,8 @@
             getMyUsers();
         
             $('#editUserForm').submit(function (event) {
+                event.preventDefault();
+
                 var userId = $('#edit-user-id').val();
                 var oldPassword = $('#old_password').val();
                 var newPassword = $('#new_password').val();
