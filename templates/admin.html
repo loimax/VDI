@@ -129,7 +129,7 @@
     <script>
         async function deleteVmAdmin(id) {
             try {
-                var output = await checkIfVmAlive(id);
+                var output = await checkIfVmAliveAdmin(id);
                 if (output == 1) {
                     showLoadingModal();
                     $.ajax({
