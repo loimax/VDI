@@ -116,10 +116,12 @@
 
     <script>
         async function deleteVm(id) {
+            console.log("entree fonction");
             try {
                 var output = await checkIfVmAlive(id);
                 if (output == 1) {
                     showLoadingModal();
+                    console.log("entree requete");
                     $.ajax({
                         type: 'DELETE',
                         url: 'https://api.insa-cvl.com/vm/delete_admin',
@@ -131,7 +133,7 @@
                         success: function (response) {
                             console.log(response);
                             hideLoadingModal();
-                            location.reload();
+                            //location.reload();
                         },
                         error: function (error) {
                             alert('Erreur de suppression de la VM');
