@@ -233,7 +233,7 @@
 
         function createVmCardBody(vm) {
             var cardBody = $('<div>').addClass('card-body bg-dark text-white');
-            var form = createVmForm(vm);
+            var form = createVmForm(vm);    
             var ldsDefaultContainer = createLdsDefaultContainer(vm.id);
             cardBody.append(form, ldsDefaultContainer);
             return cardBody;

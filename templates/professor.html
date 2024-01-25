@@ -44,6 +44,12 @@
 
         <div class="tab-pane" id="rubrique2">
             <h1 class="text-left">Comptes utilisateurs créés</h1>
+            <div class="card" id="addUserCard" style="width: 18rem;">
+                <div class="card-body bg-info text-white">
+                    <h5 class="card-title text-center">Créer</h5>
+                    <p class="card-text" style="font-size: 36px; text-align: center;"><b>+</b></p>
+                </div>
+            </div>
             <div class="mt-4">
                 <table class="table" id="users-table">
                     <thead>
@@ -141,7 +147,7 @@
                     users.forEach(addUserToTable);
                 },
                 error: function (error) {
-                    alert('Erreur d\'obtention d\'informations d\'users');
+                    alert('Erreur d\'obtention d\'informations de mes users');
                 }
             });
         }
