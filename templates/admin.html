@@ -127,7 +127,7 @@
     <hr>
 
     <script>
-        async function deleteVm(id) {
+        async function deleteVmAdmin(id) {
             try {
                 var output = await checkIfVmAlive(id);
                 if (output == 1) {
@@ -196,7 +196,7 @@
                 $('<p>').addClass('card-text').text('User ID: ' + vm.users_id),
                 $('<p>').addClass('card-text').text('Date de création: ' + vm.creationDate),
                 $('<button>').addClass('btn btn-danger').text('Supprimer').on('click', function () {
-                    deleteVm(vm.id);
+                    deleteVmAdmin(vm.id);
                 })
             );
             return form;
