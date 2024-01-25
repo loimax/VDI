@@ -45,27 +45,19 @@
         <div class="tab-pane" id="rubrique2">
             <h1 class="text-left">Comptes utilisateurs créés</h1>
             <div class="mt-4">
-                <div class="cards d-flex justify-content-start">
-                    {% for user in users %}
-                        <form method="post">
-                            <div class="card">
-                                <div class="card-body bg-dark text-white">
-                                    <input type="hidden" name="username" value="{{ user.username }}">
-                                    <h5 class="card-title">{{ user.username }}</h5>
-                                    <p class="card-text">contact: <b>{{ user.email }}</b></p>
-                                    <button type="button" class="btn btn-info edit-user-button" data-user-id="{{ user.id }}">Modifier mot de passe</button>                            
-                                </div>
-                                <button type="submit" name="delete_user" class="btn btn-danger">Supprimer</button>
-                            </div>
-                        </form>
-                    {% endfor %}
-                    <div class="card" id="addUserCard" style="width: 18rem;">
-                        <div class="card-body bg-info text-white">
-                            <h5 class="card-title text-center">Créer</h5>
-                            <p class="card-text" style="font-size: 36px; text-align: center;"><b>+</b></p>
-                        </div>
-                    </div>
-                </div>
+                <table class="table" id="users-table">
+                    <thead>
+                        <tr>
+                            <th>Prénom</th>
+                            <th>Nom</th>
+                            <th>Email</th>
+                        </tr>
+                    </thead>
+                </table>
+            <hr>
+            </div>
+            <div class="mt-4">
+                <div id="create-user-div" class="cards d-flex justify-content-start"></div>
             </div>
         </div>
     </div>
@@ -112,20 +104,114 @@
                     </button>
                 </div>
                 <div class="modal-body bg-dark text-white">
-                    <form method="post">
+                    <form method="post" class="editUserForm">
                         <input type="hidden" name="edit_user_id" id="edit-user-id">
+                        <div class="form-group">
+                            <label for="old_password">Ancien mot de passe :</label>
+                            <input type="password" class="form-control" id="old_password" name="old_password" required>
+                        </div>
                         <div class="form-group">
                             <label for="new_password">Nouveau mot de passe :</label>
                             <input type="password" class="form-control" id="new_password" name="new_password" required>
                         </div>
+                        <div class="form-group">
+                            <label for="new_password2">Retapez le nouveau mot de passe :</label>
+                            <input type="password" class="form-control" id="new_password2" name="new_password2" required>
+                        </div>
+                        
                         <button type="submit" name="edit_user_password" class="btn btn-info">Enregistrer</button>
-                    </form>
+                    </form>                 
                 </div>
             </div>
         </div>
     </div>
 
     <script>
+        function getMyUsers() {
+            $.ajax({
+                type: 'GET',
+                url: 'https://api.insa-cvl.com/myusers',
+                contentType: 'application/json;charset=UTF-8',
+                xhrFields: {
+                    withCredentials: true
+                },
+                success: function (response) {
+                    var users = response;
+                    usersDiv = $('#users-div');
+                    users.forEach(addUserToTable);
+                },
+                error: function (error) {
+                    alert('Erreur d\'obtention d\'informations d\'users');
+                }
+            });
+        }
+
+        function addUserToTable(user) {
+            var row = $('<tr>');
+            row.append('<td>' + user.first_name + '</td>');
+            row.append('<td>' + user.last_name + '</td>');
+            row.append('<td>' + user.email + '</td>');
+            
+            var changePasswordButton = $('<button>').text('Changer le mot de passe')
+                .attr('data-toggle', 'modal')
+                .attr('data-target', '#editUserModal')
+                .attr('data-user-id', user.id);
+            
+            changePasswordButton.click(function() {
+                var userId = $(this).data('user-id');
+                $('#edit-user-id').val(userId);
+            });
+
+            row.append($('<td>').append(changePasswordButton));
+
+            var deleteUserButton = $('<button>').text('Supprimer l\'utilisateur').click(function() {
+                deleteUser(user.id);
+            });
+            row.append($('<td>').append(deleteUserButton));
+
+            $('#users-table').append(row);
+        }
+
+        function changePassword(userId, oldPassword, newPassword, newPassword2) {
+            $.ajax({
+                type: 'POST',
+                url: 'https://api.insa-cvl.com/updatepassword',
+                contentType: 'application/json;charset=UTF-8',
+                data: JSON.stringify({ user_id: userId, old_password: oldPassword, new_password: newPassword, new_password2: newPassword2 }),
+                xhrFields: {
+                    withCredentials: true
+                },
+                success: function (response) {
+                    console.log(response);
+                    alert('Mot de passe changé avec succès!');
+                },
+                error: function (error) {
+                    console.error(error);
+                    alert('Erreur lors du changement de mot de passe.');
+                }
+            });
+        }
+
+        function deleteUser(userId) {
+            $.ajax({
+                type: 'DELETE',
+                url: 'https://api.insa-cvl.com/deleteuser',
+                contentType: 'application/json;charset=UTF-8',
+                data: JSON.stringify({ user_id: userId }),
+                xhrFields: {
+                    withCredentials: true
+                },
+                success: function (response) {
+                    console.log(response);
+                    alert('Utilisateur supprimé avec succès!');
+                },
+                error: function (error) {
+                    console.error(error);
+                    alert('Erreur lors de la suppression de l\'utilisateur.');
+                }
+            });
+        }
+
         function createUser() {
             var firstname = $('#firstname').val();
             var lastname = $('#lastname').val();
@@ -136,6 +222,8 @@
                 last_name: lastname,
                 email: email
             };
+
+            console.log("User data for creation:" + userData);
 
             $.ajax({
                 type: 'POST',
@@ -157,6 +245,19 @@
         }
 
         $(document).ready(function () {
+            getUsers();
+        
+            $('#editUserForm').submit(function (event) {
+                var userId = $('#edit-user-id').val();
+                var oldPassword = $('#old_password').val();
+                var newPassword = $('#new_password').val();
+                var newPassword2 = $('#new_password2').val();
+
+                changePassword(userId, oldPassword, newPassword, newPassword2);
+                
+                $('#editUserModal').modal('hide');
+            });
+                        
             $('#createUserForm').submit(function (event) {
                 event.preventDefault();
                 createUser();
