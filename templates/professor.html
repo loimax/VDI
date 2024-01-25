@@ -286,6 +286,7 @@
                     console.log(response);
                     alert('Utilisateur supprimé avec succès!');
                     location.reload();
+                    $('#rubrique2-link').tab('show');
                 },
                 error: function (error) {
                     console.error(error);
@@ -319,6 +320,7 @@
                     console.log(response);
                     alert('Utilisateur créé avec succès! Mot de passe: ' + response.password);
                     location.reload();
+                    $('#rubrique2-link').tab('show');
                 },
                 error: function (error) {
                     console.error(error);
