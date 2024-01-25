@@ -425,8 +425,9 @@
                 var newPassword2 = $('#new_password2').val();
 
                 changePassword(userId, newPassword, newPassword2);
-                $('#new_password') = "";
-                $('#new_password2') = "";
+                // CLear form
+                $('#editUserForm').trigger('reset');
+
                 $('#editUserModal').modal('hide');
             });
                         
