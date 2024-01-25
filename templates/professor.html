@@ -116,6 +116,7 @@
 
     <script>
         async function deleteVmProf(id) {
+            console.log("Suppresion de "+ id);
             try {
                 var output = await checkIfVmAlive(id);
                 if (output == 1) {
