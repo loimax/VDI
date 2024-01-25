@@ -185,7 +185,6 @@
                 $('<p>').addClass('card-text').text('Date de création: ' + vm.creationDate),
                 $('<button>').addClass('btn btn-danger').text('Supprimer').on('click', function () {
                     deleteVmProf(vm.id);
-                    console.log('suppression de la VM ' + vm.id);
                 })
             );
 
@@ -263,11 +262,9 @@
                     withCredentials: true
                 },
                 success: function (response) {
-                    console.log(response);
                     alert('Mot de passe changé avec succès!');
                 },
                 error: function (error) {
-                    console.error(error);
                     alert('Erreur lors du changement de mot de passe. L\'utilisateur est peut-être du CAS.');
                 }
             });
@@ -283,12 +280,10 @@
                     withCredentials: true
                 },
                 success: function (response) {
-                    console.log(response);
                     alert('Utilisateur supprimé avec succès!');
                     location.reload();
                 },
                 error: function (error) {
-                    console.error(error);
                     alert('Erreur lors de la suppression de l\'utilisateur.');
                 }
             });
@@ -305,8 +300,6 @@
                 email: email
             };
 
-            console.log("User data for creation:" + userData);
-
             $.ajax({
                 type: 'POST',
                 url: 'https://api.insa-cvl.com/createuser',
@@ -316,12 +309,10 @@
                     withCredentials: true
                 },
                 success: function (response) {
-                    console.log(response);
                     alert('Utilisateur créé avec succès! Mot de passe: ' + response.password);
                     location.reload();
                 },
                 error: function (error) {
-                    console.error(error);
                     alert('Erreur lors de la création de l\'utilisateur.');
                 }
             });

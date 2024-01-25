@@ -16,7 +16,6 @@
                         withCredentials: true
                     },
                     success: function (response) {
-                        console.log("VM: " + templateId + ": STATE: " + response.vm_state + " STATUS: " + response.status);
                         if (response.vm_state == "1" && response.status == "ACTIVE") {
                             hideLoadingCardModal(templateId);
                             resolve(1); 
@@ -168,12 +167,9 @@
                     withCredentials: true
                 },
                 success: function (response) {
-                    console.log(response);
                     hideLoadingModal();
                     var vncUrl = response.url;
-                    //window.open(vncUrl, '_blank');
                     window.location = "/viewer?vncUrl=" + encodeURIComponent(vncUrl);
-                    //location.href = vncUrl;
                 },
                 error: function (error) {
                     alert('Erreur de d\'ouverture de la VM');

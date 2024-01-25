@@ -71,7 +71,6 @@
                             withCredentials: true
                         },
                         success: function (response) {
-                            console.log("VM: " + vmId + ": STATE: " + response.vm_state + " STATUS: " + response.status);
                             if (response.vm_state == "1" && response.status == "ACTIVE") {
                                 hideLoadingCardModal(vmId);
                                 resolve(1); 
@@ -125,7 +124,6 @@
                             withCredentials: true
                         },
                         success: function (response) {
-                            console.log("VM: " + id + ": STATE: " + response.vm_state + " STATUS: " + response.status);
                             if (response.vm_state == "1" && response.status == "ACTIVE") {
                                 hideLoadingCardModal(id);
                                 resolve(1); 
@@ -169,7 +167,6 @@
                         withCredentials: true
                     },
                     success: function (response) {
-                        console.log(response);
                         if (response.cas === true) {
                             window.location = "https://cas.insa-cvl.fr/cas/logout?service=https://api.insa-cvl.com"
                         } 
@@ -209,7 +206,6 @@
                     },
                     success: function (response) {
                         var user = response;
-                        console.log(user);
                         $('#email').text('Email: ' + user.email);
                         $('#name').text('Name: ' + user.first_name);
                         $('#surname').text('Surname: ' + user.last_name);

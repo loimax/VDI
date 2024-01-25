@@ -141,7 +141,6 @@
                             withCredentials: true
                         },
                         success: function (response) {
-                            console.log(response);
                             hideLoadingModal();
                             location.reload();
                         },
@@ -167,7 +166,6 @@
                 },
                 success: function (response) {
                     var vms = response;
-                    console.log(vms);
                     vmsDiv = $('#vms-div');
                     vms.forEach(addVMToDOM);
                 },
@@ -199,7 +197,6 @@
                 $('<p>').addClass('card-text').text('Date de création: ' + vm.creationDate),
                 $('<button>').addClass('btn btn-danger').text('Supprimer').on('click', function () {
                     deleteVm(vm.id);
-                    console.log('suppression de la VM ' + vm.id);
                 })
             );
             return form;
@@ -250,7 +247,6 @@
                 email: email
             };
 
-            console.log("User data for creation:" + userData);
 
             $.ajax({
                 type: 'POST',
@@ -261,11 +257,9 @@
                     withCredentials: true
                 },
                 success: function (response) {
-                    console.log(response);
                     alert('Utilisateur créé avec succès! Mot de passe: ' + response.password);
                 },
                 error: function (error) {
-                    console.error(error);
                     alert('Erreur lors de la création de l\'utilisateur.');
                 }
             });
@@ -307,11 +301,9 @@
                     withCredentials: true
                 },
                 success: function (response) {
-                    console.log(response);
                     alert('Mot de passe changé avec succès!');
                 },
                 error: function (error) {
-                    console.error(error);
                     alert('Erreur lors du changement de mot de passe.');
                 }
             });

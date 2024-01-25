@@ -121,10 +121,6 @@
                     const errorMessage = decodeURIComponent(urlParams.get('error'));
                     const successMessage = decodeURIComponent(urlParams.get('success'));
 
-
-                    console.log("error: " + errorMessage);
-                    console.log("success: " + successMessage);
-
                     if (errorMessage != "null") {
                         updateAlert(errorMessage);
                     }
