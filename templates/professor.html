@@ -142,6 +142,9 @@
                 url: 'https://api.insa-cvl.com/createuser',
                 contentType: 'application/json;charset=UTF-8',
                 data: JSON.stringify(userData),
+                xhrFields: {
+                    withCredentials: true
+                },
                 success: function (response) {
                     console.log(response);
                     alert('Utilisateur créé avec succès! Mot de passe: ' + response.password);
