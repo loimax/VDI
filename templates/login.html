@@ -9,6 +9,10 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
         <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
         <style>
+            .border-bottom-nav {
+                border-bottom: 2px solid #FFF; /* Remplacez "yourColor" par la couleur souhaitée en format hexadécimal, RVB, ou autre */
+            }
+            
             .cards {
                 display: flex;
                 flex-wrap: wrap;
@@ -23,7 +27,7 @@
             }
 
             body {
-                background-color: #869CA2;
+                background-color: #343A40;
                 color: white;
             }
 
@@ -74,12 +78,11 @@
             a:hover {
                 cursor:hand;
             }
-
         </style>
     </head>
 
     <body>
-        <nav class="navbar navbar-dark bg-dark">
+        <nav class="navbar navbar-dark bg-dark border-bottom-nav">
             <a class="navbar-brand" href="/">
                 <img src="{{ url_for('static', filename='icons/vdi.png' ) }}" alt="Info" style="width: 50px; height: 58px; cursor: pointer;">
             </a>

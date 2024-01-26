@@ -21,7 +21,7 @@
     </head>
 
     <body>
-        <nav class="navbar navbar-dark bg-dark">
+        <nav class="navbar navbar-dark bg-dark border-bottom-nav">
             <a class="navbar-brand" href="/">
                 <img src="{{ url_for('static', filename='icons/vdi.png' ) }}" alt="Info" style="width: 50px; height: 58px; cursor: pointer;">
             </a>
@@ -283,6 +283,9 @@
         </script>
 
         <style>
+            .border-bottom-nav {
+                border-bottom: 2px solid #FFF; /* Remplacez "yourColor" par la couleur souhaitée en format hexadécimal, RVB, ou autre */
+            }
             .dropdown-menu-right {
                 right: 0;
                 left: auto;
@@ -308,7 +311,7 @@
             }
 
             body {
-                background-color: #869CA2;
+                background-color: #343A40;
                 color: white;
             }
 
