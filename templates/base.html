@@ -27,8 +27,8 @@
                 <a id="adminBtn" class="navbar-brand ml-auto" href="/admin" aria-hidden="true" style="display: none;">Espace admin</a>
                 <a id="connexionBtn" class="navbar-brand ml-auto">Connexion</a>
                
-                <div class="dropdown navbar-branb ml-auto">
-                    <li class="nav-item dropdown">
+                <div class="dropdown navbar-brand ml-auto">
+                    <div class="nav-item dropdown">
                         <button class="btn dropdown-toggle" type="button" id="navbarDarkDropdownMenuLink" data-toggle="dropdown">
                             <img src="{{ url_for('static', filename='icons/profil.png' ) }}" alt="Info" style="width: 20px; height: 20px; cursor: pointer;">
                         </button>
@@ -36,7 +36,7 @@
                             <li><a class="dropdown-item fas fa-user-alt pe-2" data-toggle="modal" data-target="#userInfoModal">Mon compte</a></li>
                             <li><a class="dropdown-item fas fa-door-open pe-2" onclick="logout()" href="#">Déconnexion</a></li>
                         </ul>
-                    </li>
+                    </div>
                 </div>
             </div>
         </nav>
