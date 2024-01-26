@@ -27,47 +27,26 @@
                 <a id="adminBtn" class="navbar-brand ml-auto" href="/admin" aria-hidden="true" style="display: none;">Espace admin</a>
                 <a id="connexionBtn" class="navbar-brand ml-auto">Connexion</a>
 
-                <div id="userInfo" class="dropdown">
-                    <button class="btn btn-primary btn-floating dropdown-toggle hidden-arrow bg-dark" type="button" id="dropdownMenuButton" data-mdb-toggle="dropdown" aria-expanded="false">
-                      <i class="fas fa-ellipsis-v fa-lg"></i>
-                    </button>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                      <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modalUserInfo" data-bs-whatever="@getbootstrap" href="#"> <i class="fas fa-user-alt pe-2"></i>My Profile</a></li>
-                      <li><a id="logoutLink" class="dropdown-item" onclick="logout()"> <i class="fas fa-door-open pe-2"></i>Déconnexion</a></li>
-                    </ul>
-                </div>
-
-                <div class="dropdown">
-                    <button
-                      class="btn btn-primary btn-floating dropdown-toggle hidden-arrow bg-dark"
-                      type="button"
-                      id="dropdownMenuButton2"
-                      data-mdb-toggle="dropdown"
-                      aria-expanded="false"
-                    >
-                      <i class="fas fa-ellipsis-v fa-lg"></i>
+                <div class="dropdown ml-auto">
+                    <button class="btn btn-primary btn-floating dropdown-toggle hidden-arrow bg-dark" type="button" id="dropdownMenuButton2" data-mdb-toggle="dropdown" aria-expanded="false">
+                        <i class="fas fa-ellipsis-v fa-lg"></i>
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
-                      <li><a class="dropdown-item" href="#"> <i class="fas fa-user-alt pe-2"></i>My Profile</a></li>
-                      <li><a class="dropdown-item" href="#"> <i class="fas fa-cog pe-2"></i>Settings</a></li>
-                      <li><a class="dropdown-item" href="#"> <i class="fas fa-door-open pe-2"></i>Logout</a></li>
-                    </ul>
-                  </div>
-
-                <div class="dropdown">
-                    <a class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                        <img src="{{ url_for('static', filename='icons/user.png' ) }}" alt="Info" style="width: 20px; height: 20px; cursor: pointer;">
-                    </a>
-                    <ul class="dropdown-menu">
-                      <li><p class="dropdown-item" id="tt-email">Email: </p></li>
-                      <li><p class="dropdown-item" id="tt-name">Name: </p></li>
-                      <li><p class="dropdown-item" id="tt-surname">Surname: </p></li>
-                      <li><p class="dropdown-item" id="tt-role">Role: </p></li>
-                      <li><p class="dropdown-item" id="tt-id">ID: </p></li>
+                        <li><a class="dropdown-item" href="#"> <i class="fas fa-user-alt pe-2"></i>My Profile</a></li>
+                        <li><a class="dropdown-item" href="#"> <i class="fas fa-cog pe-2"></i>Settings</a></li>
+                        <li><a class="dropdown-item" href="#"> <i class="fas fa-door-open pe-2"></i>Logout</a></li>
                     </ul>
                 </div>
             </div>
         </nav>
+        
+        <div class="modal-dialog modal-sm">
+            <p class="dropdown-item" id="tt-email">Email: </p>
+            <p class="dropdown-item" id="tt-name">Name: </p>
+            <p class="dropdown-item" id="tt-surname">Surname: </p>
+            <p class="dropdown-item" id="tt-role">Role: </p>
+            <p class="dropdown-item" id="tt-id">ID: </p>
+        </div>
         <!-- Loading modal -->
         <div class="modal" id="loadingModal" tabindex="-1" role="dialog" aria-labelledby="loadingModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
