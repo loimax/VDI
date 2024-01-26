@@ -22,7 +22,7 @@
     <body>
         <nav class="navbar navbar-dark bg-dark">
             <div class="container">
-                <a class="navbar-brand" href="/">Accueil</a>
+                <a class="navbar-brand" href="/"><i class="bi bi-house"></i></a>
                 <a id="profBtn" class="navbar-brand ml-auto" href="/professor" aria-hidden="true" style="display: none;">Espace professeur</a>
                 <a id="adminBtn" class="navbar-brand ml-auto" href="/admin" aria-hidden="true" style="display: none;">Espace admin</a>
                 <a id="connexionBtn" class="navbar-brand ml-auto">Connexion</a>
@@ -33,8 +33,11 @@
                             <img src="{{ url_for('static', filename='icons/profil.png' ) }}" alt="Info" style="width: 20px; height: 20px; cursor: pointer;">
                         </button>
                         <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
-                            <li><a class="dropdown-item fas fa-user-alt pe-2" data-toggle="modal" data-target="#userInfoModal">Mon compte</a></li>
-                            <li><a class="dropdown-item fas fa-door-open pe-2" onclick="logout()" href="#">Déconnexion</a></li>
+                            <li><a class="dropdown-item" data-toggle="modal" data-target="#userInfoModal"><i class="bi bi-person"></i> Mon compte</a></li>
+                            <li><a class="dropdown-item" href="/dashboard"><i class="bi bi-box-arrow-right"></i> Dashboard</a></li>
+                            <li><a class="dropdown-item" href="/professor"><i class="bi bi-box-arrow-right"></i> Espace professeur</a></li>
+                            <li><a class="dropdown-item" href="/admin"><i class="bi bi-box-arrow-right"></i> Espace admin</a></li>
+                            <li><a class="dropdown-item" onclick="logout()" href="#"><i class="bi bi-box-arrow-right"></i> Déconnexion</a></li>
                         </ul>
                     </div>
                 </div>
