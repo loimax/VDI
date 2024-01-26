@@ -26,16 +26,10 @@
                 <a id="profBtn" class="navbar-brand ml-auto" href="/professor" aria-hidden="true" style="display: none;">Espace professeur</a>
                 <a id="adminBtn" class="navbar-brand ml-auto" href="/admin" aria-hidden="true" style="display: none;">Espace admin</a>
                 <a id="connexionBtn" class="navbar-brand ml-auto">Connexion</a>
-                <span class="navbar-text ml-auto" data-toggle="tooltip" data-placement="left" title="Informations de connexion">
+                <a href="#" class="d-inline-block" data-bs-toggle="tooltip" data-bs-title='<p id="tt-email">Email: </p> <p id="tt-name">Name: </p> <p id="tt-surname">Surname: </p> <p id="tt-role">Role: </p> <p id="tt-id">ID: </p>
+                    '>
                     <img src="{{ url_for('static', filename='icons/compte.png' ) }}" alt="Info" style="width: 20px; height: 20px; cursor: pointer;">
-                    <span class="d-none" id="tooltip-content">
-                        <p id="tt-email">Email: </p>
-                        <p id="tt-name">Name: </p>
-                        <p id="tt-surname">Surname: </p>
-                        <p id="tt-role">Role: </p>
-                        <p id="tt-id">ID: </p>
-                    </span>
-                </span>
+                </a>
             </div>
         </nav>
         <!-- Loading modal -->
@@ -260,21 +254,6 @@
             $(document).ready(function () {
                 getUserProfile();
             });
-
-            $(function () {
-                $('[data-toggle="tooltip"]').tooltip({
-                    html: true,
-                    title: $('#tooltip-content').html()
-                });
-            });
-            $('#infoTooltip').hover(
-                function () {
-                    $('#tooltip-content').removeClass('d-none');
-                },
-                function () {
-                    $('#tooltip-content').addClass('d-none');
-                }
-            );
         </script>
 
         <style>
