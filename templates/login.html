@@ -79,12 +79,10 @@
     </head>
 
     <body>
-        <nav class="navbar navbar-dark bg-dark">
-            <div class="container" width="95%">
-                <a class="navbar-brand" href="/">
-                    <img src="{{ url_for('static', filename='icons/vdi.png' ) }}" alt="Info" style="width: 50px; height: 58px; cursor: pointer;">
-                </a>
-            </div>
+        <nav class="navbar navbar-light bg-light">
+            <a class="navbar-brand" href="/">
+                <img src="{{ url_for('static', filename='icons/vdi.png' ) }}" alt="Info" style="width: 50px; height: 58px; cursor: pointer;">
+            </a>
         </nav>
         <div style="display: none; "id="alert-message" class="alert alert-warning alert-dismissible fade show" role="alert">
             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">x</span></button>

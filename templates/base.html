@@ -22,28 +22,22 @@
 
     <body>
         <nav class="navbar navbar-dark bg-dark">
-            <div class="container" width="95%">
-                <a class="navbar-brand" href="/">
-                    <img src="{{ url_for('static', filename='icons/vdi.png' ) }}" alt="Info" style="width: 50px; height: 58px; cursor: pointer;">
-                </a>
-        
-                <a id="connexionBtn" class="navbar-brand mx-auto"><i class="bi bi-box-arrow-in-right"></i> Connexion</a>
-        
-                <div class="dropdown navbar-brand ml-auto">
-                    <button class="btn dropdown-toggle" type="button" id="navbarDarkDropdownMenuLink" data-toggle="dropdown">
-                        <img src="{{ url_for('static', filename='icons/profil.png' ) }}" alt="Info" style="width: 20px; height: 20px; cursor: pointer;">
-                    </button>
-                    <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
-                        <li><a class="dropdown-item" data-toggle="modal" data-target="#userInfoModal"><i class="bi bi-person"></i> Mon compte</a></li>
-                        <li><a class="dropdown-item" href="/dashboard"><i class="bi bi-laptop"></i> Dashboard</a></li>
-                        <li id="profBtn" style="display: none;"><a class="dropdown-item" href="/professor"><i class="bi bi-person-video3"></i> Espace professeur</a></li>
-                        <li id="adminBtn" style="display: none;"><a class="dropdown-item" href="/admin"><i class="bi bi-person-fill-gear"></i> Espace admin</a></li>
-                        <li><a class="dropdown-item" onclick="logout()" href="#"><i class="bi bi-box-arrow-right"></i> Déconnexion</a></li>
-                    </ul>
-                </div>
+            <a class="navbar-brand" href="/">
+                <img src="{{ url_for('static', filename='icons/vdi.png' ) }}" alt="Info" style="width: 50px; height: 58px; cursor: pointer;">
+            </a>
+            <div class="dropdown navbar-brand ml-auto">
+                <button class="btn dropdown-toggle" type="button" id="navbarDarkDropdownMenuLink" data-toggle="dropdown">
+                    <img src="{{ url_for('static', filename='icons/profil.png' ) }}" alt="Info" style="width: 20px; height: 20px; cursor: pointer;">
+                </button>
+                <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
+                    <li><a class="dropdown-item" data-toggle="modal" data-target="#userInfoModal"><i class="bi bi-person"></i> Mon compte</a></li>
+                    <li><a class="dropdown-item" href="/dashboard"><i class="bi bi-laptop"></i> Dashboard</a></li>
+                    <li id="profBtn" style="display: none;"><a class="dropdown-item" href="/professor"><i class="bi bi-person-video3"></i> Espace professeur</a></li>
+                    <li id="adminBtn" style="display: none;"><a class="dropdown-item" href="/admin"><i class="bi bi-person-fill-gear"></i> Espace admin</a></li>
+                    <li id="deconnexionBtn"><a class="dropdown-item" onclick="logout()" href="#"><i class="bi bi-box-arrow-right"></i> Déconnexion</a></li>
+                </ul>
             </div>
-        </nav>
-        
+        </nav>        
 
         <!-- user info modal -->
         <div class="modal fade" id="userInfoModal" tabindex="-1" aria-labelledby="userInfoLabel" aria-hidden="true">
@@ -226,10 +220,8 @@
 
             function updateConnectionStatus(isConnected) {
                 if (isConnected) {
-                    $('#connexionBtn').hide();
                     $('#userInfo').show();
                 } else {
-                    $('#connexionBtn').show();
                     $('#userInfo').hide();
                 }
             }
