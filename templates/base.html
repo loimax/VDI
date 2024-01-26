@@ -27,10 +27,10 @@
                 <a id="adminBtn" class="navbar-brand ml-auto" href="/admin" aria-hidden="true" style="display: none;">Espace admin</a>
                 <a id="connexionBtn" class="navbar-brand ml-auto">Connexion</a>
                
-                <div class="dropdown">
+                <div class="dropdown navbar-branb ml-auto">
                     <li class="nav-item dropdown">
                         <button class="btn dropdown-toggle" type="button" id="navbarDarkDropdownMenuLink" data-toggle="dropdown">
-                            <img src="{{ url_for('static', filename='icons/user.png' ) }}" alt="Info" style="width: 20px; height: 20px; cursor: pointer;">
+                            <img src="{{ url_for('static', filename='icons/profil.png' ) }}" alt="Info" style="width: 20px; height: 20px; cursor: pointer;">
                         </button>
                         <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
                             <li><a class="dropdown-item fas fa-user-alt pe-2" data-toggle="modal" data-target="#userInfoModal">Mon compte</a></li>
@@ -43,7 +43,7 @@
 
         <!-- user info modal -->
         <div class="modal fade" id="userInfoModal" tabindex="-1" aria-labelledby="userInfoLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header bg-dark text-white">
                         <h1 class="modal-title" id="exampleModalToggleLabel2">Mon compte</h1>
