@@ -23,7 +23,9 @@
     <body>
         <nav class="navbar navbar-dark bg-dark">
             <div class="container">
-                <a class="navbar-brand" href="/"><i class="bi bi-house"></i></a>
+                <a class="navbar-brand" href="/">
+                    <img src="{{ url_for('static', filename='icons/vdi.png' ) }}" alt="Info" style="width: 40px; height: 40px; cursor: pointer;">
+                </a>
         
                 <a id="connexionBtn" class="navbar-brand mx-auto"><i class="bi bi-box-arrow-in-right"></i> Connexion</a>
         

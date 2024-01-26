@@ -81,8 +81,9 @@
     <body>
         <nav class="navbar navbar-dark bg-dark">
             <div class="container">
-                <a class="navbar-brand" href="/">Accueil</a>
-                <a class="navbar-brand ml-auto" href="/login">Connexion</a>
+                <a class="navbar-brand" href="/">
+                    <img src="{{ url_for('static', filename='icons/vdi.png' ) }}" alt="Info" style="width: 40px; height: 40px; cursor: pointer;">
+                </a>
             </div>
         </nav>
         <div style="display: none; "id="alert-message" class="alert alert-warning alert-dismissible fade show" role="alert">
