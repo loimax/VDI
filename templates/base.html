@@ -26,20 +26,17 @@
                 <a id="profBtn" class="navbar-brand ml-auto" href="/professor" aria-hidden="true" style="display: none;">Espace professeur</a>
                 <a id="adminBtn" class="navbar-brand ml-auto" href="/admin" aria-hidden="true" style="display: none;">Espace admin</a>
                 <a id="connexionBtn" class="navbar-brand ml-auto">Connexion</a>
-
-                <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
-                    <ul class="navbar-nav">
-                      <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <img src="{{ url_for('static', filename='icons/user.png' ) }}" alt="Info" style="width: 20px; height: 20px; cursor: pointer;">
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
-                            <li><a class="dropdown-item fas fa-user-alt pe-2" data-toggle="modal" data-target="#userInfoModal">Mon compte</a></li>
-                            <li><a class="dropdown-item fas fa-door-open pe-2" onclick="logout()" href="#">Déconnexion</a></li>
-                        </ul>
-                      </li>
-                    </ul>
-                </div>
+               
+                <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <img src="{{ url_for('static', filename='icons/user.png' ) }}" alt="Info" style="width: 20px; height: 20px; cursor: pointer;">
+                </a>
+                <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
+                    <li><a class="dropdown-item fas fa-user-alt pe-2" data-toggle="modal" data-target="#userInfoModal">Mon compte</a></li>
+                    <li><a class="dropdown-item fas fa-door-open pe-2" onclick="logout()" href="#">Déconnexion</a></li>
+                </ul>
+                </li>
+                
             </div>
         </nav>
 
