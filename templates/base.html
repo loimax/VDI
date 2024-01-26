@@ -24,26 +24,24 @@
         <nav class="navbar navbar-dark bg-dark">
             <div class="container">
                 <a class="navbar-brand" href="/"><i class="bi bi-house"></i></a>
-                <a id="profBtn" class="navbar-brand ml-auto" href="/professor" aria-hidden="true" style="display: none;">Espace professeur</a>
-                <a id="adminBtn" class="navbar-brand ml-auto" href="/admin" aria-hidden="true" style="display: none;">Espace admin</a>
-                <a id="connexionBtn" class="navbar-brand ml-auto">Connexion</a>
-               
+        
+                <a id="connexionBtn" class="navbar-brand mx-auto"><i class="bi bi-box-arrow-in-right"></i> Connexion</a>
+        
                 <div class="dropdown navbar-brand ml-auto">
-                    <div class="nav-item dropdown">
-                        <button class="btn dropdown-toggle" type="button" id="navbarDarkDropdownMenuLink" data-toggle="dropdown">
-                            <img src="{{ url_for('static', filename='icons/profil.png' ) }}" alt="Info" style="width: 20px; height: 20px; cursor: pointer;">
-                        </button>
-                        <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
-                            <li><a class="dropdown-item" data-toggle="modal" data-target="#userInfoModal"><i class="bi bi-person"></i> Mon compte</a></li>
-                            <li><a class="dropdown-item" href="/dashboard"><i class="bi bi-box-arrow-right"></i> Dashboard</a></li>
-                            <li><a class="dropdown-item" href="/professor"><i class="bi bi-box-arrow-right"></i> Espace professeur</a></li>
-                            <li><a class="dropdown-item" href="/admin"><i class="bi bi-box-arrow-right"></i> Espace admin</a></li>
-                            <li><a class="dropdown-item" onclick="logout()" href="#"><i class="bi bi-box-arrow-right"></i> Déconnexion</a></li>
-                        </ul>
-                    </div>
+                    <button class="btn dropdown-toggle" type="button" id="navbarDarkDropdownMenuLink" data-toggle="dropdown">
+                        <img src="{{ url_for('static', filename='icons/profil.png' ) }}" alt="Info" style="width: 20px; height: 20px; cursor: pointer;">
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
+                        <li><a class="dropdown-item" data-toggle="modal" data-target="#userInfoModal"><i class="bi bi-person"></i> Mon compte</a></li>
+                        <li><a class="dropdown-item" href="/dashboard"><i class="bi bi-laptop"></i> Dashboard</a></li>
+                        <li id="profBtn" style="display: none;"><a class="dropdown-item" href="/professor"><i class="bi bi-person-video3"></i> Espace professeur</a></li>
+                        <li id="adminBtn" style="display: none;"><a class="dropdown-item" href="/admin"><i class="bi bi-person-fill-gear"></i> Espace admin</a></li>
+                        <li><a class="dropdown-item" onclick="logout()" href="#"><i class="bi bi-box-arrow-right"></i> Déconnexion</a></li>
+                    </ul>
                 </div>
             </div>
         </nav>
+        
 
         <!-- user info modal -->
         <div class="modal fade" id="userInfoModal" tabindex="-1" aria-labelledby="userInfoLabel" aria-hidden="true">
