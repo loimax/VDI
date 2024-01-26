@@ -5,6 +5,52 @@
 {% block content %}
         <div id="vncViewerContainer" style="height:90vh"></div>
         <script>
+            var active;
+
+            function getVmId(url) {
+                var urlData = {
+                    vm_token: url
+                };
+
+                $.ajax({
+                    type: 'POST',
+                    url: 'https://api.insa-cvl.com/getvmid/',
+                    contentType: 'application/json;charset=UTF-8',
+                    data: JSON.stringify(urlData),
+                    xhrFields: {
+                        withCredentials: true
+                    },
+                    success: function (response) {
+                        var id = response;
+                        return id;
+                    },
+                    error: function (error) {
+                        alert('Erreur d\'obtention de l\'id de la VM');
+                    }
+                });
+            }
+
+            function checkIfVmActive() {
+                var vmtoken = getParameterByName("token");
+                var id = getVmId(vmtoken);
+
+                $.ajax({
+                    type: 'GET',
+                    url: 'https://api.insa-cvl.com/vm/active/' + id,
+                    contentType: 'application/json;charset=UTF-8',
+                    xhrFields: {
+                        withCredentials: true
+                    },
+                    success: function (response) {
+                        return 1;
+                    },
+                    error: function (error) {
+                        alert('Erreur d\'obtention de l\'id de la VM');
+                        return 0;
+                    }
+                });
+            }
+
             document.addEventListener("DOMContentLoaded", function () {
                 function getParameterByName(name, url) {
                     if (!url) url = window.location.href;
@@ -23,6 +69,11 @@
                 } else {
                     console.error("VNC URL parameter is missing.");
                 }
+
+
+                var intervalId = window.setInterval(function(){
+                    active = checkIfVmActive();
+                }, 5000);
             });
     
             function displayVNCViewer(vncUrl) {
