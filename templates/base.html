@@ -26,8 +26,15 @@
                 <a id="profBtn" class="navbar-brand ml-auto" href="/professor" aria-hidden="true" style="display: none;">Espace professeur</a>
                 <a id="adminBtn" class="navbar-brand ml-auto" href="/admin" aria-hidden="true" style="display: none;">Espace admin</a>
                 <a id="connexionBtn" class="navbar-brand ml-auto">Connexion</a>
-                <span class="navbar-text ml-auto" data-toggle="tooltip" data-placement="left" title="Informations utiles">
+                <span class="navbar-text ml-auto" data-toggle="tooltip" data-placement="left" title="Informations de connexion">
                     <img src="{{ url_for('static', filename='icons/compte.png' ) }}" alt="Info" style="width: 20px; height: 20px; cursor: pointer;">
+                    <span class="d-none" id="tooltip-content">
+                        <p id="email">Email: </p>
+                        <p id="name">Name: </p>
+                        <p id="surname">Surname: </p>
+                        <p id="role">Role: </p>
+                        <p id="id">ID: </p>
+                    </span>
                 </span>
             </div>
         </nav>
@@ -255,7 +262,10 @@
             });
 
             $(function () {
-                $('[data-toggle="tooltip"]').tooltip();
+                $('[data-toggle="tooltip"]').tooltip({
+                    html: true,
+                    title: $('#tooltip-content').html()
+                });
             });
         </script>
 
