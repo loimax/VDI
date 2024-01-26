@@ -29,7 +29,7 @@
                
                 <div class="dropdown">
                     <li class="nav-item dropdown">
-                        <button class="btn btn-default dropdown-toggle" type="button" id="navbarDarkDropdownMenuLink" data-toggle="dropdown">
+                        <button class="btn dropdown-toggle" type="button" id="navbarDarkDropdownMenuLink" data-toggle="dropdown">
                             <img src="{{ url_for('static', filename='icons/user.png' ) }}" alt="Info" style="width: 20px; height: 20px; cursor: pointer;">
                         </button>
                         <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
@@ -42,14 +42,14 @@
         </nav>
 
         <!-- user info modal -->
-        <div class="modal" id="userInfoModal" tabindex="-1" role="dialog" aria-labelledby="userInfoLabel" aria-hidden="true">
+        <div class="modal fade" id="userInfoModal" tabindex="-1" aria-labelledby="userInfoLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
-                  <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalToggleLabel2">Mon compte</h1>
+                  <div class="modal-header bg-dark text-white">
+                    <h1 class="modal-title" id="exampleModalToggleLabel2">Mon compte</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                   </div>
-                  <div class="modal-body">
+                  <div class="modal-body bg-dark text-white">
                     <p id="tt-email">Email: </p>
                     <p id="tt-name">Name: </p>
                     <p id="tt-surname">Surname: </p>
@@ -358,15 +358,5 @@
             }
         </style>    
         {% block content %}{% endblock %}
-
-        <div>
-            <p id="email">Email: </p>
-            <p id="name">Name: </p>
-            <p id="surname">Surname: </p>
-            <p id="role">Role: </p>
-            <p id="id">ID: </p>
-        </div>
-
     </body>
-
 </html>
