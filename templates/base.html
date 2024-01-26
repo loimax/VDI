@@ -26,6 +26,9 @@
                 <a id="profBtn" class="navbar-brand ml-auto" href="/professor" aria-hidden="true" style="display: none;">Espace professeur</a>
                 <a id="adminBtn" class="navbar-brand ml-auto" href="/admin" aria-hidden="true" style="display: none;">Espace admin</a>
                 <a id="connexionBtn" class="navbar-brand ml-auto">Connexion</a>
+                <span class="navbar-text ml-auto" data-toggle="tooltip" data-placement="left" title="Informations utiles">
+                    <img src="{{ url_for('static', filename='icons/compte.png' ) }}" alt="Info" style="width: 20px; height: 20px; cursor: pointer;">
+                </span>
             </div>
         </nav>
         <!-- Loading modal -->
@@ -249,6 +252,10 @@
 
             $(document).ready(function () {
                 getUserProfile();
+            });
+
+            $(function () {
+                $('[data-toggle="tooltip"]').tooltip();
             });
         </script>
 
