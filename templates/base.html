@@ -25,17 +25,18 @@
             <a class="navbar-brand" href="/">
                 <img src="{{ url_for('static', filename='icons/vdi.png' ) }}" alt="Info" style="width: 50px; height: 58px; cursor: pointer;">
             </a>
-            <div class="btn-group navbar-brand ml-auto">
-                <button class="btn dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <img src="{{ url_for('static', filename='icons/profil.png' ) }}" alt="Info" style="width: 20px; height: 20px; cursor: pointer;">
+
+            <div class="dropdown">
+                <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <img src="{{ url_for('static', filename='icons/profil.png' ) }}" id="userInfo" alt="Info" style="width: 20px; height: 20px; cursor: pointer;">
                 </button>
-                <ul class="dropdown-menu dropdown-menu-right dropdown-menu-dark">
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userInfo">
                     <li><a class="dropdown-item" data-toggle="modal" data-target="#userInfoModal"><i class="bi bi-person"></i> Mon compte</a></li>
                     <li><a class="dropdown-item" href="/dashboard"><i class="bi bi-laptop"></i> Dashboard</a></li>
                     <li id="profBtn" style="display: none;"><a class="dropdown-item" href="/professor"><i class="bi bi-person-video3"></i> Espace professeur</a></li>
                     <li id="adminBtn" style="display: none;"><a class="dropdown-item" href="/admin"><i class="bi bi-person-fill-gear"></i> Espace admin</a></li>
                     <li id="deconnexionBtn"><a class="dropdown-item" onclick="logout()" href="#"><i class="bi bi-box-arrow-right"></i> Déconnexion</a></li>
-                </ul>
+                </div>
             </div>
         </nav>        
 
