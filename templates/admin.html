@@ -178,7 +178,6 @@
         }
         
         function createVmForm(vm) {
-            var card = $('<div>').addClass('card').css('width', '18rem');
                 
             var infoContainer = $('<div>').addClass('card-body bg-dark text-white');;
             var icon = $('<i>').addClass('bi bi-pc-display');
@@ -201,7 +200,9 @@
             listGroup.append(listItems);
             cardBody2.append(cardLink1);
             cardBody.append(cardTitle, cardText1);
-            infoContainer.append(img, cardBody, listGroup, cardBody2);
+            
+            var ldsDefaultContainer = createLdsDefaultContainer(vm.id);
+            infoContainer.append(img, cardBody, listGroup, cardBody2, ldsDefaultContainer);
 
             return infoContainer;
         }
@@ -231,18 +232,10 @@
         }*/
 
         function createVmCard(vm) {
-            var vmCard = $('<div>').addClass('card').attr('id', vm.id);
-            var cardBody = createVmCardBody(vm);
+            var vmCard = $('<div>').addClass('card').css('width', '18rem').attr('id', vm.id);
+            var cardBody = createVmForm(vm);
             vmCard.append(cardBody);
             return vmCard;
-        }
-
-        function createVmCardBody(vm) {
-            var cardBody = $('<div>').addClass('card-body bg-dark text-white');
-            var form = createVmForm(vm);    
-            var ldsDefaultContainer = createLdsDefaultContainer(vm.id);
-            cardBody.append(form, ldsDefaultContainer);
-            return cardBody;
         }
 
         function getUsers() {
