@@ -182,13 +182,13 @@
             var icon = $('<i>').addClass('bi bi-pc-display');
             var img = $('<div>').addClass('text-center').append(icon);
             var cardBody = $('<div>').addClass('card-body');
-            var cardTitle = $('<h5>').addClass('card-title').text('Nom: <em>' + vm.template_name + "</em>");
-            var cardText1 = $('<p>').addClass('card-text').html('Propriétaire: <em>' + vm.first_name + ' ' + vm.last_name + "</em>"); // Mettez le texte en italique
+            var cardTitle = $('<h5>').addClass('card-title').html('Nom: <em>' + vm.template_name + "</em>");
+            var cardText1 = $('<p>').addClass('card-text').html('Propriétaire: <em>' + vm.first_name + ' ' + vm.last_name + "</em>");
             var listGroup = $('<ul>').addClass('list-group list-group-flush');
             var listItems = [
-                $('<li>').addClass('list-group-item bg-secondary').html('Template ID: <em>' + vm.template_id + "</em>"), // Mettez le texte en italique
-                $('<li>').addClass('list-group-item bg-secondary').html('User ID: <em>' + vm.users_id + "</em>"), // Mettez le texte en italique
-                $('<li>').addClass('list-group-item bg-secondary').html('Date de création: <em>' + vm.creationDate + "</em>") // Mettez le texte en italique
+                $('<li>').addClass('list-group-item bg-secondary').html('Template ID: <em>' + vm.template_id + "</em>"),
+                $('<li>').addClass('list-group-item bg-secondary').html('User ID: <em>' + vm.users_id + "</em>"),
+                $('<li>').addClass('list-group-item bg-secondary').html('Date de création: <em>' + vm.creationDate + "</em>")
             ];
 
             var cardBody2 = $('<div>').addClass('card-body');
@@ -311,39 +311,23 @@
         }
 
         function createTemplateForm(template) {
-            var form = $('<form>').attr({
-                method: 'post',
-                id: 'templateForm'
-            });
-            form.append(
-                $('<input>').attr({
-                    type: 'hidden',
-                    name: 'template_name',
-                    value: template.name
-                }),
-                $('<input>').attr({
-                    type: 'hidden',
-                    name: 'template_id',
-                    value: template.id
-                }),
-                $('<h5>').addClass('card-title').text(template.name),
-                template.description ? $('<p>').addClass('card-text').text(template.description) : null,
-            );
-            return form;
+            var infoContainer = $('<div>').addClass('card-body bg-secondary');
+            var icon = $('<i>').addClass('bi bi-card-heading');
+            var img = $('<div>').addClass('text-center').append(icon);
+            var cardBody = $('<div>').addClass('card-body');
+            var cardTitle = $('<h5>').addClass('card-title').html('Nom: <em>' + vm.template_name + "</em>");
+
+            cardBody.append(cardTitle);
+            infoContainer.append(img, cardBody);
+
+            return infoContainer;
         }
 
         function createTemplateCard(template) {
-            var templateCard = $('<div>').addClass('card').attr('id', template.id);
-            var cardBody = createTemplateCardBody(template);
+            var templateCard = $('<div>').addClass('card').css('width', '18rem').attr('id', template.id);
+            var cardBody = createTemplateForm(template);
             templateCard.append(cardBody);
             return templateCard;
-        }
-
-        function createTemplateCardBody(template) {
-            var cardBody = $('<div>').addClass('card-body bg-dark text-white');
-            var form = createTemplateForm(template);
-            cardBody.append(form);
-            return cardBody;
         }
 
         $(document).ready(function () {
