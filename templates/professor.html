@@ -164,44 +164,42 @@
             var vmCard = createVmCard(vm);
             vmsDiv.append(vmCard);
         }
+        
+        function createVmForm(vm) {  
+            var infoContainer = $('<div>').addClass('card-body bg-secondary text-center');
+            var icon = $('<i>').addClass('bi bi-pc-display');
+            var img = $('<div>').addClass('text-center').append(icon);
+            var cardBody = $('<div>').addClass('card-body');
+            var cardTitle = $('<h5>').addClass('card-title').html('Nom: <em>' + vm.template_name + "</em>");
+            var cardText1 = $('<p>').addClass('card-text').html('Propriétaire: <em>' + vm.first_name + ' ' + vm.last_name + "</em>");
+            var listGroup = $('<ul>').addClass('list-group list-group-flush');
+            var listItems = [
+                $('<li>').addClass('list-group-item bg-secondary').html('Template ID: <em>' + vm.template_id + "</em>"),
+                $('<li>').addClass('list-group-item bg-secondary').html('User ID: <em>' + vm.users_id + "</em>"),
+                $('<li>').addClass('list-group-item bg-secondary').html('Date de création: <em>' + vm.creationDate + "</em>")
+            ];
 
-        function createVmForm(vm) {
-            var cardBody = $('<div>').addClass('card-body bg-dark text-white');
-    
-            var infoContainer = $('<div>');
+            var cardBody2 = $('<div>').addClass('card-body');
+            var cardLink1 = $('<button>').addClass('btn btn-danger').text('Supprimer').on('click', function () {
+                deleteVmAdmin(vm.id);
+            });
 
-            infoContainer.append(
-                $('<input>').attr({
-                    type: 'hidden',
-                    name: 'vm_id',
-                    value: vm.id
-                }),
-                $('<h5>').addClass('card-title').text('Nom: ' + vm.template_name + '---' + vm.first_name + '-' + vm.last_name),
-                $('<p>').addClass('card-text').text('Template ID: ' + vm.template_id),
-                $('<p>').addClass('card-text').text('User ID: ' + vm.users_id),
-                $('<p>').addClass('card-text').text('Date de création: ' + vm.creationDate),
-                $('<button>').addClass('btn btn-danger').text('Supprimer').on('click', function () {
-                    deleteVmProf(vm.id);
-                })
-            );
+            listGroup.append(listItems);
+            cardBody2.append(cardLink1);
+            cardBody.append(cardTitle, cardText1);
+            
+            var ldsDefaultContainer = createLdsDefaultContainer(vm.id);
+            infoContainer.append(img, cardBody, listGroup, cardBody2, ldsDefaultContainer);
 
-            cardBody.append(infoContainer);
-            return cardBody;
+            return infoContainer;
         }
+
 
         function createVmCard(vm) {
-            var vmCard = $('<div>').addClass('card').attr('id', vm.id);
-            var cardBody = createVmCardBody(vm);
+            var vmCard = $('<div>').addClass('card').css('width', '18rem').attr('id', vm.id);
+            var cardBody = createVmForm(vm);
             vmCard.append(cardBody);
             return vmCard;
-        }
-
-        function createVmCardBody(vm) {
-            var cardBody = $('<div>').addClass('card-body bg-dark text-white');
-            var form = createVmForm(vm);    
-            var ldsDefaultContainer = createLdsDefaultContainer(vm.id);
-            cardBody.append(form, ldsDefaultContainer);
-            return cardBody;
         }
 
         function getMyUsers() {
