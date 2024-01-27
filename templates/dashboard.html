@@ -127,7 +127,7 @@
                 var startVmBtn = $('<button>').attr({
                     'id': 'start_vm_btn',
                     'type': 'button',
-                    'class': 'btn btn-info'
+                    'class': 'btn btn-light'
                 }).on('click', function () {
                     createVmFromTemplate(templateId);
                 }).text('Démarrer');
@@ -196,7 +196,7 @@
         }
 
         function createCardBody(template) {
-            var cardBody = $('<div>').addClass('card-body bg-dark text-white');
+            var cardBody = $('<div>').addClass('card-body bg-secondary text-white');
             var form = createForm(template);
             var ldsDefaultContainer = createLdsDefaultContainer(template.id);
             cardBody.append(form, ldsDefaultContainer);
@@ -224,7 +224,7 @@
                 $('<button>').attr({
                     id: 'start_vm_btn',
                     type: 'button',
-                    class: 'btn btn-info'
+                    class: 'btn btn-light'
                 }).on('click', function () {
                     createVmFromTemplate(template.id);
                 }).text('Démarrer')
