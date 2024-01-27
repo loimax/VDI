@@ -302,10 +302,6 @@
                 align-items: center;
             }
 
-            .card-body {
-                padding: 0.5rem;
-            }
-
             .cards {
                 display: flex;
                 flex-wrap: wrap;
@@ -313,11 +309,6 @@
                 padding: 0;
                 margin: 20px;
             }
-
-            /*.card {
-                width: 18rem;
-                margin: 10px;
-            }*/
 
             body {
                 background-color: #343A40;
@@ -357,6 +348,13 @@
 
             a {
                 color: inherit;
+            }
+
+            .list-group {
+                display: flex;
+                flex-direction: column;
+                padding-left: 0;
+                margin-bottom: 0;
             }
         </style>    
         {% block content %}{% endblock %}
