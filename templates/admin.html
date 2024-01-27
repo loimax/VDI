@@ -178,24 +178,23 @@
         }
         
         function createVmForm(vm) {  
-            var infoContainer = $('<div>').addClass('card-body bg-secondary');;
+            var infoContainer = $('<div>').addClass('card-body bg-secondary');
             var icon = $('<i>').addClass('bi bi-pc-display');
             var img = $('<div>').addClass('text-center').append(icon);
             var cardBody = $('<div>').addClass('card-body');
-            var cardTitle = $('<h5>').addClass('card-title').text('<b>Nom:</b> ' + vm.template_name);
-            var cardText1 = $('<p>').addClass('card-text').text('<b>Propriétaire:</b> ' + vm.first_name + ' ' + vm.last_name);
+            var cardTitle = $('<h5>').addClass('card-title').text('Nom: <em>' + vm.template_name + "</em>");
+            var cardText1 = $('<p>').addClass('card-text').html('Propriétaire: <em>' + vm.first_name + ' ' + vm.last_name + "</em>"); // Mettez le texte en italique
             var listGroup = $('<ul>').addClass('list-group list-group-flush');
             var listItems = [
-                $('<li>').addClass('list-group-item bg-secondary').text('<b>Template ID:</b> ' + vm.template_id), // Ajoutez la classe "text-white" pour le texte de la liste
-                $('<li>').addClass('list-group-item bg-secondary').text('<b>User ID:</b> ' + vm.users_id),
-                $('<li>').addClass('list-group-item bg-secondary').text('<b>Date de création:</b> ' + vm.creationDate)
+                $('<li>').addClass('list-group-item bg-secondary').html('Template ID: <em>' + vm.template_id + "</em>"), // Mettez le texte en italique
+                $('<li>').addClass('list-group-item bg-secondary').html('User ID: <em>' + vm.users_id + "</em>"), // Mettez le texte en italique
+                $('<li>').addClass('list-group-item bg-secondary').html('Date de création: <em>' + vm.creationDate + "</em>") // Mettez le texte en italique
             ];
 
             var cardBody2 = $('<div>').addClass('card-body');
-            var cardLink1 = 
-                $('<button>').addClass('btn btn-danger').text('Supprimer').on('click', function () {
-                    deleteVmAdmin(vm.id);
-                })
+            var cardLink1 = $('<button>').addClass('btn btn-danger').text('Supprimer').on('click', function () {
+                deleteVmAdmin(vm.id);
+            });
 
             listGroup.append(listItems);
             cardBody2.append(cardLink1);
@@ -206,6 +205,7 @@
 
             return infoContainer;
         }
+
 
         function createVmCard(vm) {
             var vmCard = $('<div>').addClass('card').css('width', '18rem').attr('id', vm.id);
