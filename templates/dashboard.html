@@ -2,6 +2,16 @@
 
 {% block title %}VDI - Dashboard{% endblock %}
 
+{% block navbar %}
+
+<ul class="nav nav-tabs">
+    <li class="nav-item">
+        <a class="nav-link active" data-toggle="tab" href="#rubrique1">Machines virtuelles disponibles</a>
+    </li>
+</ul>
+
+{% endblock %}
+
 {% block content %}
 
     <script>
@@ -258,14 +268,4 @@
     </div>
 
     <hr>
-{% endblock %}
-
-{% block navbar %}
-
-<ul class="nav nav-tabs">
-    <li class="nav-item">
-        <a class="nav-link active" data-toggle="tab" href="#rubrique1">Machines virtuelles disponibles</a>
-    </li>
-</ul>
-
 {% endblock %}
