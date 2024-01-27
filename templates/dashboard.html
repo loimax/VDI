@@ -249,6 +249,31 @@
         });
     </script>
 
+    <div class="d-flex flex-column flex-shrink-0 bg-dark" style="width: 4.5rem;">
+        <ul class="nav nav-pills nav-flush flex-column mb-auto text-center">
+            <li class="nav-item">
+                <a href="#" class="nav-link active py-3 border-bottom" aria-current="page" title="Home" data-bs-toggle="tooltip" data-bs-placement="right">
+                <svg class="bi" width="24" height="24" role="img" aria-label="Machines virtuelles disponibles"><use xlink:href="#home"/></svg>
+                </a>
+            </li>
+            <li>
+                <a href="#" class="nav-link py-3 border-bottom" title="Dashboard" data-bs-toggle="tooltip" data-bs-placement="right">
+                <svg class="bi" width="24" height="24" role="img" aria-label="Dashboard"><use xlink:href="#speedometer2"/></svg>
+                </a>
+            </li>
+            <li>
+                <a href="#" class="nav-link py-3 border-bottom" title="Orders" data-bs-toggle="tooltip" data-bs-placement="right">
+                <svg class="bi" width="24" height="24" role="img" aria-label="Orders"><use xlink:href="#table"/></svg>
+                </a>
+            </li>
+        </ul>
+        <div class="dropdown border-top">
+        <a href="#" class="d-flex align-items-center justify-content-center p-3 link-dark text-decoration-none">
+            <img src="{{ url_for('static', filename='icons/insa.png' ) }}" alt="INSA Centre Val de Loire" width="24" height="24" class="rounded-circle">
+        </a>
+        </div>
+    </div>
+
     <div class="container">
         <div class="row">
             <div class="col-md-10">
