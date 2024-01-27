@@ -3,25 +3,6 @@
 {% block title %}VDI - Admin{% endblock %}
 
 {% block content %}
-
-    <div class="container">
-        <div class="row">
-            <div class="col-md-10">
-                <ul class="nav nav-tabs">
-                    <li class="nav-item">
-                        <a class="nav-link active" data-toggle="tab" href="#rubrique1">VMs actives</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#rubrique2">Comptes</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#rubrique3">Templates</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-
     <!-- Modal de modification de mot de passe -->
     <div class="modal fade" id="editUserModal" tabindex="-1" role="dialog" aria-labelledby="editUserModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -384,3 +365,19 @@
         });
     </script>
 {% endblock %}
+
+{%  %}
+
+<ul class="nav nav-tabs">
+    <li class="nav-item">
+        <a class="nav-link active" data-toggle="tab" href="#rubrique1">VMs actives</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" href="#rubrique2">Comptes</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" href="#rubrique3">Templates</a>
+    </li>
+</ul>
+
+{%  %}

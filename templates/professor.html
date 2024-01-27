@@ -3,22 +3,6 @@
 {% block title %}VDI - Professeur{% endblock %}
 
 {% block content %}
-
-    <div class="container">
-        <div class="row">
-            <div class="col-md-10">
-                <ul class="nav nav-tabs">
-                    <li class="nav-item">
-                        <a class="nav-link active" data-toggle="tab" href="#rubrique1">VMs actives</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#rubrique2">Comptes</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-
     <div class="tab-content">
 
         <div class="tab-pane active" id="rubrique1">
@@ -349,4 +333,17 @@
             });
         });
     </script>
+{% endblock %}
+
+{% block navbar %}
+
+<ul class="nav nav-tabs">
+    <li class="nav-item">
+        <a class="nav-link active" data-toggle="tab" href="#rubrique1">VMs actives</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" href="#rubrique2">Comptes</a>
+    </li>
+</ul>
+
 {% endblock %}
