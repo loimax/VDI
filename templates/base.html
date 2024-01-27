@@ -21,6 +21,7 @@
     </head>
 
     <body>
+        {% block navbar %}
         <nav class="navbar navbar-dark bg-dark border-bottom-nav">
             <a class="navbar-brand" href="/">
                 <img src="{{ url_for('static', filename='icons/vdi.png' ) }}" alt="Info" style="width: 50px; height: 58px; cursor: pointer;">
@@ -38,7 +39,8 @@
                     <li id="deconnexionBtn"><a class="dropdown-item" onclick="logout()" href="#"><i class="bi bi-box-arrow-right"></i> Déconnexion</a></li>
                 </ul>
             </div>            
-        </nav>        
+        </nav>
+        {% endblock %}        
 
         <!-- user info modal -->
         <div class="modal fade" id="userInfoModal" tabindex="-1" aria-labelledby="userInfoLabel" aria-hidden="true">
@@ -283,14 +285,6 @@
         </script>
 
         <style>
-            .nav-pills .nav-link.active {
-                color: #343A40;
-                background-color: #FFF;
-            }
-            .nav-link {
-                color: #FFF;
-            }
-
             .border-bottom-nav {
                 border-bottom: 2px solid #FFF;
             }
