@@ -179,6 +179,8 @@
         
         function createVmForm(vm) {
             var card = $('<div>').addClass('card').css('width', '18rem');
+                
+            var infoContainer = $('<div>').addClass('card-body bg-dark text-white');;
             var icon = $('<i>').addClass('bi bi-pc-display');
             var img = $('<div>').addClass('text-center').append(icon);
             var cardBody = $('<div>').addClass('card-body');
@@ -199,9 +201,9 @@
             listGroup.append(listItems);
             cardBody2.append(cardLink1);
             cardBody.append(cardTitle, cardText1);
-            card.append(img, cardBody, listGroup, cardBody2);
+            infoContainer.append(img, cardBody, listGroup, cardBody2);
 
-            return card;
+            return infoContainer;
         }
 
         /*function createVmForm(vm) {
