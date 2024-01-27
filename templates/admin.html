@@ -299,6 +299,25 @@
                 }
             });
         }
+
+        function deleteUser(userId) {
+            $.ajax({
+                type: 'DELETE',
+                url: 'https://api.insa-cvl.com/deleteuser',
+                contentType: 'application/json;charset=UTF-8',
+                data: JSON.stringify({ user_id: userId }),
+                xhrFields: {
+                    withCredentials: true
+                },
+                success: function (response) {
+                    alert('Utilisateur supprimé avec succès!');
+                    location.reload();
+                },
+                error: function (error) {
+                    alert('Erreur lors de la suppression de l\'utilisateur.');
+                }
+            });
+        }
         
         function addTemplateToDOM(template) {
             var templateCard = createTemplateCard(template);
