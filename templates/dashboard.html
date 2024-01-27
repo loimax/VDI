@@ -189,17 +189,19 @@
         }
 
         function createTemplateCard(template) {
-            var templateCard = $('<div>').addClass('card').attr('id', template.id);
+            var templateCard = $('<div>').addClass('card').css('width', '18rem').attr('id', template.id);
             var cardBody = createCardBody(template);
             templateCard.append(cardBody);
             return templateCard;
         }
 
         function createCardBody(template) {
-            var cardBody = $('<div>').addClass('card-body bg-secondary text-white');
+            var cardBody = $('<div>').addClass('card-body bg-secondary');
+            var icon = $('<i>').addClass('bi bi-pc-display');
+            var img = $('<div>').addClass('text-center').append(icon);
             var form = createForm(template);
             var ldsDefaultContainer = createLdsDefaultContainer(template.id);
-            cardBody.append(form, ldsDefaultContainer);
+            cardBody.append(img, form, ldsDefaultContainer);
             return cardBody;
         }
 
