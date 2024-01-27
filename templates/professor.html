@@ -26,13 +26,7 @@
         </div>
 
         <div class="tab-pane" id="rubrique2">
-            <h1 class="text-left">Comptes utilisateurs créés</h1>
-            <div class="card" id="addUserCard" style="width: 18rem;">
-                <div class="card-body bg-info text-white">
-                    <h5 class="card-title text-center">Créer</h5>
-                    <p class="card-text" style="font-size: 36px; text-align: center;"><b>+</b></p>
-                </div>
-            </div>
+            <h1 class="text-left">Comptes utilisateurs externes</h1>
             <div class="mt-4">
                 <table class="table" id="users-table">
                     <thead>
@@ -43,10 +37,11 @@
                         </tr>
                     </thead>
                 </table>
-            <hr>
             </div>
-            <div class="mt-4">
-                <div id="create-user-div" class="cards d-flex justify-content-start"></div>
+            <div class="text-center">
+                <button id="addUserButton" type="button" class="btn btn-light"> 
+                    Ajouter un utilisateur <i class="bi bi-plus-circle"></i>
+                </button>
             </div>
         </div>
     </div>
@@ -227,7 +222,7 @@
             row.append('<td>' + user.last_name + '</td>');
             row.append('<td>' + user.email + '</td>');
             
-            var changePasswordButton = $('<button>').text('Changer le mot de passe')
+            var changePasswordButton = $('<button>').addClass("btn btn-light").text('Changer le mot de passe')
                 .attr('data-toggle', 'modal')
                 .attr('data-target', '#editUserModal')
                 .attr('data-user-id', user.id);
@@ -239,7 +234,7 @@
 
             row.append($('<td>').append(changePasswordButton));
 
-            var deleteUserButton = $('<button>').text('Supprimer l\'utilisateur').click(function() {
+            var deleteUserButton = $('<button>').addClass("btn btn-light").text('Supprimer l\'utilisateur').click(function() {
                 deleteUser(user.id);
             });
             row.append($('<td>').append(deleteUserButton));
