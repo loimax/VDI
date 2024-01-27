@@ -178,7 +178,7 @@
         }
         
         function createVmForm(vm) {  
-            var infoContainer = $('<div>').addClass('card-body bg-secondary mb-3');;
+            var infoContainer = $('<div>').addClass('card-body bg-secondary');;
             var icon = $('<i>').addClass('bi bi-pc-display');
             var img = $('<div>').addClass('text-center').append(icon);
             var cardBody = $('<div>').addClass('card-body');
@@ -186,9 +186,9 @@
             var cardText1 = $('<p>').addClass('card-text').text('Propriétaire: ' + vm.first_name + ' ' + vm.last_name);
             var listGroup = $('<ul>').addClass('list-group list-group-flush');
             var listItems = [
-                $('<li>').addClass('list-group-item bg-secondary mb-3').text('Template ID: ' + vm.template_id), // Ajoutez la classe "text-white" pour le texte de la liste
-                $('<li>').addClass('list-group-item bg-secondary mb-3').text('User ID: ' + vm.users_id),
-                $('<li>').addClass('list-group-item bg-secondary mb-3').text('Date de création: ' + vm.creationDate)
+                $('<li>').addClass('list-group-item bg-secondary').text('Template ID: ' + vm.template_id), // Ajoutez la classe "text-white" pour le texte de la liste
+                $('<li>').addClass('list-group-item bg-secondary').text('User ID: ' + vm.users_id),
+                $('<li>').addClass('list-group-item bg-secondary').text('Date de création: ' + vm.creationDate)
             ];
 
             var cardBody2 = $('<div>').addClass('card-body');
