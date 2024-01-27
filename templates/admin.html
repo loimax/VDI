@@ -179,19 +179,19 @@
         
         function createVmForm(vm) {  
             var infoContainer = $('<div>').addClass('card-body bg-dark text-white');;
-            var icon = $('<i>').addClass('bi bi-pc-display');
+            var icon = $('<i>').addClass('bi bi-pc-display fs-4');
             var img = $('<div>').addClass('text-center').append(icon);
             var cardBody = $('<div>').addClass('card-body');
-            var cardTitle = $('<h5>').addClass('card-title text-center').text('Nom: ' + vm.template_name);
-            var cardText1 = $('<p>').addClass('card-text text-center').text('Propriétaire: ' + vm.first_name + ' ' + vm.last_name);
-            var listGroup = $('<ul>').addClass('list-group list-group-flush bg-dark text-white');
+            var cardTitle = $('<h5>').addClass('card-title').text('Nom: ' + vm.template_name);
+            var cardText1 = $('<p>').addClass('card-text').text('Propriétaire: ' + vm.first_name + ' ' + vm.last_name);
+            var listGroup = $('<ul>').addClass('list-group list-group-flush');
             var listItems = [
-                $('<li>').addClass('list-group-item bg-dark').text('Template ID: ' + vm.template_id),
-                $('<li>').addClass('list-group-item bg-dark').text('User ID: ' + vm.users_id),
-                $('<li>').addClass('list-group-item bg-dark').text('Date de création: ' + vm.creationDate)
+                $('<li>').addClass('list-group-item bg-dark text-white').text('Template ID: ' + vm.template_id), // Ajoutez la classe "text-white" pour le texte de la liste
+                $('<li>').addClass('list-group-item bg-dark text-white').text('User ID: ' + vm.users_id),
+                $('<li>').addClass('list-group-item bg-dark text-white').text('Date de création: ' + vm.creationDate)
             ];
 
-            var cardBody2 = $('<div>').addClass('card-body text-center');
+            var cardBody2 = $('<div>').addClass('card-body');
             var cardLink1 = 
                 $('<button>').addClass('btn btn-danger').text('Supprimer').on('click', function () {
                     deleteVmAdmin(vm.id);
