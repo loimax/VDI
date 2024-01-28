@@ -33,6 +33,7 @@
             <div class="btn-group navbar-brand dropdown">
                 <button class="btn dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <img src="{{ url_for('static', filename='icons/profil.png' ) }}" alt="Info" style="width: 20px; height: 20px; cursor: pointer;">
+                    <span id="welcome-name"></span>
                 </button>
                 <ul class="dropdown-menu dropdown-menu-right dropdown-menu-dark">
                     <li><a class="dropdown-item" data-toggle="modal" data-target="#userInfoModal"><i class="bi bi-person"></i> Mon compte</a></li>
@@ -313,6 +314,7 @@
                         $('#tt-surname').text('Surname: ' + user.last_name);
                         $('#tt-role').text('Role: ' + user.role);
                         $('#tt-id').text('ID: ' + user.id);
+                        $('#welcome-name').text('Welcome, ' + user.first_name);
 
                         var userRole = user.role;
                         if (userRole === 'prof') {
