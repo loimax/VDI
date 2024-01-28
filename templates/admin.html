@@ -6,13 +6,13 @@
 
 <ul class="nav nav-tabs">
     <li class="nav-item">
-        <a class="nav-link fade show active" data-toggle="tab" href="#rubrique1">VMs actives</a>
+        <a class="nav-link active" data-toggle="tab" href="#rubrique1">VMs actives</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link fade" data-toggle="tab" href="#rubrique2">Comptes</a>
+        <a class="nav-link" data-toggle="tab" href="#rubrique2">Comptes</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link fade" data-toggle="tab" href="#rubrique3">Templates</a>
+        <a class="nav-link" data-toggle="tab" href="#rubrique3">Templates</a>
     </li>
 </ul>
 
@@ -21,7 +21,7 @@
 {% block content %}
     <div class="tab-content">
 
-        <div class="tab-pane active" id="rubrique1">
+        <div class="tab-pane fade show active" id="rubrique1">
             <blockquote class="blockquote text-center">
                 <h1 class="mb-0">VMs actives</h1>
                 <footer class="blockquote-footer">Gestion des machines virtuelles de tous les utilisateurs</footer>
@@ -31,7 +31,7 @@
             </div>
         </div>
 
-        <div class="tab-pane" id="rubrique2">
+        <div class="tab-pane fade" id="rubrique2">
             <blockquote class="blockquote text-center">
                 <h1 class="mb-0">Comptes</h1>
                 <footer class="blockquote-footer">Gestion des comptes de tous les utilisateurs</footer>
@@ -58,7 +58,7 @@
             </div>
         </div>
 
-        <div class="tab-pane" id="rubrique3">
+        <div class="tab-pane fade" id="rubrique3">
             <blockquote class="blockquote text-center">
                 <h1 class="mb-0">Templates</h1>
                 <footer class="blockquote-footer">Visualisation des templates de VMs créés avec OpenStack</footer>
