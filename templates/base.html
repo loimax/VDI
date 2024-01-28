@@ -21,12 +21,6 @@
     </head>
 
     <body>
-        <div class="d-flex">
-            <div class="p-2">Flex item</div>
-            <div class="p-2">Flex item</div>
-            <div class="ml-auto p-2">Flex item</div>
-          </div>
-
         <nav class="navbar navbar-dark bg-dark border-bottom-nav">
             <div class="d-flex">
                 <div class="p-2">
@@ -39,19 +33,21 @@
                     {% block navbar %} {% endblock %}   
                 </div>
     
-                <div class="ml-auto p-2 btn-group navbar-brand dropdown">
-                    <button class="btn dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <img src="{{ url_for('static', filename='icons/profil.png' ) }}" alt="Info" style="width: 20px; height: 20px; cursor: pointer;">
-                        <span id="welcome-name"></span>
-                    </button>
-                    <ul class="dropdown-menu dropdown-menu-right dropdown-menu-dark">
-                        <li><a class="dropdown-item" data-toggle="modal" data-target="#userInfoModal"><i class="bi bi-person"></i> Mon compte</a></li>
-                        <li><a class="dropdown-item" href="/dashboard"><i class="bi bi-laptop"></i> Dashboard</a></li>
-                        <li id="profBtn" style="display: none;"><a class="dropdown-item" href="/professor"><i class="bi bi-person-video3"></i> Espace professeur</a></li>
-                        <li id="adminBtn" style="display: none;"><a class="dropdown-item" href="/admin"><i class="bi bi-person-fill-gear"></i> Espace admin</a></li>
-                        <li id="deconnexionBtn"><a class="dropdown-item" onclick="logout()" href="#"><i class="bi bi-box-arrow-right"></i> Déconnexion</a></li>
-                    </ul>
-                </div>            
+                <div class="ml-auto p-2">
+                    <div class="btn-group navbar-brand dropdown">
+                        <button class="btn dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <img src="{{ url_for('static', filename='icons/profil.png' ) }}" alt="Info" style="width: 20px; height: 20px; cursor: pointer;">
+                            <span id="welcome-name"></span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-right dropdown-menu-dark">
+                            <li><a class="dropdown-item" data-toggle="modal" data-target="#userInfoModal"><i class="bi bi-person"></i> Mon compte</a></li>
+                            <li><a class="dropdown-item" href="/dashboard"><i class="bi bi-laptop"></i> Dashboard</a></li>
+                            <li id="profBtn" style="display: none;"><a class="dropdown-item" href="/professor"><i class="bi bi-person-video3"></i> Espace professeur</a></li>
+                            <li id="adminBtn" style="display: none;"><a class="dropdown-item" href="/admin"><i class="bi bi-person-fill-gear"></i> Espace admin</a></li>
+                            <li id="deconnexionBtn"><a class="dropdown-item" onclick="logout()" href="#"><i class="bi bi-box-arrow-right"></i> Déconnexion</a></li>
+                        </ul>
+                    </div>            
+                </div>
             </div>
         </nav>     
 
