@@ -398,31 +398,25 @@
 
             function addUserToTable(user) {
                 var row = $('<tr>');
-                row.append($('<th>').attr('scope', 'row').text(user.id));
-                row.append($('<td>').text(user.first_name));
-                row.append($('<td>').text(user.last_name));
-                row.append($('<td>').text(user.email));
+                row.append('<td>' + user.first_name + '</td>');
+                row.append('<td>' + user.last_name + '</td>');
+                row.append('<td>' + user.email + '</td>');
                 
-                var changePasswordButton = $('<button>')
-                    .addClass("btn btn-light")
-                    .text('Changer le mot de passe')
+                var changePasswordButton = $('<button>').addClass("btn btn-light").text('Changer le mot de passe')
                     .attr('data-toggle', 'modal')
                     .attr('data-target', '#editUserModal')
-                    .attr('data-user-id', user.id)
-                    .on('click', function() {
-                        var userId = $(this).data('user-id');
-                        $('#edit-user-id').val(userId);
-                    });
+                    .attr('data-user-id', user.id);
+                
+                changePasswordButton.click(function() {
+                    var userId = $(this).data('user-id');
+                    $('#edit-user-id').val(userId);
+                });
 
                 row.append($('<td>').append(changePasswordButton));
 
-                var deleteUserButton = $('<button>')
-                    .addClass("btn btn-light")
-                    .text('Supprimer l\'utilisateur')
-                    .on('click', function() {
-                        deleteUser(user.id);
-                    });
-
+                var deleteUserButton = $('<button>').addClass("btn btn-light").text('Supprimer l\'utilisateur').click(function() {
+                    deleteUser(user.id);
+                });
                 row.append($('<td>').append(deleteUserButton));
 
                 $('#users-table').append(row);
