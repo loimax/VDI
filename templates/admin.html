@@ -197,26 +197,6 @@
             getVms();
             getTemplates();
             getUsers();
-
-            $('#editUserForm').submit(function (event) {
-                event.preventDefault();
-
-                var userId = $('#edit-user-id').val();
-                var newPassword = $('#new_password').val();
-                var newPassword2 = $('#new_password2').val();
-
-                changePassword(userId, newPassword, newPassword2);
-
-                $('#new_password').val('');
-                $('#new_password2').val('');
-                
-                $('#editUserModal').modal('hide');
-            });
-                        
-            $('#createUserForm').submit(function (event) {
-                event.preventDefault();
-                createUser();
-            });
             $('#addVMOutCard').on('click', function () {
                 $("#createVmModal").modal("show");
             });
