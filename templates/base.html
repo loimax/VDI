@@ -308,11 +308,11 @@
                     success: function (response) {
                         var user = response;
                         $('#tt-email').text('Email: ' + user.email);
-                        $('#tt-name').text('Name: ' + user.first_name);
-                        $('#tt-surname').text('Surname: ' + user.last_name);
+                        $('#tt-name').text('Prénom: ' + user.first_name);
+                        $('#tt-surname').text('Nom: ' + user.last_name);
                         $('#tt-role').text('Role: ' + user.role);
                         $('#tt-id').text('ID: ' + user.id);
-                        $('#welcome-name').text('Welcome, ' + user.first_name);
+                        $('#welcome-name').text('Bienvenue, ' + user.first_name);
 
                         var userRole = user.role;
                         if (userRole === 'prof') {
