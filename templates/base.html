@@ -28,7 +28,9 @@
                 <img src="{{ url_for('static', filename='icons/vdi.png' ) }}" alt="Info" style="width: 50px; height: 58px; cursor: pointer;">
             </a>
 
-            {% block navbar %} {% endblock %}   
+            <div class="d-flex justify-content-center w-100">
+                {% block navbar %} {% endblock %}   
+            </div>
 
             <div class="btn-group navbar-brand dropdown">
                 <button class="btn dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
