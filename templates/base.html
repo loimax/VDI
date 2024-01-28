@@ -51,15 +51,18 @@
                     <div class="modal-header">
                         <h1 class="modal-title" id="exampleModalToggleLabel2">Mon compte</h1>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>    
+                            <span aria-hidden="true"><i class="bi bi-x-lg"></i></span>    
                         </button>
                     </div>
                     <div class="modal-body">
-                        <p id="tt-email">Email: </p>
-                        <p id="tt-name">Name: </p>
-                        <p id="tt-surname">Surname: </p>
-                        <p id="tt-role">Role: </p>
-                        <p id="tt-id">ID: </p>
+                        <p id="tt-email"><b>Email:</b> </p>
+                        <p id="tt-name"><b>Prénom:</b> </p>
+                        <p id="tt-surname"><b>Nom:</b> </p>
+                        <p id="tt-role"><b>Role:</b> </p>
+                        <p id="tt-id"><b>ID:</b> </p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light" data-dismiss="modal">Fermer</button>
                     </div>
                 </div>
             </div>
@@ -82,16 +85,16 @@
 
         <div class="modal" id="alertModal" tabindex="-1" role="dialog" aria-labelledby="alertModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
-                <div class="modal-content">
+                <div class="modal-content bg-secondary text-white">
                     <div class="modal-header">
                         <h5 class="modal-title" id="alertModalLabel"></h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
+                            <span aria-hidden="true"><i class="bi bi-x-lg"></i></span>
                         </button>
                     </div>
                     <div class="modal-body" id="alertModalMessage"></div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                        <button type="button" class="btn btn-light" data-dismiss="modal">Fermer</button>
                     </div>
                 </div>
             </div>
