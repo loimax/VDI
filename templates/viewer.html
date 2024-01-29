@@ -19,7 +19,7 @@
                         return 1;
                     },
                     error: function (error) {
-                        alert('Erreur d\'obtention de l\'id de la VM');
+                        alert('Erreur d\'obtention de l\'activité de la VM');
                         return 0;
                     }
                 });
@@ -38,7 +38,7 @@
 
                 var templateId = getParameterByName("templateId");
 
-                console.log("template" + templateId);
+                console.log("template: " + templateId);
 
                 var vncUrl;
     
@@ -50,6 +50,7 @@
                         withCredentials: true
                     },
                     success: function (response) {
+                        console.log(response);
                         vncUrl = response.url;
                     },
                     error: function (error) {
@@ -57,7 +58,7 @@
                     }
                 })
 
-                console.log("vnc:" + vncUrl);
+                console.log("vnc: " + vncUrl);
     
                 if (vncUrl) {
                     displayVNCViewer(vncUrl);
