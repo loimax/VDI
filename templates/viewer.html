@@ -38,8 +38,6 @@
 
                 var templateId = getParameterByName("templateId");
 
-                console.log("template: " + templateId);
-
                 var vncUrl;
     
                 $.ajax({
@@ -50,21 +48,17 @@
                         withCredentials: true
                     },
                     success: function (response) {
-                        console.log(response);
                         vncUrl = response.url;
+                        if (vncUrl) {
+                            displayVNCViewer(vncUrl);
+                        } else {
+                            console.error("VNC URL parameter is missing.");
+                        }
                     },
                     error: function (error) {
                         alert('Erreur de d\'ouverture de la VM');
                     }
                 })
-
-                console.log("vnc: " + vncUrl);
-    
-                if (vncUrl) {
-                    displayVNCViewer(vncUrl);
-                } else {
-                    console.error("VNC URL parameter is missing.");
-                }
 
                 var intervalId = window.setInterval(function(){
                     active = checkIfVmActive(templateId);
