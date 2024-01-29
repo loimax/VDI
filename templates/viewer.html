@@ -6,29 +6,36 @@
         <div id="vncViewerContainer" style="height:90vh"></div>
         <script>
             var active;
+            var vncUrl;
 
             function getUrl(templateId) {
-                $.ajax({
-                    type: 'GET',
-                    url: 'https://api.insa-cvl.com/vm/url/template/' + templateId,
-                    contentType: 'application/json;charset=UTF-8',
-                    xhrFields: {
-                        withCredentials: true
-                    },
-                    success: function (response) {
-                        vncUrl = response.url;
-                        return vncUrl
-                    },
-                    error: function (error) {
-                        alert('Erreur de d\'ouverture de la VM');
-                    }
+                return new Promise(function (resolve, reject) {
+                    $.ajax({
+                        type: 'GET',
+                        url: 'https://api.insa-cvl.com/vm/url/template/' + templateId,
+                        contentType: 'application/json;charset=UTF-8',
+                        xhrFields: {
+                            withCredentials: true
+                        },
+                        success: function (response) {
+                            vncUrl = response.url;
+                            console.log("vncUrl obtenu: " + vncUrl);
+                            resolve(1);
+                        },
+                        error: function (error) {
+                            alert('Erreur de d\'ouverture de la VM');
+                            resolve(0);
+                        }
+                    })
                 })
             }
             
             async function openVm(templateId) {
                 try {
-                    var vncUrl = await getUrl(templateId);
-                    if (vncUrl) {
+                    var output = await getUrl(templateId);
+                    console.log("vncUrl utilisé: " + vncUrl);
+                    if (output == 1) {
+                        console.log("display");
                         displayVNCViewer(vncUrl);
                     }
                 } catch (error) {
