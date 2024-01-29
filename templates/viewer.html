@@ -37,6 +37,9 @@
                 }
 
                 var templateId = getParameterByName("templateId");
+
+                console.log("template" + templateId);
+
                 var vncUrl;
     
                 $.ajax({
@@ -53,6 +56,8 @@
                         alert('Erreur de d\'ouverture de la VM');
                     }
                 })
+
+                console.log("vnc:" + vncUrl);
     
                 if (vncUrl) {
                     displayVNCViewer(vncUrl);
