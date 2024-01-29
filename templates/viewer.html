@@ -19,12 +19,16 @@
                         },
                         success: function (response) {
                             vncUrl = response.url;
-                            console.log("vncUrl obtenu: " + vncUrl);
-                            resolve(1);
+                            if (vncUrl) {
+                                console.log("vncUrl obtenu: " + vncUrl);
+                                resolve(1);
+                            }
+                            else {
+                                resolve(0);
+                            }
                         },
                         error: function (error) {
-                            alert('Erreur de d\'ouverture de la VM');
-                            resolve(0);
+                            reject("Erreur d'obtention de l'URL");
                         }
                     })
                 })
@@ -33,9 +37,8 @@
             async function openVm(templateId) {
                 try {
                     var output = await getUrl(templateId);
-                    console.log("vncUrl utilisé: " + vncUrl);
                     if (output == 1) {
-                        console.log("display");
+                        console.log("vncUrl utilisé: " + vncUrl);
                         displayVNCViewer(vncUrl);
                     }
                 } catch (error) {
@@ -61,17 +64,17 @@
                 });
             }
 
-            document.addEventListener("DOMContentLoaded", function () {
-                function getParameterByName(name, url) {
-                    if (!url) url = window.location.href;
-                    name = name.replace(/[\[\]]/g, "\\$&");
-                    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
-                        results = regex.exec(url);
-                    if (!results) return null;
-                    if (!results[2]) return '';
-                    return decodeURIComponent(results[2].replace(/\+/g, " "));
-                }
+            function getParameterByName(name, url) {
+                if (!url) url = window.location.href;
+                name = name.replace(/[\[\]]/g, "\\$&");
+                var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                    results = regex.exec(url);
+                if (!results) return null;
+                if (!results[2]) return '';
+                return decodeURIComponent(results[2].replace(/\+/g, " "));
+            }
 
+            document.addEventListener("DOMContentLoaded", function () {
                 var templateId = getParameterByName("templateId");
                 openVm(templateId);
     
