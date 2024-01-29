@@ -111,7 +111,7 @@
                     'type': 'button',
                     'class': 'btn btn-success'
                 }).on('click', function () {
-                    openVm(templateId);
+                    window.location = "/viewer?templateId=" + encodeURIComponent(templateId);
                 }).text('Ouvrir');
 
                 var deleteBtn = $('<button>').attr({

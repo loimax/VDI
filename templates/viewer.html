@@ -7,36 +7,10 @@
         <script>
             var active;
 
-            function getVmId(url) {
-                var urlData = {
-                    vm_token: url
-                };
-
-                $.ajax({
-                    type: 'POST',
-                    url: 'https://api.insa-cvl.com/getvmid/',
-                    contentType: 'application/json;charset=UTF-8',
-                    data: JSON.stringify(urlData),
-                    xhrFields: {
-                        withCredentials: true
-                    },
-                    success: function (response) {
-                        var id = response;
-                        return id;
-                    },
-                    error: function (error) {
-                        alert('Erreur d\'obtention de l\'id de la VM');
-                    }
-                });
-            }
-
-            function checkIfVmActive() {
-                var vmtoken = getParameterByName("token");
-                var id = getVmId(vmtoken);
-
+            function checkIfVmActive(templateId) {
                 $.ajax({
                     type: 'GET',
-                    url: 'https://api.insa-cvl.com/vm/active/' + id,
+                    url: 'https://api.insa-cvl.com/vm/active/' + templateId,
                     contentType: 'application/json;charset=UTF-8',
                     xhrFields: {
                         withCredentials: true
@@ -61,8 +35,24 @@
                     if (!results[2]) return '';
                     return decodeURIComponent(results[2].replace(/\+/g, " "));
                 }
+
+                var templateId = getParameterByName(templateId);
+                var vncUrl;
     
-                var vncUrl = getParameterByName("vncUrl");
+                $.ajax({
+                    type: 'GET',
+                    url: 'https://api.insa-cvl.com/vm/url/template/' + templateId,
+                    contentType: 'application/json;charset=UTF-8',
+                    xhrFields: {
+                        withCredentials: true
+                    },
+                    success: function (response) {
+                        vncUrl = response.url;
+                    },
+                    error: function (error) {
+                        alert('Erreur de d\'ouverture de la VM');
+                    }
+                })
     
                 if (vncUrl) {
                     displayVNCViewer(vncUrl);
@@ -70,9 +60,8 @@
                     console.error("VNC URL parameter is missing.");
                 }
 
-
                 var intervalId = window.setInterval(function(){
-                    active = checkIfVmActive();
+                    active = checkIfVmActive(templateId);
                 }, 5000);
             });
     
