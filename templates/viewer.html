@@ -7,6 +7,35 @@
         <script>
             var active;
 
+            function getUrl(templateId) {
+                $.ajax({
+                    type: 'GET',
+                    url: 'https://api.insa-cvl.com/vm/url/template/' + templateId,
+                    contentType: 'application/json;charset=UTF-8',
+                    xhrFields: {
+                        withCredentials: true
+                    },
+                    success: function (response) {
+                        vncUrl = response.url;
+                        return vncUrl
+                    },
+                    error: function (error) {
+                        alert('Erreur de d\'ouverture de la VM');
+                    }
+                })
+            }
+            
+            async function openVm(templateId) {
+                try {
+                    var vncUrl = await getUrl(templateId);
+                    if (vncUrl) {
+                        displayVNCViewer(vncUrl);
+                    }
+                } catch (error) {
+                    alert(error);
+                }
+            }
+
             function checkIfVmActive(templateId) {
                 $.ajax({
                     type: 'GET',
@@ -37,29 +66,8 @@
                 }
 
                 var templateId = getParameterByName("templateId");
-
-                var vncUrl;
+                openVm(templateId);
     
-                $.ajax({
-                    type: 'GET',
-                    url: 'https://api.insa-cvl.com/vm/url/template/' + templateId,
-                    contentType: 'application/json;charset=UTF-8',
-                    xhrFields: {
-                        withCredentials: true
-                    },
-                    success: function (response) {
-                        vncUrl = response.url;
-                        if (vncUrl) {
-                            displayVNCViewer(vncUrl);
-                        } else {
-                            console.error("VNC URL parameter is missing.");
-                        }
-                    },
-                    error: function (error) {
-                        alert('Erreur de d\'ouverture de la VM');
-                    }
-                })
-
                 var intervalId = window.setInterval(function(){
                     active = checkIfVmActive(templateId);
                 }, 5000);
