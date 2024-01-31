@@ -8,7 +8,7 @@
             <button id="openVncUrl" class="btn btn-light">Mode plein écran  <i class="bi bi-box-arrow-up-right"></i></button>
         </li>
         <li class="nav-item">
-            <button id="openVncUrl" class="btn btn-light" onclick="refreshVnc()">Rafraîchir l'affichage  <i class="bi bi-arrow-clockwise"></i></button>
+            <button id="refreshVncToken" class="btn btn-light" onclick="refreshVnc()">Rafraîchir l'affichage  <i class="bi bi-arrow-clockwise"></i></button>
         </li>
     </ul>
 {% endblock %}
@@ -18,8 +18,9 @@
         <script>
 
             async function refreshVnc() {
+                var templateId = $("#refreshVncToken").id;
                 try {
-                    var output = await regenerateUrl();
+                    var output = await regenerateUrl(templateId);
                     if (output == 1) {
                         location.reload();
                     }
@@ -28,7 +29,7 @@
                 }
             }
 
-            function regenerateUrl() {
+            function regenerateUrl(templateId) {
                 return new Promise(function (resolve, object) {
                     $.ajax({
                         type: 'GET',
@@ -125,6 +126,7 @@
             document.addEventListener("DOMContentLoaded", function () {
                 var templateId = getParameterByName("templateId");
                 openVm(templateId);
+                $("refreshVncToken").id(templateId);
     
                 var intervalId = window.setInterval(function(){
                     active = checkIfVmActive(templateId);
