@@ -1,6 +1,3 @@
-usersDiv = $('#users-div');
-vmsDiv = $('#vms-div');
-
 async function deleteVmProf(id) { // showLoadingModal | hideLoadingModal | checkIfVmAliveAdmin
     try {
         var output = await checkIfVmAliveAdmin(id);
@@ -170,7 +167,7 @@ function addVMToDOM(vm, vmsDiv) { // createVmCard | vmsDiv
     vmsDiv.append(vmCard);
 }
 
-function getVms() { // addVMToDOM
+function getVms(vmsDiv) { // addVMToDOM
     $.ajax({
         type: 'GET',
         url: 'https://api.insa-cvl.com/myvmsusers',
