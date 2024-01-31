@@ -20,7 +20,6 @@
                         success: function (response) {
                             vncUrl = response.url;
                             if (vncUrl) {
-                                console.log("vncUrl obtenu: " + vncUrl);
                                 resolve(1);
                             }
                             else {
@@ -38,7 +37,6 @@
                 try {
                     var output = await getUrl(templateId);
                     if (output == 1) {
-                        console.log("vncUrl utilisé: " + vncUrl);
                         displayVNCViewer(vncUrl);
                     }
                 } catch (error) {

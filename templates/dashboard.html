@@ -114,6 +114,14 @@
                     window.location = "/viewer?templateId=" + encodeURIComponent(templateId);
                 }).text('Ouvrir');
 
+                var openVmBtnNewTab = $('<button>').attr({
+                    'id': 'open_vm_btn_new_tab',
+                    'type': 'button',
+                    'class': 'btn btn-success'
+                }).on('click', function () {
+                    window.open = "/viewer?templateId=" + encodeURIComponent(templateId);
+                }).text('Ouvrir dans un nouvel onglet');
+
                 var deleteBtn = $('<button>').attr({
                     'id': 'delete_vm_btn',
                     'type': 'button',
@@ -122,7 +130,7 @@
                     deleteVm(templateId);
                 }).text('Supprimer');
 
-                cardBody.append(openVmBtn, $('<div>').css('margin-top', '10px'), deleteBtn);
+                cardBody.append(openVmBtn, $('<div>').css('margin-top', '10px'), openVmBtnNewTab, $('<div>').css('margin-top', '10px'), deleteBtn);
             } else {
                 var startVmBtn = $('<button>').attr({
                     'id': 'start_vm_btn',
