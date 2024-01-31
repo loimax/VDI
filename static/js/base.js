@@ -1,3 +1,5 @@
+// VMS ACTIVITY
+
 function checkIfVmAliveAdmin(vmId) {
     return new Promise(function (resolve, reject) {
         showLoadingCardModal(vmId);   
@@ -24,34 +26,7 @@ function checkIfVmAliveAdmin(vmId) {
     });
 }
 
-function showLoadingCardModal(id) {
-    $("#" + id + "-loading-modal").css("display", "block");
-}
-
-function hideLoadingCardModal(id) {
-    $("#" + id + "-loading-modal").css("display", "none");
-}
-
-function createLdsDefaultContainer(id) {
-    var ldsDefaultContainer = $('<div>').addClass('lds-default-container');
-    var ldsDefaultSpinner = createLdsDefaultSpinner(id);
-    ldsDefaultContainer.append(ldsDefaultSpinner);
-    return ldsDefaultContainer;
-}
-
-function createLdsDefaultSpinner(id) {
-    var ldsDefaultSpinner = $('<div>')
-    .addClass('lds-default')
-    .attr('id', id + '-loading-modal')
-    .css('display', 'none');            
-    for (var i = 0; i < 12; i++) {
-        var childDiv = $('<div>');
-        ldsDefaultSpinner.append(childDiv);
-    }
-    return ldsDefaultSpinner;
-}
-
-function checkIfVmAlive(id) {
+function checkIfVmAlive(id) { // showLoadingCardModal | hideLoadingCardModal
     return new Promise(function (resolve, reject) {
         showLoadingCardModal(id);   
         $.ajax({
@@ -77,25 +52,9 @@ function checkIfVmAlive(id) {
     });
 }
 
-function togglePageClicks(enabled) {
-    if (enabled) {
-        document.body.style.pointerEvents = 'auto';
-    } else {
-        document.body.style.pointerEvents = 'none';
-    }
-}
+// CONNEXION / STATUS
 
-function showLoadingModal() {
-    $('#loadingModal').modal('show');
-    togglePageClicks(false);
-}
-
-function hideLoadingModal() {
-    $('#loadingModal').modal('hide');
-    togglePageClicks(true);
-}
-
-function showAlertModal(title, message) {
+function showAlertModal(title, message) { //
     var modalTitle = document.getElementById('alertModalLabel');
     var modalMessage = document.getElementById('alertModalMessage');
 
@@ -106,7 +65,7 @@ function showAlertModal(title, message) {
     alertModal.show();
 }
 
-function logout() {
+function logout() { //
     $.ajax({
         type: 'GET',
         url: 'https://api.insa-cvl.com/logout',
@@ -130,11 +89,11 @@ function logout() {
 }
 
 
-function redirectToLogin() {
+function redirectToLogin() { //
     window.location.href = '/login';
 }
 
-function updateConnectionStatus(isConnected) {
+function updateConnectionStatus(isConnected) { //
     if (isConnected) {
         $('#userInfo').show();
     } else {
@@ -142,7 +101,7 @@ function updateConnectionStatus(isConnected) {
     }
 }
 
-function getUserProfile() {
+function getUserProfile() { // updateConnectionStatus
     $.ajax({
         type: 'GET',
         url: 'https://api.insa-cvl.com/profile',
@@ -175,6 +134,52 @@ function getUserProfile() {
     });
 }
 
+// SPINNERS
+function createLdsDefaultSpinner(id) { 
+    var ldsDefaultSpinner = $('<div>')
+    .addClass('lds-default')
+    .attr('id', id + '-loading-modal')
+    .css('display', 'none');            
+    for (var i = 0; i < 12; i++) {
+        var childDiv = $('<div>');
+        ldsDefaultSpinner.append(childDiv);
+    }
+    return ldsDefaultSpinner;
+}
+
+function createLdsDefaultContainer(id) { // createLdsDefaultSpinner
+    var ldsDefaultContainer = $('<div>').addClass('lds-default-container');
+    var ldsDefaultSpinner = createLdsDefaultSpinner(id);
+    ldsDefaultContainer.append(ldsDefaultSpinner);
+    return ldsDefaultContainer;
+}
+
+function togglePageClicks(enabled) {
+    if (enabled) {
+        document.body.style.pointerEvents = 'auto';
+    } else {
+        document.body.style.pointerEvents = 'none';
+    }
+}
+
+function showLoadingCardModal(id) {
+    $("#" + id + "-loading-modal").css("display", "block");
+}
+
+function hideLoadingCardModal(id) {
+    $("#" + id + "-loading-modal").css("display", "none");
+}
+
+function showLoadingModal() { // togglePageClicks
+    $('#loadingModal').modal('show');
+    togglePageClicks(false);
+}
+
+function hideLoadingModal() { // togglePageClicks
+    $('#loadingModal').modal('hide');
+    togglePageClicks(true);
+}
+
 // DIVERS
 function createBlockquote(title, text) {
     var blockquote = $('<blockquote>').addClass('blockquote text-center');
@@ -182,4 +187,14 @@ function createBlockquote(title, text) {
     var p = $('<p>').html('<i>' + text + '</i>');
     blockquote.append(h1, p);
     return blockquote;
+}
+
+function getParameterByName(name, url) {
+    if (!url) url = window.location.href;
+    name = name.replace(/[\[\]]/g, "\\$&");
+    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, " "));
 }
