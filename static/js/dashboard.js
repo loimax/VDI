@@ -108,12 +108,3 @@ async function deleteVm(templateId) {
         hideLoadingModal(); 
     }
 }
-
-async function getVmStatus(templateId) {
-    try {
-        var output = await checkIfVmAlive(templateId);
-        updateButtons(templateId, output);
-    } catch (error) {
-        alert(error);
-    }
-}

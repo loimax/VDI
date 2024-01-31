@@ -129,6 +129,15 @@
             return ldsDefaultSpinner;
         }
 
+        async function getVmStatus(templateId) {
+            try {
+                var output = await checkIfVmAlive(templateId);
+                updateButtons(templateId, output);
+            } catch (error) {
+                alert(error);
+            }
+        }
+
         function addTemplateToDOM(template) {
             var templateCard = createTemplateCard(template);
             templatesDiv.append(templateCard);
