@@ -216,22 +216,3 @@ function addTemplateToDOM(template) {
     templatesDiv.append(templateCard);
     getVmStatus(template.id);
 }
-
-function getTemplates() {
-    $.ajax({
-        type: 'GET',
-        url: 'https://api.insa-cvl.com/template',
-        contentType: 'application/json;charset=UTF-8',
-        xhrFields: {
-            withCredentials: true
-        },
-        success: function (response) {
-            var templates = response;
-            templatesDiv = $('#templates-div');
-            templates.forEach(addTemplateToDOM);
-        },
-        error: function (error) {
-            alert('Erreur d\'obtention d\'informations de templates');
-        }
-    });
-}
