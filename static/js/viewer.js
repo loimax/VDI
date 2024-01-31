@@ -67,7 +67,7 @@ function displayVNCViewer(vncUrl) {
     document.getElementById('vncViewerContainer').appendChild(iframe);
 }
 
-async function openVm(vncUrl, templateId) { // displayVNCViewer | getUrl
+async function openVm(templateId) { // displayVNCViewer | getUrl
     try {
         var output = await getUrl(templateId);
         if (output == 1) {
