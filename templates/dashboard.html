@@ -13,6 +13,7 @@
 {% endblock %}
 
 {% block content %}
+
     <script>
         function checkIfVmAlive(id) { // showLoadingCardModal | hideLoadingCardModal
             return new Promise(function (resolve, reject) {
@@ -70,6 +71,9 @@
                 }
             });
         }
+    </script>
+    <script src="{{ url_for('static', filename='js/dashboard.js' ) }}"></script>
+    <script>
 
         function getTemplates() { // addTemplateToDom
             $.ajax({
