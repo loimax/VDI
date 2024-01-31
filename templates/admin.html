@@ -44,6 +44,7 @@
                             <th scope="col">Prénom</th>
                             <th scope="col">Nom</th>
                             <th scope="col">Email</th>
+                            <th scope="col">Role</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -129,7 +130,7 @@
                 success: function (response) {
                     var users = response;
                     usersDiv = $('#users-div');
-                    users.forEach(addUserToTable);
+                    users.forEach(addUserToTableAdmin);
                 },
                 error: function (error) {
                     alert('Erreur d\'obtention d\'informations d\'users');

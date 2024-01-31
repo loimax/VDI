@@ -115,7 +115,7 @@
                 success: function (response) {
                     var users = response;
                     usersDiv = $('#users-div');
-                    users.forEach(addUserToTable);
+                    users.forEach(addUserToTableProf);
                 },
                 error: function (error) {
                     alert('Erreur d\'obtention d\'informations de mes users');

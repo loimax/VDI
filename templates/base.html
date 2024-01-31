@@ -167,6 +167,36 @@
                 </div>
             </div>
         </div>
+
+        <!-- Modal de sélection du rôle -->
+        <div class="modal fade" id="selectRoleModal" tabindex="-1" role="dialog" aria-labelledby="selectRoleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content bg-secondary text-white">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="selectRoleModalLabel">Sélectionner le rôle</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true"><i class="bi bi-x-lg"></i></span>
+                        </button>
+                    </div>
+                    <form method="post" id="selectRoleForm">
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="roleSelect">Sélectionnez le rôle :</label>
+                                <select class="form-control" id="roleSelect" name="role">
+                                    <option value="user">Utilisateur</option>
+                                    <option value="prof">Professeur</option>
+                                    <option value="admin">Administrateur</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-light" name="select_role">Enregistrer</button>
+                        </div>
+                    </form>        
+                </div>
+            </div>
+        </div>
+
         <script>
             function checkIfVmAliveAdmin(vmId) {
                 return new Promise(function (resolve, reject) {
@@ -382,6 +412,25 @@
                 });
             }
 
+            function changeRole(userId, role) {
+                $.ajax({
+                    type: 'POST',
+                    url: 'https://api.insa-cvl.com/updatepasswordpa',
+                    contentType: 'application/json;charset=UTF-8',
+                    data: JSON.stringify({ user_id: userId, role: role }),
+                    xhrFields: {
+                        withCredentials: true
+                    },
+                    success: function (response) {
+                        alert('Role mis à jour !');
+                        location.reload();
+                    },
+                    error: function (error) {
+                        alert('Erreur lors de la mise à jour du rôle.');
+                    }
+                })
+            }
+
             function deleteUser(userId) {
                 $.ajax({
                     type: 'DELETE',
@@ -401,7 +450,7 @@
                 });
             }
 
-            function addUserToTable(user) {
+            function addUserToTableProf(user) {
                 var row = $('<tr>');
                 row.append($('<td>').attr('scope', 'row').text(user.id));
                 row.append($('<td>').text(user.first_name));
@@ -413,6 +462,52 @@
                     .text('Changer le mot de passe')
                     .attr('data-toggle', 'modal')
                     .attr('data-target', '#editUserModal')
+                    .attr('data-user-id', user.id)
+                    .on('click', function() {
+                        var userId = $(this).data('user-id');
+                        $('#edit-user-id').val(userId);
+                    });
+
+                row.append($('<td>').append(changePasswordButton));
+
+                var deleteUserButton = $('<button>')
+                    .addClass("btn btn-light")
+                    .text('Supprimer l\'utilisateur')
+                    .on('click', function() {
+                        deleteUser(user.id);
+                    });
+
+                row.append($('<td>').append(deleteUserButton));
+
+                $('#users-table tbody').append(row);
+            }
+
+            function addUserToTableAdmin(user) {
+                var row = $('<tr>');
+                row.append($('<td>').attr('scope', 'row').text(user.id));
+                row.append($('<td>').text(user.first_name));
+                row.append($('<td>').text(user.last_name));
+                row.append($('<td>').text(user.email));
+                row.append($('<td>').text(user.role));
+                
+                var changePasswordButton = $('<button>')
+                    .addClass("btn btn-light")
+                    .text('Changer le mot de passe')
+                    .attr('data-toggle', 'modal')
+                    .attr('data-target', '#editUserModal')
+                    .attr('data-user-id', user.id)
+                    .on('click', function() {
+                        var userId = $(this).data('user-id');
+                        $('#edit-user-id').val(userId);
+                    });
+
+                row.append($('<td>').append(changePasswordButton));
+
+                var changePasswordButton = $('<button>')
+                    .addClass("btn btn-light")
+                    .text('Changer le role')
+                    .attr('data-toggle', 'modal')
+                    .attr('data-target', '#editUserRoleModal')
                     .attr('data-user-id', user.id)
                     .on('click', function() {
                         var userId = $(this).data('user-id');
