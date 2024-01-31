@@ -40,11 +40,6 @@ h2 {
     text-align: center;
 }
 
-p {
-    font-size: 16px;
-    color: #666;
-}
-
 #addTemplateCard {
     cursor: pointer;
 }
