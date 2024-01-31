@@ -606,6 +606,17 @@
                     
                     $('#editUserModal').modal('hide');
                 });
+
+                $('#selectRoleForm').submit(function (event) {
+                    event.preventDefault();
+
+                    var userId = $('#edit-user-id').val();
+                    var role = $('#roleSelect').val();
+
+                    changeRole(userId, role);
+                    
+                    $('#selectRoleModal').modal('hide');
+                });
                             
                 $('#createUserForm').submit(function (event) {
                     event.preventDefault();
