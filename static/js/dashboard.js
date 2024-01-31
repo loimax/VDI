@@ -259,6 +259,8 @@ function addTemplateToDOM(template) { // createTemplateCard | getVmStatus
     getVmStatus(template.id);
 }
 
+console.log("dashboard.js chargé");
+
 function getTemplates() { // addTemplateToDom
     $.ajax({
         type: 'GET',
