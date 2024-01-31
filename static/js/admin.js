@@ -1,4 +1,4 @@
-async function deleteVmProf(id) { // showLoadingModal | hideLoadingModal | checkIfVmAliveAdmin
+async function deleteVmAdmin(id) { // showLoadingModal | checkIfVmAliveAdmin | hideLoadingModal
     try {
         var output = await checkIfVmAliveAdmin(id);
         if (output == 1) {
@@ -43,6 +43,25 @@ function changePassword(userId, newPassword, newPassword2) {
             alert('Erreur lors du changement de mot de passe. L\'utilisateur est peut-être du CAS.');
         }
     });
+}
+
+function changeRole(userId, role) {
+    $.ajax({
+        type: 'POST',
+        url: 'https://api.insa-cvl.com/updaterole',
+        contentType: 'application/json;charset=UTF-8',
+        data: JSON.stringify({ user_id: userId, role: role }),
+        xhrFields: {
+            withCredentials: true
+        },
+        success: function (response) {
+            alert('Role mis à jour !');
+            location.reload();
+        },
+        error: function (error) {
+            alert('Erreur lors de la mise à jour du rôle.');
+        }
+    })
 }
 
 function createUser() {
@@ -93,12 +112,13 @@ function deleteUser(userId) { //
     });
 }
 
-function addUserToTableProf(user) { // deleteUser
+function addUserToTableAdmin(user) { // deleteUser
     var row = $('<tr>');
     row.append($('<td>').attr('scope', 'row').text(user.id));
     row.append($('<td>').text(user.first_name));
     row.append($('<td>').text(user.last_name));
     row.append($('<td>').text(user.email));
+    row.append($('<td>').text(user.role));
     
     var changePasswordButton = $('<button>')
         .addClass("btn btn-light")
@@ -113,6 +133,19 @@ function addUserToTableProf(user) { // deleteUser
 
     row.append($('<td>').append(changePasswordButton));
 
+    var selectRoleButton = $('<button>')
+        .addClass("btn btn-light")
+        .text('Changer le rôle')
+        .attr('data-toggle', 'modal')
+        .attr('data-target', '#selectRoleModal')
+        .attr('data-user-id', user.id)
+        .on('click', function() {
+            var userId = $(this).data('user-id');
+            $('#edit-user-id').val(userId);
+        });
+
+    row.append($('<td>').append(selectRoleButton));
+
     var deleteUserButton = $('<button>')
         .addClass("btn btn-light")
         .text('Supprimer l\'utilisateur')
@@ -125,52 +158,71 @@ function addUserToTableProf(user) { // deleteUser
     $('#users-table tbody').append(row);
 }
 
-function getMyUsers() { // addUserToTableProf
+function getUsers() { // addUserToTableAdmin
     $.ajax({
         type: 'GET',
-        url: 'https://api.insa-cvl.com/myusers',
+        url: 'https://api.insa-cvl.com/users',
         contentType: 'application/json;charset=UTF-8',
         xhrFields: {
             withCredentials: true
         },
         success: function (response) {
             var users = response;
-            users.forEach(addUserToTableProf);
+            usersDiv = $('#users-div');
+            users.forEach(addUserToTableAdmin);
         },
         error: function (error) {
-            alert('Erreur d\'obtention d\'informations de mes users');
+            alert('Erreur d\'obtention d\'informations d\'users');
         }
     });
 }
 
-async function deleteVmAdmin(id) { // showLoadingModal | checkIfVmAliveAdmin | hideLoadingModal
-    try {
-        var output = await checkIfVmAliveAdmin(id);
-        if (output == 1) {
-            showLoadingModal();
-            $.ajax({
-                type: 'DELETE',
-                url: 'https://api.insa-cvl.com/vm/delete_admin',
-                contentType: 'application/json;charset=UTF-8',
-                data: JSON.stringify({ vm_id: id }),
-                xhrFields: {
-                    withCredentials: true
-                },
-                success: function (response) {
-                    hideLoadingModal();
-                    location.reload();
-                },
-                error: function (error) {
-                    alert('Erreur de suppression de la VM');
-                    hideLoadingModal(); 
-                }
-            });
-        }
-    } catch (error) {
-        alert(error);
-        hideLoadingModal(); 
-    }
+// TEMPLATES
+
+function createTemplateForm(template) {
+    var infoContainer = $('<div>').addClass('card-body bg-secondary text-center');
+    var icon = $('<i>').addClass('bi bi-card-heading');
+    var img = $('<div>').append(icon);
+    var cardBody = $('<div>').addClass('card-body');
+    var cardTitle = $('<h5>').addClass('card-title').html('<em>' + template.name + "</em>");
+
+    cardBody.append(cardTitle);
+    infoContainer.append(img, cardBody);
+
+    return infoContainer;
 }
+
+function createTemplateCard(template) { // createTemplateForm
+    var templateCard = $('<div>').addClass('card').css('width', '18rem').attr('id', template.id);
+    var cardBody = createTemplateForm(template);
+    templateCard.append(cardBody);
+    return templateCard;
+}
+
+function addTemplateToDOM(template) { // createTemplateCard
+    var templateCard = createTemplateCard(template);
+    $('#templates-div').append(templateCard);
+}
+
+function getTemplates() { // addTemplateToDOM
+    $.ajax({
+        type: 'GET',
+        url: 'https://api.insa-cvl.com/template',
+        contentType: 'application/json;charset=UTF-8',
+        xhrFields: {
+            withCredentials: true
+        },
+        success: function (response) {
+            var templates = response;
+            templates.forEach(addTemplateToDOM);
+        },
+        error: function (error) {
+            alert('Erreur d\'obtention d\'informations de templates');
+        }
+    });
+}
+
+// VMS
 
 function createVmForm(vm) {  // deleteVmAdmin
     var infoContainer = $('<div>').addClass('card-body bg-secondary text-center');
@@ -217,13 +269,14 @@ function addVMToDOM(vm) { // createVmCard
 function getVms() { // addVMToDOM
     $.ajax({
         type: 'GET',
-        url: 'https://api.insa-cvl.com/myvmsusers',
+        url: 'https://api.insa-cvl.com/vm',
         contentType: 'application/json;charset=UTF-8',
         xhrFields: {
             withCredentials: true
         },
         success: function (response) {
             var vms = response;
+            vmsDiv = $('#vms-div');
             vms.forEach(addVMToDOM);
         },
         error: function (error) {
