@@ -167,7 +167,10 @@ function addVMToDOM(vm, vmsDiv) { // createVmCard | vmsDiv
     vmsDiv.append(vmCard);
 }
 
+console.log("prof.js chargé");
+
 function getVms(vmsDiv) { // addVMToDOM
+    console.log(vmsDiv);
     $.ajax({
         type: 'GET',
         url: 'https://api.insa-cvl.com/myvmsusers',
