@@ -1,3 +1,13 @@
+var templatesDiv;
+
+function togglePageClicks(enabled) {
+    if (enabled) {
+        document.body.style.pointerEvents = 'auto';
+    } else {
+        document.body.style.pointerEvents = 'none';
+    }
+}
+
 function showLoadingModal() {
     $('#loadingModal').modal('show');
     togglePageClicks(false);
@@ -91,7 +101,7 @@ function redirectToVmViewer(templateId) { // showLoadingModal | hideLoadingModal
             alert('Erreur de d\'ouverture de la VM');
             hideLoadingModal(); 
         }
-    })
+    });
 }
 
 async function openVm(templateId) { // redirectToVmViewer | checkIfVmAlive
@@ -133,6 +143,7 @@ async function deleteVm(templateId) { // checkIfVmAlive | showLoadingModal | hid
         hideLoadingModal(); 
     }
 }
+
 function updateButtons(templateId, isVmAlive) { // deleteVm | createVmFromTemplate
     var templateCard = $('#' + templateId);
 
@@ -258,8 +269,6 @@ function addTemplateToDOM(template) { // createTemplateCard | getVmStatus
     templatesDiv.append(templateCard);
     getVmStatus(template.id);
 }
-
-console.log("dashboard.js chargé");
 
 function getTemplates() { // addTemplateToDom
     $.ajax({
