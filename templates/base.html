@@ -505,9 +505,9 @@
 
                 var changePasswordButton = $('<button>')
                     .addClass("btn btn-light")
-                    .text('Changer le role')
+                    .text('Changer le rôle')
                     .attr('data-toggle', 'modal')
-                    .attr('data-target', '#editUserRoleModal')
+                    .attr('data-target', '#selectUserRoleModal')
                     .attr('data-user-id', user.id)
                     .on('click', function() {
                         var userId = $(this).data('user-id');
