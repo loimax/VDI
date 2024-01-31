@@ -32,7 +32,6 @@ function regenerateUrl(templateId) {
     })
 }
 
-
 async function refreshVnc() { // regenerateUrl
     try {
         var output = await regenerateUrl(templateId);
@@ -91,8 +90,6 @@ async function openVm(vncUrl, templateId) { // displayVNCViewer | getUrl
         alert(error);
     }
 }
-
-
 
 function checkIfVmActive(templateId) {
     $.ajax({

@@ -17,8 +17,9 @@
 {% block content %}
 
     <script src="{{ url_for('static', filename='js/base.js' ) }}"></script>
+    <script src="{{ url_for('static', filename='js/viewer.js' ) }}"></script>
 
-    <div id="vncViewerContainer" style="height:90vh"></div>
+    <div id="vncViewerContainer" style="height:88vh"></div>
     <script>
         var templateId = getParameterByName("templateId");
         var active;
