@@ -8,7 +8,7 @@
             <button id="openVncUrl" class="btn btn-light">Mode plein écran  <i class="bi bi-box-arrow-up-right"></i></button>
         </li>
         <li class="nav-item">
-            <button id="openVncUrl" class="btn btn-light">Rafraîchir l'affichage  <i class="bi bi-arrow-clockwise"></i></button>
+            <button id="openVncUrl" class="btn btn-light" onclick="refreshVnc()">Rafraîchir l'affichage  <i class="bi bi-arrow-clockwise"></i></button>
         </li>
     </ul>
 {% endblock %}
@@ -17,7 +17,7 @@
         <div id="vncViewerContainer" style="height:90vh"></div>
         <script>
 
-            async function refreshVnc(templateId) {
+            async function refreshVnc() {
                 try {
                     var output = await regenerateUrl();
                     if (output == 1) {
