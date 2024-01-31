@@ -78,10 +78,10 @@
                 <div class="modal-content">
                     <div class="modal-body text-center">
                         <div class="spinner-border" role="status">
-                            <span class="sr-only">Loading...</span>
+                            <span class="sr-only">Chargement...</span>
                             <div class="lds-spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
                         </div>
-                        <p class="mt-2 text-dark">Loading...</p>
+                        <p class="mt-2 text-dark">Chargement...</p>
                     </div>
                 </div>
             </div>
@@ -277,12 +277,23 @@
                 });
             }
 
+            function togglePageClicks(enabled) {
+                if (enabled) {
+                    document.body.style.pointerEvents = 'auto';
+                } else {
+                    document.body.style.pointerEvents = 'none';
+                }
+            }
+
+
             function showLoadingModal() {
                 $('#loadingModal').modal('show');
+                togglePageClicks(false);
             }
 
             function hideLoadingModal() {
                 $('#loadingModal').modal('hide');
+                togglePageClicks(true);
             }
 
             function showAlertModal(title, message) {
@@ -705,17 +716,8 @@
             }
 
             a {
-                text-decoration: none;
                 color: inherit;
-                cursor: default;
             }
-
-            a:hover {
-                text-decoration: none;
-                color: inherit;
-                cursor: default;
-            }
-
         </style>    
         {% block content %}{% endblock %}
     </body>
