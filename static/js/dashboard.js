@@ -1,5 +1,3 @@
-var templatesDiv;
-
 function togglePageClicks(enabled) {
     if (enabled) {
         document.body.style.pointerEvents = 'auto';
@@ -24,95 +22,6 @@ function showLoadingCardModal(id) {
 
 function hideLoadingCardModal(id) {
     $("#" + id + "-loading-modal").css("display", "none");
-}
-
-function checkIfVmAlive(id) { // showLoadingCardModal | hideLoadingCardModal
-    return new Promise(function (resolve, reject) {
-        showLoadingCardModal(id);   
-        $.ajax({
-            type: 'GET',
-            url: 'https://api.insa-cvl.com/vm/status/template/' + id,
-            contentType: 'application/json;charset=UTF-8',
-            xhrFields: {
-                withCredentials: true
-            },
-            success: function (response) {
-                if (response.vm_state == "1" && response.status == "ACTIVE") {
-                    hideLoadingCardModal(id);
-                    resolve(1); 
-                } else {
-                    hideLoadingCardModal(id);
-                    resolve(0);
-                }
-            },
-            error: function (error) {
-                reject("Erreur d'obtention d'informations de la VM");
-            }
-        });
-    });
-}
-
-async function createVmFromTemplate(templateId) { // showLoadingModal | checkIfVmAlive | hideLoadingModal
-    showLoadingModal(); 
-    $.ajax({
-        type: 'POST',
-        url: 'https://api.insa-cvl.com/vm/create',
-        contentType: 'application/json;charset=UTF-8',
-        data: JSON.stringify({ template_id: templateId }),
-        xhrFields: {
-            withCredentials: true
-        },
-        success: async function (response) {
-            try {
-                var output = await checkIfVmAlive(templateId);
-                while (output !== 1) {
-                    await new Promise(resolve => setTimeout(resolve, 60000));
-                    output = await checkIfVmAlive(templateId);
-                }
-            } catch (error) {
-                alert(error);
-                hideLoadingModal(); 
-            }
-            hideLoadingModal(); 
-            location.reload();
-        },
-        error: function (error) {
-            alert('Erreur de création de la VM');
-            hideLoadingModal(); 
-        }
-    });
-}
-
-function redirectToVmViewer(templateId) { // showLoadingModal | hideLoadingModal
-    showLoadingModal();
-    $.ajax({
-        type: 'GET',
-        url: 'https://api.insa-cvl.com/vm/url/template/' + templateId,
-        contentType: 'application/json;charset=UTF-8',
-        xhrFields: {
-            withCredentials: true
-        },
-        success: function (response) {
-            hideLoadingModal();
-            var vncUrl = response.url;
-            window.location = "/viewer?vncUrl=" + encodeURIComponent(vncUrl);
-        },
-        error: function (error) {
-            alert('Erreur de d\'ouverture de la VM');
-            hideLoadingModal(); 
-        }
-    });
-}
-
-async function openVm(templateId) { // redirectToVmViewer | checkIfVmAlive
-    try {
-        var output = await checkIfVmAlive(templateId);
-        if (output == 1) {
-            redirectToVmViewer(templateId);
-        }
-    } catch (error) {
-        alert(error);
-    }
 }
 
 async function deleteVm(templateId) { // checkIfVmAlive | showLoadingModal | hideLoadingModal
