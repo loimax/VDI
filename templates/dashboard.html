@@ -101,7 +101,7 @@
         function updateButtons(templateId, isVmAlive) {
             var templateCard = $('#' + templateId);
 
-            templateCard.find("#start_vm_btn, #open_vm_btn, #delete_vm_btn").remove();
+            templateCard.find("#start_vm_btn, #open_vm_btn, #open_vm_btn_new_tab, #delete_vm_btn").remove();
 
             var cardBody = templateCard.find(".card-body");
 
@@ -130,7 +130,7 @@
                     deleteVm(templateId);
                 }).text('Supprimer');
 
-                cardBody.append(openVmBtn, $('<div>').css('margin-top', '10px'), openVmBtnNewTab, $('<div>').css('margin-top', '10px'), deleteBtn);
+                cardBody.append(openVmBtn, openVmBtnNewTab, $('<div>').css('margin-top', '10px'), deleteBtn);
             } else {
                 var startVmBtn = $('<button>').attr({
                     'id': 'start_vm_btn',
