@@ -119,8 +119,11 @@
                     'type': 'button',
                     'class': 'btn btn-success'
                 }).on('click', function () {
-                    window.open = "/viewer?templateId=" + encodeURIComponent(templateId);
+                    window.open("/viewer?templateId=" + encodeURIComponent(templateId));
                 }).text('Ouvrir dans un nouvel onglet');
+
+                var buttonContainer = $('<div>').addClass('d-inline-flex');
+                buttonContainer.append(openVmBtn, openVmBtnNewTab);
 
                 var deleteBtn = $('<button>').attr({
                     'id': 'delete_vm_btn',
@@ -130,7 +133,7 @@
                     deleteVm(templateId);
                 }).text('Supprimer');
 
-                cardBody.append(openVmBtn, openVmBtnNewTab, $('<div>').css('margin-top', '10px'), deleteBtn);
+                cardBody.append(buttonContainer, $('<div>').css('margin-top', '10px'), deleteBtn);
             } else {
                 var startVmBtn = $('<button>').attr({
                     'id': 'start_vm_btn',
@@ -143,6 +146,7 @@
                 cardBody.append(startVmBtn);
             }
         }
+
 
         async function createVmFromTemplate(templateId) {
             showLoadingModal(); 
