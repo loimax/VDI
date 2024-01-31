@@ -144,11 +144,11 @@
         }
 
         function createTemplateForm(template) {
-            var infoContainer = $('<div>').addClass('card-body bg-secondary');
+            var infoContainer = $('<div>').addClass('card-body bg-secondary text-center');
             var icon = $('<i>').addClass('bi bi-card-heading');
-            var img = $('<div>').addClass('text-center').append(icon);
+            var img = $('<div>').append(icon);
             var cardBody = $('<div>').addClass('card-body');
-            var cardTitle = $('<h5>').addClass('card-title').html('Nom: <em>' + template.name + "</em>");
+            var cardTitle = $('<h5>').addClass('card-title').html('<em>' + template.name + "</em>");
 
             cardBody.append(cardTitle);
             infoContainer.append(img, cardBody);
