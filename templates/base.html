@@ -415,7 +415,7 @@
             function changeRole(userId, role) {
                 $.ajax({
                     type: 'POST',
-                    url: 'https://api.insa-cvl.com/updatepasswordpa',
+                    url: 'https://api.insa-cvl.com/updaterole',
                     contentType: 'application/json;charset=UTF-8',
                     data: JSON.stringify({ user_id: userId, role: role }),
                     xhrFields: {
@@ -614,6 +614,8 @@
                     var role = $('#roleSelect').val();
 
                     changeRole(userId, role);
+
+                    $('#roleSelect').val('user');
                     
                     $('#selectRoleModal').modal('hide');
                 });
