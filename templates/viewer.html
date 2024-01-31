@@ -13,133 +13,135 @@
     </ul>
 {% endblock %}
 
-<script src="{{ url_for('static', filename='js/base.js' ) }}"></script>
 
 {% block content %}
-        <div id="vncViewerContainer" style="height:90vh"></div>
-        <script>
-            function getParameterByName(name, url) {
-                if (!url) url = window.location.href;
-                name = name.replace(/[\[\]]/g, "\\$&");
-                var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
-                    results = regex.exec(url);
-                if (!results) return null;
-                if (!results[2]) return '';
-                return decodeURIComponent(results[2].replace(/\+/g, " "));
-            }
 
-            var templateId = getParameterByName("templateId");
+    <script src="{{ url_for('static', filename='js/base.js' ) }}"></script>
 
-            async function refreshVnc() {
-                try {
-                    var output = await regenerateUrl(templateId);
-                    if (output == 1) {
-                        location.reload();
-                    }
-                } catch (error) {
-                    alert(error);
+    <div id="vncViewerContainer" style="height:90vh"></div>
+    <script>
+        function getParameterByName(name, url) {
+            if (!url) url = window.location.href;
+            name = name.replace(/[\[\]]/g, "\\$&");
+            var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                results = regex.exec(url);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, " "));
+        }
+
+        var templateId = getParameterByName("templateId");
+
+        async function refreshVnc() {
+            try {
+                var output = await regenerateUrl(templateId);
+                if (output == 1) {
+                    location.reload();
                 }
+            } catch (error) {
+                alert(error);
             }
+        }
 
-            function regenerateUrl(templateId) {
-                return new Promise(function (resolve, object) {
-                    $.ajax({
-                        type: 'GET',
-                        url: 'https://api.insa-cvl.com/vm/regenerate_url/' + templateId,
-                        contentType: 'application/json;charset=UTF-8',
-                        xhrFields: {
-                            withCredentials: true
-                        },
-                        success: function (response) {
-                            if (response) {
-                                resolve(1);
-                            }
-                            else {
-                                resolve(0);
-                            }
-                        },
-                        error: function (error) {
-                            reject("Erreur de regénération de du token");
-                        }
-                    })
-                })
-            }
-
-            var active;
-            var vncUrl;
-
-            function getUrl(templateId) {
-                return new Promise(function (resolve, reject) {
-                    $.ajax({
-                        type: 'GET',
-                        url: 'https://api.insa-cvl.com/vm/url/template/' + templateId,
-                        contentType: 'application/json;charset=UTF-8',
-                        xhrFields: {
-                            withCredentials: true
-                        },
-                        success: function (response) {
-                            vncUrl = response.url;
-                            if (vncUrl) {
-                                resolve(1);
-                            }
-                            else {
-                                resolve(0);
-                            }
-                        },
-                        error: function (error) {
-                            reject("Erreur d'obtention de l'URL");
-                        }
-                    })
-                })
-            }
-            
-            async function openVm(templateId) {
-                try {
-                    var output = await getUrl(templateId);
-                    if (output == 1) {
-                        $('#openVncUrl').on('click', function () {
-                            window.open(vncUrl);
-                        });
-                        displayVNCViewer(vncUrl);
-                    }
-                } catch (error) {
-                    alert(error);
-                }
-            }
-
-            function checkIfVmActive(templateId) {
+        function regenerateUrl(templateId) {
+            return new Promise(function (resolve, object) {
                 $.ajax({
                     type: 'GET',
-                    url: 'https://api.insa-cvl.com/vm/active/' + templateId,
+                    url: 'https://api.insa-cvl.com/vm/regenerate_url/' + templateId,
                     contentType: 'application/json;charset=UTF-8',
                     xhrFields: {
                         withCredentials: true
                     },
                     success: function (response) {
-                        return 1;
+                        if (response) {
+                            resolve(1);
+                        }
+                        else {
+                            resolve(0);
+                        }
                     },
                     error: function (error) {
-                        alert('Erreur d\'obtention de l\'activité de la VM');
-                        return 0;
+                        reject("Erreur de regénération de du token");
                     }
-                });
-            }
+                })
+            })
+        }
 
-            document.addEventListener("DOMContentLoaded", function () {
-                openVm(templateId);
-    
-                var intervalId = window.setInterval(function(){
-                    active = checkIfVmActive(templateId);
-                }, 5000);
-            });
-    
-            function displayVNCViewer(vncUrl) {
-                var iframe = document.createElement('iframe');
-                iframe.src = vncUrl;
-                iframe.width = "100%";
-                iframe.height = "100%";
-                iframe.style.border = "none";
-                document.getElementById('vncViewerContainer').appendChild(iframe);
+        var active;
+        var vncUrl;
+
+        function getUrl(templateId) {
+            return new Promise(function (resolve, reject) {
+                $.ajax({
+                    type: 'GET',
+                    url: 'https://api.insa-cvl.com/vm/url/template/' + templateId,
+                    contentType: 'application/json;charset=UTF-8',
+                    xhrFields: {
+                        withCredentials: true
+                    },
+                    success: function (response) {
+                        vncUrl = response.url;
+                        if (vncUrl) {
+                            resolve(1);
+                        }
+                        else {
+                            resolve(0);
+                        }
+                    },
+                    error: function (error) {
+                        reject("Erreur d'obtention de l'URL");
+                    }
+                })
+            })
+        }
+        
+        async function openVm(templateId) {
+            try {
+                var output = await getUrl(templateId);
+                if (output == 1) {
+                    $('#openVncUrl').on('click', function () {
+                        window.open(vncUrl);
+                    });
+                    displayVNCViewer(vncUrl);
+                }
+            } catch (error) {
+                alert(error);
             }
-        </script>
+        }
+
+        function checkIfVmActive(templateId) {
+            $.ajax({
+                type: 'GET',
+                url: 'https://api.insa-cvl.com/vm/active/' + templateId,
+                contentType: 'application/json;charset=UTF-8',
+                xhrFields: {
+                    withCredentials: true
+                },
+                success: function (response) {
+                    return 1;
+                },
+                error: function (error) {
+                    alert('Erreur d\'obtention de l\'activité de la VM');
+                    return 0;
+                }
+            });
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            openVm(templateId);
+
+            var intervalId = window.setInterval(function(){
+                active = checkIfVmActive(templateId);
+            }, 5000);
+        });
+
+        function displayVNCViewer(vncUrl) {
+            var iframe = document.createElement('iframe');
+            iframe.src = vncUrl;
+            iframe.width = "100%";
+            iframe.height = "100%";
+            iframe.style.border = "none";
+            document.getElementById('vncViewerContainer').appendChild(iframe);
+        }
+    </script>
 {% endblock %}
