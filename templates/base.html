@@ -285,16 +285,28 @@
                 }
             }
 
+            function blockPageRefresh() {
+                window.addEventListener('beforeunload', function (e) {
+                    e.preventDefault();
+                    e.returnValue = '';
+                });
+            }
+
 
             function showLoadingModal() {
                 $('#loadingModal').modal('show');
                 togglePageClicks(false);
+                blockPageRefresh();
             }
 
             function hideLoadingModal() {
                 $('#loadingModal').modal('hide');
                 togglePageClicks(true);
             }
+
+            $('#loadingModal').on('hidden.bs.modal', function () {
+                window.removeEventListener('beforeunload', function () {});
+            });
 
             function showAlertModal(title, message) {
                 var modalTitle = document.getElementById('alertModalLabel');
