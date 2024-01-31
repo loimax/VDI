@@ -2,6 +2,14 @@
 
 {% block title %}VNC Viewer{% endblock %}
 
+{% block navbar %}
+    <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+            <button id="openVncUrl" class="btn btn-light">Ouvrir dans un nouvel onglet</button>
+        </li>
+    </ul>
+{% endblock %}
+
 {% block content %}
         <div id="vncViewerContainer" style="height:90vh"></div>
         <script>
@@ -37,6 +45,11 @@
                 try {
                     var output = await getUrl(templateId);
                     if (output == 1) {
+                        $(document).ready(function() {
+                            $('#openVncUrl').on('click', function () {
+                                window.open(vncUrl);
+                            });
+                        });
                         displayVNCViewer(vncUrl);
                     }
                 } catch (error) {
