@@ -13,12 +13,6 @@
 {% endblock %}
 
 {% block content %}
-    <script>
-        $(document).ready(function () {
-            getTemplates();
-        });
-    </script>
-
     <div class="tab-content">
         <div class="tab-pane fade show active" id="rubrique1">
             <blockquote class="blockquote text-center">
@@ -30,4 +24,11 @@
             </div>
         </div>
     </div>
+    
+    <script src="{{ url_for('static', filename='js/dashboard.js' ) }}"></script>
+    <script>
+        $(document).ready(function () {
+            getTemplates();
+        });
+    </script>
 {% endblock %}
