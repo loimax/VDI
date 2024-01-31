@@ -7,12 +7,51 @@
         <li class="nav-item">
             <button id="openVncUrl" class="btn btn-light">Mode plein écran  <i class="bi bi-box-arrow-up-right"></i></button>
         </li>
+        <li class="nav-item">
+            <button id="openVncUrl" class="btn btn-light">Rafraîchir l'affichage  <i class="bi bi-arrow-clockwise"></i></button>
+        </li>
     </ul>
 {% endblock %}
 
 {% block content %}
         <div id="vncViewerContainer" style="height:90vh"></div>
         <script>
+
+            async function refreshVnc(templateId) {
+                try {
+                    var output = await regenerateUrl();
+                    if (output == 1) {
+                        location.reload();
+                    }
+                } catch (error) {
+                    alert(error);
+                }
+            }
+
+            function regenerateUrl() {
+                return new Promise(function (resolve, object) {
+                    $.ajax({
+                        type: 'GET',
+                        url: 'https://api.insa-cvl.com/vm/regenerate_url/' + templateId,
+                        contentType: 'application/json;charset=UTF-8',
+                        xhrFields: {
+                            withCredentials: true
+                        },
+                        success: function (response) {
+                            if (response) {
+                                resolve(1);
+                            }
+                            else {
+                                resolve(0);
+                            }
+                        },
+                        error: function (error) {
+                            reject("Erreur de regénération de du token");
+                        }
+                    })
+                })
+            }
+
             var active;
             var vncUrl;
 
@@ -45,10 +84,8 @@
                 try {
                     var output = await getUrl(templateId);
                     if (output == 1) {
-                        $(document).ready(function() {
-                            $('#openVncUrl').on('click', function () {
-                                window.open(vncUrl);
-                            });
+                        $('#openVncUrl').on('click', function () {
+                            window.open(vncUrl);
                         });
                         displayVNCViewer(vncUrl);
                     }
