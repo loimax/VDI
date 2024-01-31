@@ -1,3 +1,23 @@
+footer {
+    font-size: 10px;
+    line-height: 0px;
+}
+
+.border-bottom-nav {
+    border-bottom: 2px solid #FFF;
+}
+
+.dropdown-menu-right {
+    right: 0;
+    left: auto;
+}
+
+.lds-default-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .cards {
     display: flex;
     flex-wrap: wrap;
@@ -7,12 +27,18 @@
 }
 
 .card {
-    width: 18rem;
-    margin: 10px;
+    margin-left: 20px;
+    margin-right: 20px;
 }
 
 body {
-    background-color: #333;
+    background-color: #343A40;
+    color: white;
+    margin-bottom: 20px;
+    overflow-y: scroll;
+}
+
+.blockquote-footer {
     color: white;
 }
 
@@ -27,16 +53,7 @@ h2 {
     text-align: center;
 }
 
-p {
-    font-size: 16px;
-    color: #666;
-}
-
-#addTemplateCard {
-    cursor: pointer;
-}
-
-#addUserCard, #addVMOutCard {
+#addUserCard, #addVMOutCard, #addTemplateCard, a:hover {
     cursor: pointer;
 }
 
@@ -48,14 +65,23 @@ p {
     color: white;
 }
 
-.navbar-dark .navbar-nav .nav-link:hover {
-    color: #17A2B8;
+.nav-tabs .nav-item {
+    transition: transform 0.3s ease-in-out;
+    margin-bottom: 1px;
+}
+
+.nav-tabs .nav-item:hover {
+    transform: scale(1.1);
+}
+
+.nav-tabs {
+    border-bottom: none;
 }
 
 .nav-item {
     padding: 0 20px;
 }
 
-a {
+a, a:hover {
     color: inherit;
 }

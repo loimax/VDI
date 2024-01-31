@@ -5,6 +5,7 @@
         <title>{% block title %}Bienvenue sur votre espace{% endblock %}</title>
         <link rel="icon" href="{{ url_for('static', filename='icons/vdi.png' ) }}" />
         <link rel="stylesheet" href="{{ url_for('static', filename='css/spinner.css' ) }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css' ) }}">
         <link rel="stylesheet" href="{{ url_for('static', filename='css/card_spinner.css' ) }}">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
@@ -639,93 +640,7 @@
         </script>
 
         <style>
-            footer {
-                font-size: 0.75rem;
-                line-height: 0.25rem;
-            }
-
-            .border-bottom-nav {
-                border-bottom: 2px solid #FFF;
-            }
-
-            .dropdown-menu-right {
-                right: 0;
-                left: auto;
-            }
-
-            .lds-default-container {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-            }
-
-            .cards {
-                display: flex;
-                flex-wrap: wrap;
-                list-style: none;
-                padding: 0;
-                margin: 20px;
-            }
-
-            .card {
-                margin-left: 20px;
-                margin-right: 20px;
-            }
-
-            body {
-                background-color: #343A40;
-                color: white;
-                margin-bottom: 20px;
-                overflow-y: scroll;
-            }
-
-            .blockquote-footer {
-                color: white;
-            }
-
-            h1 {
-                margin: 20px;
-                font-size: 24px;
-                text-align: center;
-            }
-
-            h2 {
-                font-size: 20px;
-                text-align: center;
-            }
-
-            #addUserCard, #addVMOutCard, #addTemplateCard, a:hover {
-                cursor: pointer;
-            }
-
-            .navbar {
-                background-color: #343A40;
-            }
-
-            .navbar-dark .navbar-nav .nav-link {
-                color: white;
-            }
-
-            .nav-tabs .nav-item {
-                transition: transform 0.3s ease-in-out;
-                margin-bottom: 1px;
-            }
-
-            .nav-tabs .nav-item:hover {
-                transform: scale(1.1);
-            }
-
-            .nav-tabs {
-                border-bottom: none;
-            }
-
-            .nav-item {
-                padding: 0 20px;
-            }
-
-            a, a:hover {
-                color: inherit;
-            }
+            
             
         </style>    
         {% block content %}{% endblock %}
