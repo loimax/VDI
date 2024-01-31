@@ -165,7 +165,7 @@ function createVmCard(vm) { // createVmForm
     return vmCard;
 }
 
-function addVMToDOM(vm) { // createVmCard | vmsDiv
+function addVMToDOM(vm, vmsDiv) { // createVmCard | vmsDiv
     var vmCard = createVmCard(vm);
     vmsDiv.append(vmCard);
 }
@@ -180,7 +180,9 @@ function getVms() { // addVMToDOM
         },
         success: function (response) {
             var vms = response;
-            vms.forEach(addVMToDOM);
+            vms.forEach(function(vm) {
+                addVMToDOM(vm, vmsDiv);
+            });
         },
         error: function (error) {
             alert('Erreur d\'obtention d\'informations des VMs des users');
