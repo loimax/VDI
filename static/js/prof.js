@@ -180,6 +180,7 @@ function getVms(vmsDiv) { // addVMToDOM
         },
         success: function (response) {
             var vms = response;
+            console.log(vms);
             vms.forEach(function(vm) {
                 addVMToDOM(vm, vmsDiv);
             });
