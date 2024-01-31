@@ -39,6 +39,7 @@
     <script src="{{ url_for('static', filename='js/viewer.js' ) }}"></script>
     <script>
         document.addEventListener("DOMContentLoaded", function () {
+            getUrl(templateId);
             openVm(vncUrl, templateId);
 
             var intervalId = window.setInterval(function(){
