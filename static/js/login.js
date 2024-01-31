@@ -19,3 +19,13 @@ function getUserProfile() {
         }
     });
 }
+
+// DIVERS
+function createBlockquoteWithIcon(title, text, iconClass) {
+    var blockquote = $('<blockquote>').addClass('blockquote text-center');
+    var h1 = $('<h1>').addClass('mb-0').text(title);
+    var p = $('<p>').html('<i>' + text + '</i>');
+    var icon = $('<i>').addClass(iconClass);
+    blockquote.append(h1, p, icon);
+    return blockquote;
+}

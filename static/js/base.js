@@ -174,3 +174,12 @@ function getUserProfile() {
         }
     });
 }
+
+// DIVERS
+function createBlockquote(title, text) {
+    var blockquote = $('<blockquote>').addClass('blockquote text-center');
+    var h1 = $('<h1>').addClass('mb-0').text(title);
+    var p = $('<p>').html('<i>' + text + '</i>');
+    blockquote.append(h1, p);
+    return blockquote;
+}

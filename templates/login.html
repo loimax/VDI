@@ -29,12 +29,10 @@
         <div style="display: none; "id="alert-message" class="alert alert-warning alert-dismissible fade show" role="alert">
             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">x</span></button>
         </div>
-        <div class="container">
-            <blockquote class="blockquote text-center">
-                <h1 class="mb-0">Connexion</h1>
-                <p><i>Vous êtes à l'INSA Centre Val de Loire ? Connectez-vous ici !</i></p>
-                <i class="bi bi-arrow-bar-down"></i>
-            </blockquote>
+        <div class="container" id="main-container">
+            <script>
+                $('#main-container').append(createBlockquoteWithIcon("Connexion", "Vous êtes à l'INSA Centre Val de Loire ? Connectez-vous ici !", "bi bi-arrow-bar-down"));
+            </script>
             <div class="d-flex justify-content-center">
                 <div style="width: 40%">
                     <a class="btn btn-danger btn-block" href="https://cas.insa-cvl.fr/cas/login?service=https%3A%2F%2Fapi.insa-cvl.com%2Flogincas">Se connecter avec le CAS</a>
