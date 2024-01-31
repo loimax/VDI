@@ -33,12 +33,13 @@
     <script>
         var templateId = getParameterByName("templateId");
         var active;
+        var vncUrl;
     </script>
     
     <script src="{{ url_for('static', filename='js/viewer.js' ) }}"></script>
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-            openVm(vncUrl, templateId);
+            openVm(templateId);
 
             var intervalId = window.setInterval(function(){
                 active = checkIfVmActive(templateId);
