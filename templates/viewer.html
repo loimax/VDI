@@ -19,13 +19,25 @@
     <script src="{{ url_for('static', filename='js/base.js' ) }}"></script>
 
     <div id="vncViewerContainer" style="height:88vh"></div>
-
-    <script src="{{ url_for('static', filename='js/viewer.js' ) }}"></script>
+    <script>
+        function getParameterByName(name, url) {
+            if (!url) url = window.location.href;
+            name = name.replace(/[\[\]]/g, "\\$&");
+            var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                results = regex.exec(url);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, " "));
+        }
+    </script>
     <script>
         var templateId = getParameterByName("templateId");
         var active;
         var vncUrl;
-
+    </script>
+    
+    <script src="{{ url_for('static', filename='js/viewer.js' ) }}"></script>
+    <script>
         document.addEventListener("DOMContentLoaded", function () {
             openVm(vncUrl, templateId);
 
@@ -33,7 +45,5 @@
                 active = checkIfVmActive(templateId);
             }, 5000);
         });
-
-        
     </script>
 {% endblock %}
