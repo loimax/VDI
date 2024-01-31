@@ -15,11 +15,7 @@
 
 {% endblock %}
 
-
-{% block content %}
-
-    <script src="{{ url_for('static', filename='js/base.js' ) }}"></script>
-    
+{% block content %}    
     <div class="tab-content">
 
         <div class="tab-pane fade show active" id="rubrique1">
@@ -59,74 +55,9 @@
             </div>
         </div>
     </div>
+
+    <script src="{{ url_for('static', filename='js/prof.js' ) }}"></script>
     <script>
-        async function deleteVmProf(id) {
-            try {
-                var output = await checkIfVmAliveAdmin(id);
-                if (output == 1) {
-                    showLoadingModal();
-                    $.ajax({
-                        type: 'DELETE',
-                        url: 'https://api.insa-cvl.com/vm/delete_admin',
-                        contentType: 'application/json;charset=UTF-8',
-                        data: JSON.stringify({ vm_id: id }),
-                        xhrFields: {
-                            withCredentials: true
-                        },
-                        success: function (response) {
-                            hideLoadingModal();
-                            location.reload();
-                        },
-                        error: function (error) {
-                            alert('Erreur de suppression de la VM');
-                            hideLoadingModal(); 
-                        }
-                    });
-                }
-            } catch (error) {
-                alert(error);
-                hideLoadingModal(); 
-            }
-        }
-
-        function getVms() {
-            $.ajax({
-                type: 'GET',
-                url: 'https://api.insa-cvl.com/myvmsusers',
-                contentType: 'application/json;charset=UTF-8',
-                xhrFields: {
-                    withCredentials: true
-                },
-                success: function (response) {
-                    var vms = response;
-                    vmsDiv = $('#vms-div');
-                    vms.forEach(addVMToDOM);
-                },
-                error: function (error) {
-                    alert('Erreur d\'obtention d\'informations des VMs des users');
-                }
-            });
-        }
-
-        function getMyUsers() {
-            $.ajax({
-                type: 'GET',
-                url: 'https://api.insa-cvl.com/myusers',
-                contentType: 'application/json;charset=UTF-8',
-                xhrFields: {
-                    withCredentials: true
-                },
-                success: function (response) {
-                    var users = response;
-                    usersDiv = $('#users-div');
-                    users.forEach(addUserToTableProf);
-                },
-                error: function (error) {
-                    alert('Erreur d\'obtention d\'informations de mes users');
-                }
-            });
-        }
-
         $(document).ready(function () {
             getVms();
             getMyUsers();
