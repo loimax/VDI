@@ -125,7 +125,6 @@
 
             document.addEventListener("DOMContentLoaded", function () {
                 openVm(templateId);
-                $("refreshVncToken").id(templateId);
     
                 var intervalId = window.setInterval(function(){
                     active = checkIfVmActive(templateId);
