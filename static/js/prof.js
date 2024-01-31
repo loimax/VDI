@@ -30,24 +30,6 @@ async function deleteVmProf(id) { // showLoadingModal | hideLoadingModal | check
     }
 }
 
-function getVms() { // addVMToDOM
-    $.ajax({
-        type: 'GET',
-        url: 'https://api.insa-cvl.com/myvmsusers',
-        contentType: 'application/json;charset=UTF-8',
-        xhrFields: {
-            withCredentials: true
-        },
-        success: function (response) {
-            var vms = response;
-            vms.forEach(addVMToDOM);
-        },
-        error: function (error) {
-            alert('Erreur d\'obtention d\'informations des VMs des users');
-        }
-    });
-}
-
 function deleteUser(userId) { // 
     $.ajax({
         type: 'DELETE',
@@ -186,4 +168,22 @@ function createVmCard(vm) { // createVmForm
 function addVMToDOM(vm) { // createVmCard | vmsDiv
     var vmCard = createVmCard(vm);
     vmsDiv.append(vmCard);
+}
+
+function getVms() { // addVMToDOM
+    $.ajax({
+        type: 'GET',
+        url: 'https://api.insa-cvl.com/myvmsusers',
+        contentType: 'application/json;charset=UTF-8',
+        xhrFields: {
+            withCredentials: true
+        },
+        success: function (response) {
+            var vms = response;
+            vms.forEach(addVMToDOM);
+        },
+        error: function (error) {
+            alert('Erreur d\'obtention d\'informations des VMs des users');
+        }
+    });
 }
