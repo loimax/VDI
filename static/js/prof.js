@@ -162,15 +162,12 @@ function createVmCard(vm) { // createVmForm
     return vmCard;
 }
 
-function addVMToDOM(vm, vmsDiv) { // createVmCard | vmsDiv
+function addVMToDOM(vm) { // createVmCard | vmsDiv
     var vmCard = createVmCard(vm);
-    vmsDiv.append(vmCard);
+    $('#vms-div').append(vmCard);
 }
 
-console.log("prof.js chargé");
-
-function getVms(vmsDiv) { // addVMToDOM
-    console.log(vmsDiv);
+function getVms() { // addVMToDOM
     $.ajax({
         type: 'GET',
         url: 'https://api.insa-cvl.com/myvmsusers',
@@ -180,10 +177,7 @@ function getVms(vmsDiv) { // addVMToDOM
         },
         success: function (response) {
             var vms = response;
-            console.log(vms);
-            vms.forEach(function(vm) {
-                addVMToDOM(vm, vmsDiv);
-            });
+            vms.forEach(addVMToDOM);
         },
         error: function (error) {
             alert('Erreur d\'obtention d\'informations des VMs des users');

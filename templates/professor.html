@@ -59,12 +59,8 @@
     <script src="{{ url_for('static', filename='js/prof.js' ) }}"></script>
     <script>
         $(document).ready(function () {
-            
-            usersDiv = $('#users-div');
-            vmsDiv = $('#vms-div');
-
-            getVms(vmsDiv);
-            getMyUsers(usersDiv);
+            getVms();
+            getMyUsers();
 
             $('#addVMOutCard').on('click', function () {
                 $("#createVmModal").modal("show");
