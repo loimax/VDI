@@ -1,0 +1,87 @@
+footer {
+    font-size: 10px;
+    line-height: 0px;
+}
+
+.border-bottom-nav {
+    border-bottom: 2px solid #FFF;
+}
+
+.dropdown-menu-right {
+    right: 0;
+    left: auto;
+}
+
+.lds-default-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.cards {
+    display: flex;
+    flex-wrap: wrap;
+    list-style: none;
+    padding: 0;
+    margin: 20px;
+}
+
+.card {
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+body {
+    background-color: #343A40;
+    color: white;
+    margin-bottom: 20px;
+    overflow-y: scroll;
+}
+
+.blockquote-footer {
+    color: white;
+}
+
+h1 {
+    margin: 20px;
+    font-size: 24px;
+    text-align: center;
+}
+
+h2 {
+    font-size: 20px;
+    text-align: center;
+}
+
+#addUserCard, #addVMOutCard, #addTemplateCard, a:hover {
+    cursor: pointer;
+}
+
+.navbar {
+    background-color: #343A40;
+}
+
+.navbar-dark .navbar-nav .nav-link {
+    color: white;
+}
+
+.nav-tabs .nav-item {
+    transition: transform 0.3s ease-in-out;
+    margin-bottom: 1px;
+}
+
+.nav-tabs .nav-item:hover {
+    transform: scale(1.1);
+}
+
+.nav-tabs {
+    border-bottom: none;
+}
+
+.nav-item {
+    padding: 0 20px;
+}
+
+a, a:hover {
+    color: inherit;
+}
