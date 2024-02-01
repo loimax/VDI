@@ -83,7 +83,7 @@
                         {% if config['URL_API'] %}
                             var config = {};
                             config.URL_API = String(config['URL_API']);
-                            console.log(config.URL_API);
+                            console.log(String(config['URL_API']));
                         {% endif %}
                         var formData = {
                             email: $('#email').val(),
