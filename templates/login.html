@@ -79,11 +79,7 @@
                     getUserProfile();
                     $('form').submit(function (e) {
                         e.preventDefault();
-
-                        {% if config['URL_API'] %}
-                            var config = {};
-                            config.URL_API = String(config['URL_API']);
-                        {% endif %}
+                        
                         var formData = {
                             email: $('#email').val(),
                             password: $('#password').val()
@@ -91,7 +87,9 @@
             
                         $.ajax({
                             type: 'POST',
-                            url: config.URL_API+"/login",
+                            {% if config['URL_API'] %}
+                            url: String(config['URL_API'])+"/login",
+                            {% endif %}
                             contentType: 'application/json;charset=UTF-8',
                             data: JSON.stringify(formData),
                             xhrFields: {
