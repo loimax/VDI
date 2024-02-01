@@ -26,12 +26,11 @@ services:
   vdi-app:
     #build: .
     image: vdi-app
+    container_name: vdi-app
     ports:
         - "5000:5000"
     environment:
-        - URL_VNC="https://vnc.insa-cvl.com/"
-        - URL_VDI="https://vdi.insa-cvl.com/"
-        - URL_API="https://api.insa-cvl.com/"
+        - URL_API=https://api.insa-cvl.com
     restart: always
 ```	
 3. check the logs : `docker logs vdi-app` or `docker-compose logs -f`

@@ -9,7 +9,7 @@ function updateAlert(message) {
 function getUserProfile() {
     $.ajax({
         type: 'GET',
-        url: 'https://api.insa-cvl.com/profile',
+        url: URL_API + '/profile',
         contentType: 'application/json;charset=UTF-8',
         xhrFields: {
             withCredentials: true

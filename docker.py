@@ -1,8 +1,9 @@
 from flask import Flask, render_template, redirect, url_for, send_from_directory, request
+import os
 
 app = Flask(__name__, static_folder='static')
 
-app.config['URL_API']="https://api.insa-cvl.com"
+app.config['URL_API']=os.getenv('URL_API')
 
 @app.route('/robots.txt')
 def static_from_root():

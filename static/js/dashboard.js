@@ -31,7 +31,7 @@ function checkIfVmAlive(id) { // showLoadingCardModal | hideLoadingCardModal
         showLoadingCardModal(id);   
         $.ajax({
             type: 'GET',
-            url: 'https://api.insa-cvl.com/vm/status/template/' + id,
+            url: URL_API + '/vm/status/template/' + id,
             contentType: 'application/json;charset=UTF-8',
             xhrFields: {
                 withCredentials: true
@@ -56,7 +56,7 @@ async function createVmFromTemplate(templateId) { // showLoadingModal | checkIfV
     showLoadingModal(); 
     $.ajax({
         type: 'POST',
-        url: 'https://api.insa-cvl.com/vm/create',
+        url: URL_API + '/vm/create',
         contentType: 'application/json;charset=UTF-8',
         data: JSON.stringify({ template_id: templateId }),
         xhrFields: {
@@ -90,7 +90,7 @@ async function deleteVm(templateId) { // checkIfVmAlive | showLoadingModal | hid
             showLoadingModal();
             $.ajax({
                 type: 'DELETE',
-                url: 'https://api.insa-cvl.com/vm/delete',
+                url: URL_API + '/vm/delete',
                 contentType: 'application/json;charset=UTF-8',
                 data: JSON.stringify({ template_id: templateId }),
                 xhrFields: {
@@ -241,7 +241,7 @@ function addTemplateToDOM(template, templatesDiv) { // createTemplateCard | getV
 function getTemplates() {
     $.ajax({
         type: 'GET',
-        url: 'https://api.insa-cvl.com/template',
+        url: URL_API + '/template',
         contentType: 'application/json;charset=UTF-8',
         xhrFields: {
             withCredentials: true

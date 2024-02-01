@@ -15,7 +15,9 @@
 
 
 {% block content %}
-
+    <script>
+        var URL_API = "{{ URL_API }}";
+    </script>
     <script src="{{ url_for('static', filename='js/base.js' ) }}"></script>
 
     <div id="vncViewerContainer" style="height:88vh"></div>
