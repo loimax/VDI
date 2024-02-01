@@ -29,8 +29,6 @@ services:
     ports:
         - "5000:5000"
     environment:
-        - URL_VNC="https://vnc.insa-cvl.com/"
-        - URL_VDI="https://vdi.insa-cvl.com/"
         - URL_API="https://api.insa-cvl.com/"
     restart: always
 ```	
