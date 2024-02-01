@@ -26,6 +26,7 @@ services:
   vdi-app:
     #build: .
     image: vdi-app
+    container_name: vdi-app
     ports:
         - "5000:5000"
     environment:
