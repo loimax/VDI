@@ -87,7 +87,7 @@
             
                         $.ajax({
                             type: 'POST',
-                            url: 'https://api.insa-cvl.com/login',
+                            url: "{{ url_for('URL_API') }}"+"/login",
                             contentType: 'application/json;charset=UTF-8',
                             data: JSON.stringify(formData),
                             xhrFields: {

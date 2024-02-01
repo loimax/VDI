@@ -2,6 +2,9 @@ from flask import Flask, render_template, redirect, url_for, send_from_directory
 
 app = Flask(__name__, static_folder='static')
 
+app.config['URL_VNC']="https://vnc.insa-cvl.com"
+app.config['URL_VDI']="https://vdi.insa-cvl.com"
+app.config['URL_API']="https://api.insa-cvl.com"
 
 @app.route('/robots.txt')
 def static_from_root():
