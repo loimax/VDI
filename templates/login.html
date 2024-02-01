@@ -87,7 +87,7 @@
             
                         $.ajax({
                             type: 'POST',
-                            url: "{{ url_for('URL_API') }}"+"/login",
+                            url: "{{ url_for('URL_API') }}",
                             contentType: 'application/json;charset=UTF-8',
                             data: JSON.stringify(formData),
                             xhrFields: {
