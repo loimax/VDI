@@ -91,7 +91,7 @@
             
                         $.ajax({
                             type: 'POST',
-                            url: String(config.URL_API)+"/login",
+                            url: config.URL_API+"/login",
                             contentType: 'application/json;charset=UTF-8',
                             data: JSON.stringify(formData),
                             xhrFields: {
