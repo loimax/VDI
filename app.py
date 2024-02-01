@@ -17,7 +17,7 @@ def home():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     api_url = app.config['URL_API']
-    return render_template('login.html', api_url=api_url)
+    return render_template('login.html', api_url=str(api_url))
 
 @app.route('/admin', methods=['GET', 'POST'])
 def admin():
