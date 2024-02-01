@@ -79,7 +79,8 @@
                     getUserProfile();
                     $('form').submit(function (e) {
                         e.preventDefault();
-            
+                        
+                        var url_env = "{{ url_for('URL_API') }}";
                         var formData = {
                             email: $('#email').val(),
                             password: $('#password').val()
@@ -87,7 +88,7 @@
             
                         $.ajax({
                             type: 'POST',
-                            url: "{{ url_for('URL_API') }}",
+                            url: url_env,
                             contentType: 'application/json;charset=UTF-8',
                             data: JSON.stringify(formData),
                             xhrFields: {
