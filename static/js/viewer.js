@@ -2,7 +2,7 @@ function regenerateUrl(templateId) {
     return new Promise(function (resolve, object) {
         $.ajax({
             type: 'GET',
-            url: 'https://api.insa-cvl.com/vm/regenerate_url/' + templateId,
+            url: URL_API + '/vm/regenerate_url/' + templateId,
             contentType: 'application/json;charset=UTF-8',
             xhrFields: {
                 withCredentials: true
@@ -37,7 +37,7 @@ function getUrl(templateId) {
     return new Promise(function (resolve, reject) {
         $.ajax({
             type: 'GET',
-            url: 'https://api.insa-cvl.com/vm/url/template/' + templateId,
+            url: URL_API + '/vm/url/template/' + templateId,
             contentType: 'application/json;charset=UTF-8',
             xhrFields: {
                 withCredentials: true
@@ -84,7 +84,7 @@ async function openVm(templateId) { // displayVNCViewer | getUrl
 function checkIfVmActive(templateId) {
     $.ajax({
         type: 'GET',
-        url: 'https://api.insa-cvl.com/vm/active/' + templateId,
+        url: URL_API + '/vm/active/' + templateId,
         contentType: 'application/json;charset=UTF-8',
         xhrFields: {
             withCredentials: true

@@ -2,8 +2,6 @@ from flask import Flask, render_template, redirect, url_for, send_from_directory
 
 app = Flask(__name__, static_folder='static')
 
-app.config['URL_VNC']="https://vnc.insa-cvl.com"
-app.config['URL_VDI']="https://vdi.insa-cvl.com"
 app.config['URL_API']="https://api.insa-cvl.com"
 
 @app.route('/robots.txt')
@@ -20,19 +18,19 @@ def login():
 
 @app.route('/admin', methods=['GET', 'POST'])
 def admin():
-    return render_template('admin.html')
+    return render_template('admin.html', URL_API=app.config['URL_API'])
 
 @app.route('/professor', methods=['GET', 'POST'])
 def professor():
-    return render_template('professor.html')
+    return render_template('professor.html', URL_API=app.config['URL_API'])
 
 @app.route('/dashboard', methods=['GET', 'POST'])
 def dashboard():
-    return render_template('dashboard.html')
+    return render_template('dashboard.html', URL_API=app.config['URL_API'])
 
 @app.route('/viewer', methods=['GET'])
 def viewer():
-    return render_template('viewer.html')
+    return render_template('viewer.html', URL_API=app.config['URL_API'])
 
 if __name__ == '__main__':
     app.run(debug=True, host="0.0.0.0", port=5001)

@@ -5,7 +5,7 @@ function checkIfVmAliveAdmin(vmId) {
         showLoadingCardModal(vmId);   
         $.ajax({
             type: 'GET',
-            url: 'https://api.insa-cvl.com/vm/status/id/' + vmId,
+            url: URL_API +'/vm/status/id/' + vmId,
             contentType: 'application/json;charset=UTF-8',
             xhrFields: {
                 withCredentials: true
@@ -31,7 +31,7 @@ function checkIfVmAlive(id) { // showLoadingCardModal | hideLoadingCardModal
         showLoadingCardModal(id);   
         $.ajax({
             type: 'GET',
-            url: 'https://api.insa-cvl.com/vm/status/template/' + id,
+            url: URL_API + '/vm/status/template/' + id,
             contentType: 'application/json;charset=UTF-8',
             xhrFields: {
                 withCredentials: true
@@ -68,14 +68,14 @@ function showAlertModal(title, message) { //
 function logout() { //
     $.ajax({
         type: 'GET',
-        url: 'https://api.insa-cvl.com/logout',
+        url: URL_API + '/logout',
         contentType: 'application/json;charset=UTF-8',
         xhrFields: {
             withCredentials: true
         },
         success: function (response) {
             if (response.cas === true) {
-                window.location = "https://cas.insa-cvl.fr/cas/logout?service=https://api.insa-cvl.com"
+                window.location = "https://cas.insa-cvl.fr/cas/logout?service=" + URL_API
             } 
             setTimeout(function () {
                     window.location = "/login?success=" + encodeURIComponent("Déconnecté avec succès");
@@ -104,7 +104,7 @@ function updateConnectionStatus(isConnected) { //
 function getUserProfile() { // updateConnectionStatus
     $.ajax({
         type: 'GET',
-        url: 'https://api.insa-cvl.com/profile',
+        url: URL_API + '/profile',
         contentType: 'application/json;charset=UTF-8',
         xhrFields: {
             withCredentials: true

@@ -5,7 +5,7 @@ async function deleteVmProf(id) { // showLoadingModal | hideLoadingModal | check
             showLoadingModal();
             $.ajax({
                 type: 'DELETE',
-                url: 'https://api.insa-cvl.com/vm/delete_admin',
+                url: URL_API + '/vm/delete_admin',
                 contentType: 'application/json;charset=UTF-8',
                 data: JSON.stringify({ vm_id: id }),
                 xhrFields: {
@@ -30,7 +30,7 @@ async function deleteVmProf(id) { // showLoadingModal | hideLoadingModal | check
 function changePassword(userId, newPassword, newPassword2) {
     $.ajax({
         type: 'POST',
-        url: 'https://api.insa-cvl.com/updatepasswordpa',
+        url: URL_API + '/updatepasswordpa',
         contentType: 'application/json;charset=UTF-8',
         data: JSON.stringify({ user_id: userId, new_password: newPassword, new_password2: newPassword2 }),
         xhrFields: {
@@ -58,7 +58,7 @@ function createUser() {
 
     $.ajax({
         type: 'POST',
-        url: 'https://api.insa-cvl.com/createuser',
+        url: URL_API + '/createuser',
         contentType: 'application/json;charset=UTF-8',
         data: JSON.stringify(userData),
         xhrFields: {
@@ -77,7 +77,7 @@ function createUser() {
 function deleteUser(userId) { // 
     $.ajax({
         type: 'DELETE',
-        url: 'https://api.insa-cvl.com/deleteuser',
+        url: URL_API + '/deleteuser',
         contentType: 'application/json;charset=UTF-8',
         data: JSON.stringify({ user_id: userId }),
         xhrFields: {
@@ -128,7 +128,7 @@ function addUserToTableProf(user) { // deleteUser
 function getMyUsers() { // addUserToTableProf
     $.ajax({
         type: 'GET',
-        url: 'https://api.insa-cvl.com/myusers',
+        url: URL_API + '/myusers',
         contentType: 'application/json;charset=UTF-8',
         xhrFields: {
             withCredentials: true
@@ -150,7 +150,7 @@ async function deleteVmAdmin(id) { // showLoadingModal | checkIfVmAliveAdmin | h
             showLoadingModal();
             $.ajax({
                 type: 'DELETE',
-                url: 'https://api.insa-cvl.com/vm/delete_admin',
+                url: URL_API + '/vm/delete_admin',
                 contentType: 'application/json;charset=UTF-8',
                 data: JSON.stringify({ vm_id: id }),
                 xhrFields: {
@@ -217,7 +217,7 @@ function addVMToDOM(vm) { // createVmCard
 function getVms() { // addVMToDOM
     $.ajax({
         type: 'GET',
-        url: 'https://api.insa-cvl.com/myvmsusers',
+        url: URL_API + '/myvmsusers',
         contentType: 'application/json;charset=UTF-8',
         xhrFields: {
             withCredentials: true

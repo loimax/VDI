@@ -5,7 +5,7 @@ async function deleteVmAdmin(id) { // showLoadingModal | checkIfVmAliveAdmin | h
             showLoadingModal();
             $.ajax({
                 type: 'DELETE',
-                url: 'https://api.insa-cvl.com/vm/delete_admin',
+                url: URL_API + '/vm/delete_admin',
                 contentType: 'application/json;charset=UTF-8',
                 data: JSON.stringify({ vm_id: id }),
                 xhrFields: {
@@ -30,7 +30,7 @@ async function deleteVmAdmin(id) { // showLoadingModal | checkIfVmAliveAdmin | h
 function changePassword(userId, newPassword, newPassword2) {
     $.ajax({
         type: 'POST',
-        url: 'https://api.insa-cvl.com/updatepasswordpa',
+        url: URL_API + '/updatepasswordpa',
         contentType: 'application/json;charset=UTF-8',
         data: JSON.stringify({ user_id: userId, new_password: newPassword, new_password2: newPassword2 }),
         xhrFields: {
@@ -48,7 +48,7 @@ function changePassword(userId, newPassword, newPassword2) {
 function changeRole(userId, role) {
     $.ajax({
         type: 'POST',
-        url: 'https://api.insa-cvl.com/updaterole',
+        url: URL_API + '/updaterole',
         contentType: 'application/json;charset=UTF-8',
         data: JSON.stringify({ user_id: userId, role: role }),
         xhrFields: {
@@ -77,7 +77,7 @@ function createUser() {
 
     $.ajax({
         type: 'POST',
-        url: 'https://api.insa-cvl.com/createuser',
+        url: URL_API + '/createuser',
         contentType: 'application/json;charset=UTF-8',
         data: JSON.stringify(userData),
         xhrFields: {
@@ -96,7 +96,7 @@ function createUser() {
 function deleteUser(userId) { // 
     $.ajax({
         type: 'DELETE',
-        url: 'https://api.insa-cvl.com/deleteuser',
+        url: URL_API + '/deleteuser',
         contentType: 'application/json;charset=UTF-8',
         data: JSON.stringify({ user_id: userId }),
         xhrFields: {
@@ -161,7 +161,7 @@ function addUserToTableAdmin(user) { // deleteUser
 function getUsers() { // addUserToTableAdmin
     $.ajax({
         type: 'GET',
-        url: 'https://api.insa-cvl.com/users',
+        url: URL_API + '/users',
         contentType: 'application/json;charset=UTF-8',
         xhrFields: {
             withCredentials: true
@@ -207,7 +207,7 @@ function addTemplateToDOM(template) { // createTemplateCard
 function getTemplates() { // addTemplateToDOM
     $.ajax({
         type: 'GET',
-        url: 'https://api.insa-cvl.com/template',
+        url: URl_API + '/template',
         contentType: 'application/json;charset=UTF-8',
         xhrFields: {
             withCredentials: true
@@ -269,7 +269,7 @@ function addVMToDOM(vm) { // createVmCard
 function getVms() { // addVMToDOM
     $.ajax({
         type: 'GET',
-        url: 'https://api.insa-cvl.com/vm',
+        url: URL_API + '/vm',
         contentType: 'application/json;charset=UTF-8',
         xhrFields: {
             withCredentials: true
