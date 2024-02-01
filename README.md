@@ -19,7 +19,7 @@ This the fronted of the APP VDI. You can find the API [here](https://github.com/
 
 ### Docker
 1. build the image : `docker build -t vdi-app .` or `docker-compose build` with the docker-compose.yml file
-2. run the container : `docker run -it -d 5000:5000 --name vdi-app vdi-app` or `docker-compose up -d` with the docker-compose.yml file
+2. run the container : `docker run -it -d -p 5000:5000 --name vdi-app vdi-app` or `docker-compose up -d` with the docker-compose.yml file
 ```yaml
 version: "3.9"
 services:
@@ -35,8 +35,6 @@ services:
     restart: always
 ```	
 3. check the logs : `docker logs vdi-app` or `docker-compose logs -f`
-
-
 
 
 ### Systemd 

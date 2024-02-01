@@ -2,7 +2,7 @@ FROM python:3.11.2-bullseye
 
 RUN apt update
 
-RUN pip install Flask==3.0.0
+RUN pip install Flask==3.0.0 20.1.0==20.1.0
 
 RUN mkdir /app
 WORKDIR /app
