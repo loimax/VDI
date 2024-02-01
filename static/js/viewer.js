@@ -1,5 +1,5 @@
 function regenerateUrl(templateId) {
-    return new Promise(function (resolve, object) {
+    return new Promise(function (resolve, reject) {
         $.ajax({
             type: 'GET',
             url: 'https://api.insa-cvl.com/vm/regenerate_url/' + templateId,
