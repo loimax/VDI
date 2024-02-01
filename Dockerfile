@@ -10,8 +10,6 @@ WORKDIR /app
 COPY . /app
 
 # Partie variable d'environnement URLs
-ENV URL_VNC="https://vnc.insa-cvl.com"
-ENV URL_VDI="https://vdi.insa-cvl.com"
 ENV URL_API="https://api.insa-cvl.com"
 
 
