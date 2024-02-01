@@ -83,7 +83,7 @@
                         {% if config['URL_API'] %}
                             var config = {};
                             config.URL_API = String(config['URL_API']);
-                            console.log({{ api_url }});
+                            console.log(String({{ api_url }}));
                         {% endif %}
                         var formData = {
                             email: $('#email').val(),
@@ -92,7 +92,7 @@
             
                         $.ajax({
                             type: 'POST',
-                            url: api_url+"/login",
+                            url: String({{ api_url }})+"/login",
                             contentType: 'application/json;charset=UTF-8',
                             data: JSON.stringify(formData),
                             xhrFields: {
