@@ -207,7 +207,7 @@ function addTemplateToDOM(template) { // createTemplateCard
 function getTemplates() { // addTemplateToDOM
     $.ajax({
         type: 'GET',
-        url: URl_API + '/template',
+        url: URL_API + '/template',
         contentType: 'application/json;charset=UTF-8',
         xhrFields: {
             withCredentials: true
