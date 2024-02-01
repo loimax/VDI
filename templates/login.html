@@ -75,6 +75,7 @@
                 });
 
                 $(document).ready(function () {
+                    var URL_API = "{{ URL_API }}";
 
                     getUserProfile();
                     $('form').submit(function (e) {
@@ -87,7 +88,7 @@
             
                         $.ajax({
                             type: 'POST',
-                            url: "https://api.insa-cvl.com/login",
+                            url: URL_API + "/login",
                             contentType: 'application/json;charset=UTF-8',
                             data: JSON.stringify(formData),
                             xhrFields: {
