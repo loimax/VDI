@@ -30,7 +30,7 @@ services:
     ports:
         - "5000:5000"
     environment:
-        - URL_API="https://api.insa-cvl.com/"
+        - URL_API=https://api.insa-cvl.com
     restart: always
 ```	
 3. check the logs : `docker logs vdi-app` or `docker-compose logs -f`

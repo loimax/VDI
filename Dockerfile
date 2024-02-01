@@ -10,7 +10,7 @@ WORKDIR /app
 COPY . /app
 
 # Partie variable d'environnement URLs
-ENV URL_API="https://api.insa-cvl.com"
+ENV URL_API=https://api.insa-cvl.com
 
 
 EXPOSE 5000
