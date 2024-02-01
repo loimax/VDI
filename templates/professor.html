@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+
+{% block title %}VDI - Professeur{% endblock %}
+
+{% block navbar %}
+
+<ul class="nav nav-tabs">
+    <li class="nav-item">
+        <a class="nav-link active" data-toggle="tab" href="#rubrique1">VMs actives</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" href="#rubrique2">Comptes</a>
+    </li>
+</ul>
+
+{% endblock %}
+
+{% block content %}    
+    <div class="tab-content">
+
+        <div class="tab-pane fade show active" id="rubrique1">
+            <script>
+                $('#rubrique1').append(createBlockquote("VMs actives", "Gestion des machines virtuelles de vos utilisateurs"));
+            </script>
+            <div class="mt-4">
+                <div id="vms-div" class="cards d-flex justify-content-center"></div>
+            </div>
+        </div>
+
+        <div class="tab-pane fade" id="rubrique2">
+            <script>
+                $('#rubrique2').append(createBlockquote("Comptes", "Gestion de vos utilisateurs"));
+            </script>
+            <div class="mt-4">
+                <table class="table table-striped table-dark" id="users-table">
+                    <thead>
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Prénom</th>
+                            <th scope="col">Nom</th>
+                            <th scope="col">Email</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                </table>
+            </div>
+            <div class="text-center">
+                <button id="addUserButton" type="button" class="btn btn-light"> 
+                    Ajouter un utilisateur <i class="bi bi-plus-circle"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+    <script>
+        var URL_API = "{{ URL_API }}";
+    </script>
+    <script src="{{ url_for('static', filename='js/prof.js' ) }}"></script>
+    <script>
+        $(document).ready(function () {
+            getVms();
+            getMyUsers();
+
+            $('#addVMOutCard').on('click', function () {
+                $("#createVmModal").modal("show");
+            });
+            $('#addUserButton').on('click', function () {
+                $("#createUserModal").modal("show");
+            });
+        });
+    </script>
+{% endblock %}

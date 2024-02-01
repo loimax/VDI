@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block title %}VDI - VNC Viewer{% endblock %}
+
+{% block navbar %}
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+            <button id="openVncUrl" class="btn btn-light">Mode plein écran  <i class="bi bi-box-arrow-up-right"></i></button>
+        </li>
+        <li class="nav-item">
+            <button id="refreshVncToken" class="btn btn-light" onclick="refreshVnc()">Rafraîchir l'affichage  <i class="bi bi-arrow-clockwise"></i></button>
+        </li>
+    </ul>
+{% endblock %}
+
+
+{% block content %}
+    <script>
+        var URL_API = "{{ URL_API }}";
+    </script>
+    <script src="{{ url_for('static', filename='js/base.js' ) }}"></script>
+
+    <div id="vncViewerContainer" style="height:88vh"></div>
+    
+    <script>
+        var templateId = getParameterByName("templateId");
+        var active;
+        var vncUrl;
+    </script>
+    
+    <script src="{{ url_for('static', filename='js/viewer.js' ) }}"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            openVm(templateId);
+
+            var intervalId = window.setInterval(function(){
+                active = checkIfVmActive(templateId);
+            }, 5000);
+        });
+    </script>
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %}VDI - Dashboard{% endblock %}
+
+{% block navbar %}
+
+<ul class="nav nav-tabs">
+    <li class="nav-item">
+        <a class="nav-link active" data-toggle="tab" href="#rubrique1">VMs</a>
+    </li>
+</ul>
+
+{% endblock %}
+
+{% block content %}
+    <div class="tab-content">
+        <div class="tab-pane fade show active" id="rubrique1">
+            <script>
+                $('#rubrique1').append(createBlockquote("VMs", "Machines virtuelles à votre disposition"));
+            </script>
+            <div class="mt-4">
+                <div id="templates-div" class="cards d-flex justify-content-center"></div>
+            </div>
+        </div>
+    </div>
+    <script>
+        var URL_API = "{{ URL_API }}";
+    </script>
+    <script src="{{ url_for('static', filename='js/dashboard.js' ) }}"></script>
+    <script>
+        $(document).ready(function () {
+            getTemplates();
+        });
+    </script>
+{% endblock %}
