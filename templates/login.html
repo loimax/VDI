@@ -80,11 +80,6 @@
                     $('form').submit(function (e) {
                         e.preventDefault();
 
-                        {% if config['URL_API'] %}
-                            var config = {};
-                            config.URL_API = String(config['URL_API']);
-                            console.log(String({{ api_url }}));
-                        {% endif %}
                         var formData = {
                             email: $('#email').val(),
                             password: $('#password').val()
@@ -92,7 +87,7 @@
             
                         $.ajax({
                             type: 'POST',
-                            url: String({{ api_url }})+"/login",
+                            url: "https://api.insa-cvl.com/login",
                             contentType: 'application/json;charset=UTF-8',
                             data: JSON.stringify(formData),
                             xhrFields: {
