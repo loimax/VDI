@@ -82,7 +82,7 @@
 
                         {% if config['URL_API'] %}
                             var config = {};
-                            config.URL_API = {{config['URL_API']}};
+                            config.URL_API = {{config['URL_API'].toString()}};
                         {% endif %}
                         var formData = {
                             email: $('#email').val(),
