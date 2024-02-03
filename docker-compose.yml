@@ -1,11 +1,10 @@
 version: "3.9"
 services:
   vdi-app:
-    #build: .
-    image: vdi-app
+    image: vdi-app:latest
     container_name: vdi-app
     ports:
-        - "5000:5000"
+        - "127.0.0.1:5000:5000"
     environment:
         - URL_API=https://api.insa-cvl.com
     restart: always
