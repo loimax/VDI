@@ -19,6 +19,7 @@ The documentation below is for the installation of the frontend only. You can fi
 6. Install the requirements : `pip install -r requirements.txt`
 7. Create a folder /var/log/VDI/API for the logs of the API : `mkdir -p /var/log/VDI/APP`  
     7.1. Set the rights of the user who runs the API (here vdi) on this folder : `chown -R vdi:vdi /var/log/VDI/APP`  
+    7.2 Create all necessary files for the logs : `touch /var/log/VDI/API/access.log /var/log/VDI/API/error.log`  
 
 ### Docker
 1. Build the image : `docker build -t vdi-app .` or `docker-compose build` with the docker-compose.yml file.
